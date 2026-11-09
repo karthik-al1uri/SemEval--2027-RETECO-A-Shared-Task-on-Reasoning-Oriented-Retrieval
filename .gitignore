@@ -1,0 +1,32 @@
+# Python
+.venv/
+__pycache__/
+
+# macOS
+.DS_Store
+
+# Hugging Face download cache
+data/.cache/
+
+# Data files larger than 50 MB (GitHub rejects files over 100 MB).
+# Download these locally; see the Data section in README.md.
+data/track1_tempo/bitcoin/documents.jsonl
+data/track1_tempo/cardano/documents.jsonl
+data/track1_tempo/economics/documents.jsonl
+data/track1_tempo/genealogy/documents.jsonl
+data/track1_tempo/history/documents.jsonl
+data/track1_tempo/hsm/documents.jsonl
+data/track1_tempo/law/documents.jsonl
+data/track1_tempo/monero/documents.jsonl
+data/track1_tempo/politics/documents.jsonl
+data/track1_tempo/quant/documents.jsonl
+data/track1_tempo/travel/documents.jsonl
+data/track1_tempo/workplace/documents.jsonl
+data/track2_recor/earth_science/documents.jsonl
+
+# All remaining document corpora (smaller than 50 MB, but the dataset's
+# .gitattributes routes every documents.jsonl through Git LFS).
+data/**/documents.jsonl
+
+# Local scratch file
+a.py

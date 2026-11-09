@@ -1,0 +1,1089 @@
+[
+ {
+  "id": "ex_2927",
+  "task": "drones",
+  "original_query": "Differences between DJI Mavic 3 E and Mavic 3M I would like to invest in a suverying drone under €5000 and obviously have my eye on a DJI Mavic E. Due to having a €5000 budget, I would be in a position to afford either the Mavic 3E or the 3M. Both can be considered surveying drones due to the RTK module enabling better accuracy. The advantage of the 3M is that I would also have the near infrared sensor which could maybe be utilized in my line of work with the environmental agency in regional government. This is however not currently a requirement. But saying that...we have never had the technology available to us. I am interested to know whether there any reasons why I would restrict myself to the 3E. Are there any disadvantages to the 3M if I am primary looking to use it for surveying or can I think of the 3M as a 3E with an added sensor?",
+  "original_answer": "As best I can tell (I've used a Mavic 3E, but not the Mavic 3M) the main trade-offs are the Multispectral system adds about 40g weight (which reduces flight time) and adds about €1000 to the price (based on a quick search; adding accessories - batteries, RTK module, etc. - might narrow or widen that.) The added weight only claims to decrease flight time by a minute or two, for over 40mins of flight, which I think is probably not significant. And adding another battery to your kit would more than make up for this. The added cost is a bit more of a personal decision based on your situation; but you say either falls within your budget and if the multispectral capability brings you more work and/or allows you to charge more, it could pay for itself. However, as the 3M has RTK support and the same camera as the 3E, getting the 3M shouldn't reduce your 'core' survey capability. Which is to say, I think your last paragraph is correct - the 3M is the 3E with an extra sensor.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In surveying drones, does having the near-infrared sensor on the Mavic 3M change how it works compared to the Mavic 3E?",
+    "answer": "Yes, having the near-infrared sensor on the Mavic 3M really changes how it works compared to the Mavic 3E. While both drones are great for visual surveying, the Mavic 3M adds multispectral sensors, including near-infrared, which let it detect things like crop health and environmental changes that you can't see with a regular camera. This makes the Mavic 3M much better for tasks like monitoring crops or land, especially when early signs of stress show up in light bands that are invisible to the human eye.",
+    "subquestion_reasoning": "Select documents that directly address how the Mavic 3M's additional sensor influences (or does not influence) standard surveying tasks compared to the Mavic 3E.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should compare the Mavic 3E and 3M, specifically discussing whether the near-infrared sensor affects standard surveying performance or usability.",
+     "relevance_signals": [
+      "comparison of Mavic 3E and 3M",
+      "impact of near-infrared sensor on surveying"
+     ],
+     "irrelevance_signals": [
+      "general drone reviews",
+      "non-surveying features or unrelated DJI models"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2927_doc_1",
+     "drones_ex_2927_doc_0",
+     "drones_ex_2927_doc_4"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Does adding that multispectral sensor change how accurate the maps are, or is it basically the same as the 3E for surveying?",
+    "answer": "Adding the multispectral sensor to the Mavic 3M doesn't change the core mapping accuracy for regular survey maps, since it shares the same main camera and survey-grade features as the Mavic 3E. What really changes is that the Mavic 3M can layer on extra data about things like crop health using its additional sensors, so you get more detailed information beyond just a standard visual map. For basic surveying, the accuracy is basically the same, but the Mavic 3M gives you those extra insights if you need them.",
+    "subquestion_reasoning": "Select documents that directly compare survey performance, accuracy, or workflow between the Mavic 3E and 3M, especially regarding the multispectral sensor and RTK; exclude general reviews or unrelated drone features.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should compare the mapping accuracy and workflow of the DJI Mavic 3E and 3M, specifically addressing the impact of the multispectral sensor and RTK support.",
+     "relevance_signals": [
+      "Mavic 3E vs Mavic 3M mapping accuracy",
+      "multispectral sensor effect on survey workflow",
+      "RTK performance comparison"
+     ],
+     "irrelevance_signals": [
+      "general drone reviews",
+      "pricing or availability only",
+      "non-survey applications"
+     ]
+    },
+    "conversation_history": "Q: In surveying drones, does having the near-infrared sensor on the Mavic 3M change how it works compared to the Mavic 3E?\nA: Yes, having the near-infrared sensor on the Mavic 3M really changes how it works compared to the Mavic 3E. While both drones are great for visual surveying, the Mavic 3M adds multispectral sensors, including near-infrared, which let it detect things like crop health and environmental changes that you can't see with a regular camera. This makes the Mavic 3M much better for tasks like monitoring crops or land, especially when early signs of stress show up in light bands that are invisible to the human eye.",
+    "gold_doc_ids": [
+     "drones_ex_2927_doc_1",
+     "drones_ex_2927_doc_4",
+     "drones_ex_2927_doc_0"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Is there any difference in how easy it is to use either drone once you add things like RTK or extra batteries?",
+    "answer": "Both the Mavic 3E and Mavic 3M are designed to work smoothly with add-ons like RTK modules and extra batteries, so using these accessories doesn’t really make one harder to use than the other. They both support RTK for more accurate mapping and have similar flight times with the module attached. So, in terms of ease of use with these extras, there isn’t a big difference between the two.",
+    "subquestion_reasoning": "Select documents that discuss the operational effects of RTK modules or extra batteries on Mavic 3E/3M for surveying, not those limited to camera specs or unrelated drone models.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should describe how RTK modules or extra batteries impact flight time, operational range, or usability of DJI Mavic 3E and 3M during surveying.",
+     "relevance_signals": [
+      "RTK module impact",
+      "battery life comparison",
+      "operational range with accessories"
+     ],
+     "irrelevance_signals": [
+      "general drone specs",
+      "camera features only",
+      "non-surveying use cases"
+     ]
+    },
+    "conversation_history": "Q: In surveying drones, does having the near-infrared sensor on the Mavic 3M change how it works compared to the Mavic 3E?\nA: Yes, having the near-infrared sensor on the Mavic 3M really changes how it works compared to the Mavic 3E. While both drones are great for visual surveying, the Mavic 3M adds multispectral sensors, including near-infrared, which let it detect things like crop health and environmental changes that you can't see with a regular camera. This makes the Mavic 3M much better for tasks like monitoring crops or land, especially when early signs of stress show up in light bands that are invisible to the human eye.\nQ: Does adding that multispectral sensor change how accurate the maps are, or is it basically the same as the 3E for surveying?\nA: Adding the multispectral sensor to the Mavic 3M doesn't change the core mapping accuracy for regular survey maps, since it shares the same main camera and survey-grade features as the Mavic 3E. What really changes is that the Mavic 3M can layer on extra data about things like crop health using its additional sensors, so you get more detailed information beyond just a standard visual map. For basic surveying, the accuracy is basically the same, but the Mavic 3M gives you those extra insights if you need them.",
+    "gold_doc_ids": [
+     "drones_ex_2927_doc_3",
+     "drones_ex_2927_doc_4"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 8,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T02:31:25.339656",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_2779",
+  "task": "drones",
+  "original_query": "What should a LiPo&#39;s voltage be at full charge? How can I determine what the voltage of a LiPo should be when at full charge? Specifically, what should the voltage at full charge for a 2200mAh 20c 3-cell LiPo be?",
+  "original_answer": "The voltage of a LiPo battery at full charge can be calculated with the simple understanding that each cell in the battery should reach a peak voltage of 4.2V after charging. Using this, we can make the simple formula: $$ Voltage\\ _{total} = 4.2V\\ ⋅\\ (number\\ of\\ cells) $$ For your specific battery, the 3 cells means it would be 4.2 x 3 = 12.6V at full charge",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In LiPo batteries, how does the number of cells in series change the total voltage when they're fully charged?",
+    "answer": "When you connect LiPo battery cells in series, each cell adds its voltage to the total. Since a fully charged LiPo cell is 4.2 volts, if you have two cells in series (2S), the total is 8.4 volts when fully charged, three cells (3S) would be 12.6 volts, and so on. So, the more cells you add in series, the higher the total voltage when the battery is fully charged.",
+    "subquestion_reasoning": "Retrieve documents that describe the relationship between LiPo battery S rating and total voltage, avoiding those focused solely on parallel configurations or unrelated battery specs.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how the number of cells in series (S rating) determines the total full-charge voltage of a LiPo battery pack.",
+     "relevance_signals": [
+      "LiPo cell voltage",
+      "series cells/S rating and total voltage"
+     ],
+     "irrelevance_signals": [
+      "parallel cell configuration",
+      "LiPo discharge or capacity information only"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2779_doc_4",
+     "drones_ex_2779_doc_1",
+     "drones_ex_2779_doc_0"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "What happens if you use a 4-cell or even a 6-cell pack—does the full voltage just keep going up?",
+    "answer": "Yes, if you use a 4-cell or 6-cell LiPo pack, the total voltage keeps going up because each cell adds 4.2 volts when fully charged. So a 4-cell (4S) pack reaches 16.8 volts fully charged, and a 6-cell (6S) pack goes up to 25.2 volts. That’s why it’s really important to make sure your equipment can handle the higher voltage, and you should never charge above 4.2 volts per cell to avoid damaging the battery.",
+    "subquestion_reasoning": "Retrieve documents that describe the full-charge voltage per LiPo cell and how to calculate total voltage for different cell counts; exclude those focused on discharge voltages or non-LiPo batteries.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how LiPo battery full-charge voltage is calculated based on the number of cells (e.g., per-cell voltage, total pack voltage).",
+     "relevance_signals": [
+      "LiPo per-cell voltage",
+      "calculating pack voltage by cell count"
+     ],
+     "irrelevance_signals": [
+      "LiPo discharge voltage",
+      "chemistries other than LiPo"
+     ]
+    },
+    "conversation_history": "Q: In LiPo batteries, how does the number of cells in series change the total voltage when they're fully charged?\nA: When you connect LiPo battery cells in series, each cell adds its voltage to the total. Since a fully charged LiPo cell is 4.2 volts, if you have two cells in series (2S), the total is 8.4 volts when fully charged, three cells (3S) would be 12.6 volts, and so on. So, the more cells you add in series, the higher the total voltage when the battery is fully charged.",
+    "gold_doc_ids": [
+     "drones_ex_2779_doc_1",
+     "drones_ex_2779_doc_0",
+     "drones_ex_2779_doc_4",
+     "drones_ex_2779_doc_2"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Is there ever a situation where you'd want to charge a cell above 4.2 volts, or is that always risky?",
+    "answer": "Charging a LiPo cell above 4.2 volts is always risky unless the battery is specifically labeled as 'High Voltage.' Going over 4.2V per cell can cause overheating, swelling, or even fire, so for standard LiPo batteries, you should never exceed that limit. The 4.2V maximum is there to protect the battery’s chemistry and keep it safe and long-lasting.",
+    "subquestion_reasoning": "Select documents that specify the fully charged voltage for individual LiPo cells (4.2V), and avoid those discussing other battery chemistries or discharge voltages.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should state the maximum safe voltage per LiPo cell when fully charged (typically 4.2V per cell).",
+     "relevance_signals": [
+      "LiPo cell voltage",
+      "maximum charge voltage",
+      "4.2V per cell"
+     ],
+     "irrelevance_signals": [
+      "discharge voltage",
+      "NiMH or NiCd batteries",
+      "charging current"
+     ]
+    },
+    "conversation_history": "Q: In LiPo batteries, how does the number of cells in series change the total voltage when they're fully charged?\nA: When you connect LiPo battery cells in series, each cell adds its voltage to the total. Since a fully charged LiPo cell is 4.2 volts, if you have two cells in series (2S), the total is 8.4 volts when fully charged, three cells (3S) would be 12.6 volts, and so on. So, the more cells you add in series, the higher the total voltage when the battery is fully charged.\nQ: What happens if you use a 4-cell or even a 6-cell pack—does the full voltage just keep going up?\nA: Yes, if you use a 4-cell or 6-cell LiPo pack, the total voltage keeps going up because each cell adds 4.2 volts when fully charged. So a 4-cell (4S) pack reaches 16.8 volts fully charged, and a 6-cell (6S) pack goes up to 25.2 volts. That’s why it’s really important to make sure your equipment can handle the higher voltage, and you should never charge above 4.2 volts per cell to avoid damaging the battery.",
+    "gold_doc_ids": [
+     "drones_ex_2779_doc_0",
+     "drones_ex_2779_doc_1",
+     "drones_ex_2779_doc_3",
+     "drones_ex_2779_doc_4",
+     "drones_ex_2779_doc_2"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 12,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T02:50:32.992088",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_2752",
+  "task": "drones",
+  "original_query": "ESC Powerbehavior when throttling up or down for my flight control system I want to track my motor rpm (more or less to feed orientation estimation with thrust and moments). I wrote a simple class based on following formula $$ \\dot \\omega = \\frac{T_l}{J} + k_T \\frac{V}{J\\,R} - \\frac{k_T^2}{J\\, R}\\omega $$ It gives me pretty good results for steady state, but I'm a bit unsure on dynamic behavior of my ESC. It should be flashed with Blheli software. How does it handle throttle up and down? Will it simply apply BatteryVoltage * Throttle [%] or will it apply full / 0 voltage till it reaches requested rpm and then adjust voltage to keep the speed (I know that voltage is apllied via PWM, so understand it as average). Thanks a lot in advance",
+  "original_answer": "Most ESCs will provide a percentage of available power, by changing the length of time each coil is powered. Some ESCs (primarily for helicopters) have a 'governor' mode, that vary the power as necessary to maintain a speed, where the speed is controlled by the throttle. This is used because the load on a helicopter's motor depends on the angle of attack of the blades, which changes during flight. So you can do it either way, but the default is voltage * throttle.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In ESC control modes, how does using default throttle control versus active speed control affect how accurately I can track motor RPM?",
+    "answer": "When you use default throttle control on an ESC, the signal you send is just mapped to a percentage of power delivered to the motor—so if you set 50% throttle, the ESC gives about half the possible voltage, and the actual RPM can drift due to changes in load or battery voltage. But with active speed control, the ESC tries to keep the motor spinning at a specific RPM you set, which means it can track and maintain motor speed much more accurately, even if conditions change. So, active speed control gives you much better RPM tracking than just using throttle.",
+    "subquestion_reasoning": "Select documents discussing ESC control strategies (default vs governor) and their influence on motor RPM accuracy; avoid materials unrelated to ESC speed regulation or focused solely on hardware setup.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how ESCs control motor speed, specifically contrasting default voltage-throttle control with active speed (governor) modes and their effects on RPM accuracy.",
+     "relevance_signals": [
+      "ESC control modes",
+      "governor mode vs voltage-throttle",
+      "impact on RPM tracking"
+     ],
+     "irrelevance_signals": [
+      "non-flight applications",
+      "battery chemistry details",
+      "ESC wiring guides"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2752_doc_1",
+     "drones_ex_2752_doc_2",
+     "drones_ex_2752_doc_5",
+     "drones_ex_2752_doc_0",
+     "drones_ex_2752_doc_3"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Does governor mode help keep the RPM steady if I suddenly punch the throttle?",
+    "answer": "Yeah, governor mode is designed to keep the motor RPM steady, even if you quickly change the throttle. It fixes the motor speed at a set value, so if you suddenly punch the throttle, the ESC will work to maintain that target RPM rather than letting the motor speed jump around. This is really helpful for keeping your flight smooth and predictable, especially in helicopters or drones.",
+    "subquestion_reasoning": "Select documents discussing ESC governor mode and its impact on RPM consistency versus standard throttle; exclude those focused on unrelated ESC functions or non-motor topics.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how ESC governor mode affects motor RPM stability during throttle changes compared to standard throttle control.",
+     "relevance_signals": [
+      "ESC governor mode",
+      "motor RPM regulation",
+      "throttle response comparison"
+     ],
+     "irrelevance_signals": [
+      "battery chemistry",
+      "non-motor ESC features",
+      "unrelated RC components"
+     ]
+    },
+    "conversation_history": "Q: In ESC control modes, how does using default throttle control versus active speed control affect how accurately I can track motor RPM?\nA: When you use default throttle control on an ESC, the signal you send is just mapped to a percentage of power delivered to the motor—so if you set 50% throttle, the ESC gives about half the possible voltage, and the actual RPM can drift due to changes in load or battery voltage. But with active speed control, the ESC tries to keep the motor spinning at a specific RPM you set, which means it can track and maintain motor speed much more accurately, even if conditions change. So, active speed control gives you much better RPM tracking than just using throttle.",
+    "gold_doc_ids": [
+     "drones_ex_2752_doc_5",
+     "drones_ex_2752_doc_1"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Is it normal for the RPM to lag behind the throttle input when I change it quickly?",
+    "answer": "Yeah, it's pretty normal for the RPM to lag a bit behind your throttle input, especially when you change it quickly. The ESC doesn't instantly deliver full power to the motor—instead, it ramps up the power based on settings like Rampup Power and Maximum Acceleration to protect the motor and keep things running smoothly. So when you punch the throttle, there's a short delay as the ESC increases the power and the motor catches up to the new speed.",
+    "subquestion_reasoning": "Select documents detailing ESC throttle behavior and factors influencing motor speed response; avoid those focused solely on governor mode or unrelated propulsion types.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how throttle input affects ESC output and motor RPM, including factors causing nonlinearity in throttle-to-speed response.",
+     "relevance_signals": [
+      "ESC throttle control",
+      "motor RPM response",
+      "factors affecting throttle-to-speed mapping"
+     ],
+     "irrelevance_signals": [
+      "governor mode only",
+      "non-electric propulsion",
+      "general flight dynamics without ESC context"
+     ]
+    },
+    "conversation_history": "Q: In ESC control modes, how does using default throttle control versus active speed control affect how accurately I can track motor RPM?\nA: When you use default throttle control on an ESC, the signal you send is just mapped to a percentage of power delivered to the motor—so if you set 50% throttle, the ESC gives about half the possible voltage, and the actual RPM can drift due to changes in load or battery voltage. But with active speed control, the ESC tries to keep the motor spinning at a specific RPM you set, which means it can track and maintain motor speed much more accurately, even if conditions change. So, active speed control gives you much better RPM tracking than just using throttle.\nQ: Does governor mode help keep the RPM steady if I suddenly punch the throttle?\nA: Yeah, governor mode is designed to keep the motor RPM steady, even if you quickly change the throttle. It fixes the motor speed at a set value, so if you suddenly punch the throttle, the ESC will work to maintain that target RPM rather than letting the motor speed jump around. This is really helpful for keeping your flight smooth and predictable, especially in helicopters or drones.",
+    "gold_doc_ids": [
+     "drones_ex_2752_doc_3",
+     "drones_ex_2752_doc_0",
+     "drones_ex_2752_doc_1",
+     "drones_ex_2752_doc_4",
+     "drones_ex_2752_doc_6",
+     "drones_ex_2752_doc_2",
+     "drones_ex_2752_doc_5"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 14,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T02:52:02.224876",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_2693",
+  "task": "drones",
+  "original_query": "Drone drifts to same direction even after leaving stick I have micro fpv racing drone with jhemcu f4 noxe v3 flight controller. Drone works fine with all functions. But when I try to move drone to any one direction and leaves stick, drone continues moving and don't stop.",
+  "original_answer": "The accelerometers need calibrating. If it runs Betaflight, this is a button on the setup tab . You place the drone on a level surface and try to avoid any movement or vibration while the calibration process runs (it only takes a few seconds). If it still drifts after calibration, your surface isn't quite level. If it drifts left, level the quad with a few thicknesses of paper under the left side and recalibrate. If it's not running Betaflight, the instructions should tell you how to calibrate it.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In FPV drone setup, have you tried calibrating both the gyroscope and sticks, maybe using Betaflight or something similar?",
+    "answer": "Yeah, calibrating the gyroscope is really important in an FPV drone setup. If the gyro isn’t calibrated correctly, the drone might think it’s level when it’s actually tilted, which causes drifting. The best way to fix this is to connect your drone to a program like Betaflight, set it on a completely flat surface, and use the calibration function to make sure the gyro knows what 'level' actually is.",
+    "subquestion_reasoning": "Retrieve documents detailing calibration procedures for gyroscope and sticks on the JHEMCU F4 NOXE V3, prioritizing those referencing Betaflight or alternative setup tools; exclude general drone advice or unrelated hardware.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how to perform gyroscope and stick (channel) calibration on the JHEMCU F4 NOXE V3 flight controller, especially using Betaflight or alternative configuration software.",
+     "relevance_signals": [
+      "JHEMCU F4 NOXE V3 calibration",
+      "Betaflight channel/gyro calibration"
+     ],
+     "irrelevance_signals": [
+      "general drone troubleshooting",
+      "non-FPV or unrelated flight controllers"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2693_doc_0"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "What happens if you hit the accelerometer calibration in Betaflight—does the drifting stop at all?",
+    "answer": "Yeah, if you hit the accelerometer calibration (which is usually the same as gyro calibration in Betaflight), it can definitely help stop the drifting—assuming the problem was caused by bad calibration. The idea is that once you calibrate it on a flat surface, the drone knows what 'level' really is, so it won’t drift because it’s not trying to correct for a tilt that isn’t there.",
+    "subquestion_reasoning": "Retrieve documents that detail using the Betaflight 'Calibrate Accelerometer' function to fix drift, while excluding those unrelated to Betaflight or focused solely on hardware changes.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how to use the 'Calibrate Accelerometer' button in Betaflight to address gyro or accelerometer drift issues in FPV drones.",
+     "relevance_signals": [
+      "Betaflight setup tab",
+      "Calibrate Accelerometer button",
+      "drone drift troubleshooting"
+     ],
+     "irrelevance_signals": [
+      "hardware replacement only",
+      "non-Betaflight flight controllers",
+      "general drone flying tips"
+     ]
+    },
+    "conversation_history": "Q: In FPV drone setup, have you tried calibrating both the gyroscope and sticks, maybe using Betaflight or something similar?\nA: Yeah, calibrating the gyroscope is really important in an FPV drone setup. If the gyro isn’t calibrated correctly, the drone might think it’s level when it’s actually tilted, which causes drifting. The best way to fix this is to connect your drone to a program like Betaflight, set it on a completely flat surface, and use the calibration function to make sure the gyro knows what 'level' actually is.",
+    "gold_doc_ids": [
+     "drones_ex_2693_doc_0"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Did you make sure the drone was totally still and flat when you did the calibration?",
+    "answer": "Yeah, making sure the drone is totally still and sitting on a completely flat surface is super important when you do the calibration. That way, the gyroscope learns exactly what 'level' is, so the drone won’t drift because it thinks it’s tilted when it’s not. Even being off by just a degree can cause the quad to drift, so it really pays to double-check that it’s perfectly flat and not moving during calibration.",
+    "subquestion_reasoning": "Retrieve documents that detail accelerometer calibration steps, specifically stressing surface flatness and stability, and exclude those focused on unrelated components or general drone issues.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain the correct procedure for accelerometer calibration, emphasizing the need for a flat, stable, and unmoving surface.",
+     "relevance_signals": [
+      "accelerometer calibration",
+      "flat/stable surface",
+      "no movement during calibration"
+     ],
+     "irrelevance_signals": [
+      "calibrating other sensors",
+      "flight tuning unrelated to calibration",
+      "hardware repairs"
+     ]
+    },
+    "conversation_history": "Q: In FPV drone setup, have you tried calibrating both the gyroscope and sticks, maybe using Betaflight or something similar?\nA: Yeah, calibrating the gyroscope is really important in an FPV drone setup. If the gyro isn’t calibrated correctly, the drone might think it’s level when it’s actually tilted, which causes drifting. The best way to fix this is to connect your drone to a program like Betaflight, set it on a completely flat surface, and use the calibration function to make sure the gyro knows what 'level' actually is.\nQ: What happens if you hit the accelerometer calibration in Betaflight—does the drifting stop at all?\nA: Yeah, if you hit the accelerometer calibration (which is usually the same as gyro calibration in Betaflight), it can definitely help stop the drifting—assuming the problem was caused by bad calibration. The idea is that once you calibrate it on a flat surface, the drone knows what 'level' really is, so it won’t drift because it’s not trying to correct for a tilt that isn’t there.",
+    "gold_doc_ids": [
+     "drones_ex_2693_doc_0"
+    ]
+   },
+   {
+    "turn_id": 4,
+    "query": "Have you noticed if the horizon line in Betaflight stays perfectly level when your drone’s just sitting there?",
+    "answer": "Yeah, if your gyroscope is calibrated correctly and your drone is sitting perfectly flat, the horizon line in Betaflight should stay level. If the calibration is off, even by a little bit, the drone might think it's tilted and the horizon line could look slanted, which can lead to drifting. So making sure that calibration is spot on is really important for keeping everything level.",
+    "subquestion_reasoning": "Retrieve documents that describe using the Betaflight Setup tab to confirm the artificial horizon is level after calibrating the accelerometer, and avoid those focused on unrelated drone issues.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how to check the artificial horizon or attitude indicator in Betaflight after accelerometer calibration to verify if the drone is level at rest.",
+     "relevance_signals": [
+      "Betaflight Setup tab",
+      "artificial horizon alignment",
+      "accelerometer calibration verification"
+     ],
+     "irrelevance_signals": [
+      "motor tuning",
+      "propeller issues",
+      "radio transmitter calibration"
+     ]
+    },
+    "conversation_history": "Q: In FPV drone setup, have you tried calibrating both the gyroscope and sticks, maybe using Betaflight or something similar?\nA: Yeah, calibrating the gyroscope is really important in an FPV drone setup. If the gyro isn’t calibrated correctly, the drone might think it’s level when it’s actually tilted, which causes drifting. The best way to fix this is to connect your drone to a program like Betaflight, set it on a completely flat surface, and use the calibration function to make sure the gyro knows what 'level' actually is.\nQ: What happens if you hit the accelerometer calibration in Betaflight—does the drifting stop at all?\nA: Yeah, if you hit the accelerometer calibration (which is usually the same as gyro calibration in Betaflight), it can definitely help stop the drifting—assuming the problem was caused by bad calibration. The idea is that once you calibrate it on a flat surface, the drone knows what 'level' really is, so it won’t drift because it’s not trying to correct for a tilt that isn’t there.\nQ: Did you make sure the drone was totally still and flat when you did the calibration?\nA: Yeah, making sure the drone is totally still and sitting on a completely flat surface is super important when you do the calibration. That way, the gyroscope learns exactly what 'level' is, so the drone won’t drift because it thinks it’s tilted when it’s not. Even being off by just a degree can cause the quad to drift, so it really pays to double-check that it’s perfectly flat and not moving during calibration.",
+    "gold_doc_ids": [
+     "drones_ex_2693_doc_0"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 4,
+   "gold_doc_count": 4,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T02:59:40.829717",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_2662",
+  "task": "drones",
+  "original_query": "Smooth landing with Betaflight? With Betaflight I often find myself crashing the drone while landing. It gets better with practice, but in general there seems to be no throttle command for constant speed descent. Any throttle value below stable hovering means the craft will go down with ever-increasing speed. With some luck I manage to reapply throttle just before the craft hits the ground, reducing the touchdown speed, but it's quite hard for a novice pilot to do it right. This is in contrast to most commercial drones which seem to limit the speed in general, and especially near ground. Most actually have a landing button, but simply going down until the drone touches the ground works too. I have a barometer on my FC, so Betafligth must be well aware of the vertical speed. Is there a configuration which makes landings more novice-friendly (by limiting the speed or otherwise)? Are there alternatives (e.g. iNav, Cleanflight, etc.) which are more noob-friendly?",
+  "original_answer": "INav has altitude hold (or rather, the stick controls the rate of ascent/descent) like a photography drone. Betaflight does not have this mode, and it is unlikely to get it . Alt hold does not aligns with the philosophy of the project as a whole. Betaflight is for acro flying. Cleanflight has a GPS mode, which presumably controls altitude, but it's marked as a 'WORK-IN-PROGRESS. This mode is not reliable yet' You're right that throttle position gives you vertical acceleration, not speed. Effectively it's always in 'rate' mode. Like an RC helicopter, you have to constantly juggle the stick to maintain a steady hover. Converting your transmitter to remove the notches on the throttle can help, as they're never quite in the right place. I also found that pinching the stick gave me finer control. Race drones are pretty tough, and also tend to over-react when they touch down, so I usually disarm when a few inches above the ground. Some people stick half-inch thick foam pads to the underside.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In drone flight software, how does INav help make landings smoother and easier than Betaflight, especially when controlling descent speed?",
+    "answer": "INav helps make landings smoother and easier by letting you control your descent speed more precisely in ALTHOLD mode. You can use the throttle stick to adjust how fast the drone climbs or sinks, up to a set maximum rate. This means you have more control over how gently you bring the drone down, which is really helpful for smooth landings.",
+    "subquestion_reasoning": "Retrieve documents that detail INav's altitude hold mode, especially how stick input affects descent speed, and avoid those focused only on Betaflight or generic landing advice.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how INav's altitude hold mode manages stick input and descent speed for smoother landings compared to Betaflight.",
+     "relevance_signals": [
+      "INav altitude hold",
+      "stick input controls descent rate"
+     ],
+     "irrelevance_signals": [
+      "Betaflight acro mode only",
+      "general drone landing tips without firmware specifics"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2662_doc_1"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Is that why it feels trickier for beginners to land with Betaflight than with, say, a DJI drone?",
+    "answer": "Yeah, that's a big part of it. Betaflight doesn't really have features like altitude hold anymore, so landing is a lot more hands-on and tricky—especially for beginners. FPV drones running Betaflight are built for speed and agility, not smooth landings, so you have to cut the motors at just the right moment or the drone might bounce or flip. In comparison, something like a DJI drone or one running INav with altitude hold lets you control your descent much more smoothly, making landings a lot easier.",
+    "subquestion_reasoning": "Select documents that discuss how manual throttle in Betaflight affects beginner pilots during landing, especially compared to drones with automatic stabilization or altitude hold. Avoid documents about unrelated aircraft types or advanced tuning not focused on landing control.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should compare manual throttle control in Betaflight (or similar RC firmware) with automated altitude/landing features in commercial drones, focusing on beginner experience.",
+     "relevance_signals": [
+      "manual throttle adjustment",
+      "automated stabilization/altitude hold"
+     ],
+     "irrelevance_signals": [
+      "advanced tuning unrelated to landing",
+      "non-drone or fixed-wing aircraft topics"
+     ]
+    },
+    "conversation_history": "Q: In drone flight software, how does INav help make landings smoother and easier than Betaflight, especially when controlling descent speed?\nA: INav helps make landings smoother and easier by letting you control your descent speed more precisely in ALTHOLD mode. You can use the throttle stick to adjust how fast the drone climbs or sinks, up to a set maximum rate. This means you have more control over how gently you bring the drone down, which is really helpful for smooth landings.",
+    "gold_doc_ids": [
+     "drones_ex_2662_doc_2",
+     "drones_ex_2662_doc_0",
+     "drones_ex_2662_doc_1"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "What actually happens if you just disarm right before touching down—is that safer, or could it mess things up?",
+    "answer": "If you disarm the drone right before touching down, it actually helps prevent the drone from bouncing or flipping when it hits the ground. A common technique is to get really close to the ground, ease off the throttle, and then disarm when you're just a few inches up. It might not always make for a perfectly smooth landing, but it does a good job of minimizing damage and keeping things under control, especially if the ground isn’t perfectly flat.",
+    "subquestion_reasoning": "Retrieve documents discussing Betaflight or race drone landing techniques involving low-altitude disarming, especially those evaluating its effects on landing smoothness and control, while excluding general or unrelated drone landing advice.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain the practice, benefits, and risks of disarming Betaflight drones just above the ground to achieve smoother landings and prevent erratic touchdown behavior.",
+     "relevance_signals": [
+      "disarming near ground",
+      "Betaflight landing technique",
+      "race drone touchdown behavior"
+     ],
+     "irrelevance_signals": [
+      "general drone landing tips",
+      "non-Betaflight firmware only",
+      "mid-air disarming safety"
+     ]
+    },
+    "conversation_history": "Q: In drone flight software, how does INav help make landings smoother and easier than Betaflight, especially when controlling descent speed?\nA: INav helps make landings smoother and easier by letting you control your descent speed more precisely in ALTHOLD mode. You can use the throttle stick to adjust how fast the drone climbs or sinks, up to a set maximum rate. This means you have more control over how gently you bring the drone down, which is really helpful for smooth landings.\nQ: Is that why it feels trickier for beginners to land with Betaflight than with, say, a DJI drone?\nA: Yeah, that's a big part of it. Betaflight doesn't really have features like altitude hold anymore, so landing is a lot more hands-on and tricky—especially for beginners. FPV drones running Betaflight are built for speed and agility, not smooth landings, so you have to cut the motors at just the right moment or the drone might bounce or flip. In comparison, something like a DJI drone or one running INav with altitude hold lets you control your descent much more smoothly, making landings a lot easier.",
+    "gold_doc_ids": [
+     "drones_ex_2662_doc_2"
+    ]
+   },
+   {
+    "turn_id": 4,
+    "query": "Why don’t Betaflight drones have that kind of automatic landing help built in?",
+    "answer": "Betaflight drones don’t have that kind of automatic landing help because features like altitude hold were removed a while ago. The developers found that the barometer sensors on most flight controllers weren’t accurate enough, so the altitude hold feature didn’t work well and the drone would just keep rising and falling instead of staying steady. Since Betaflight is really focused on agile flying and racing, they decided to drop those features and leave them to other firmware like INav that are better suited for smoother, more controlled flying.",
+    "subquestion_reasoning": "Retrieve documents that directly compare Betaflight’s manual acro flight and lack of altitude hold to the automatic landing features of commercial drones; avoid sources that discuss unrelated Betaflight settings or focus solely on other firmware.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how Betaflight’s acro mode lacks altitude hold or automatic landing features, and contrast this with commercial drones’ assisted landing systems.",
+     "relevance_signals": [
+      "Betaflight acro mode",
+      "altitude hold/automatic landing comparison",
+      "commercial drone landing assistance"
+     ],
+     "irrelevance_signals": [
+      "Betaflight tuning unrelated to landing",
+      "general drone maintenance",
+      "non-Betaflight firmware features only"
+     ]
+    },
+    "conversation_history": "Q: In drone flight software, how does INav help make landings smoother and easier than Betaflight, especially when controlling descent speed?\nA: INav helps make landings smoother and easier by letting you control your descent speed more precisely in ALTHOLD mode. You can use the throttle stick to adjust how fast the drone climbs or sinks, up to a set maximum rate. This means you have more control over how gently you bring the drone down, which is really helpful for smooth landings.\nQ: Is that why it feels trickier for beginners to land with Betaflight than with, say, a DJI drone?\nA: Yeah, that's a big part of it. Betaflight doesn't really have features like altitude hold anymore, so landing is a lot more hands-on and tricky—especially for beginners. FPV drones running Betaflight are built for speed and agility, not smooth landings, so you have to cut the motors at just the right moment or the drone might bounce or flip. In comparison, something like a DJI drone or one running INav with altitude hold lets you control your descent much more smoothly, making landings a lot easier.\nQ: What actually happens if you just disarm right before touching down—is that safer, or could it mess things up?\nA: If you disarm the drone right before touching down, it actually helps prevent the drone from bouncing or flipping when it hits the ground. A common technique is to get really close to the ground, ease off the throttle, and then disarm when you're just a few inches up. It might not always make for a perfectly smooth landing, but it does a good job of minimizing damage and keeping things under control, especially if the ground isn’t perfectly flat.",
+    "gold_doc_ids": [
+     "drones_ex_2662_doc_0",
+     "drones_ex_2662_doc_2"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 4,
+   "gold_doc_count": 7,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T03:00:34.521985",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_2545",
+  "task": "drones",
+  "original_query": "Can I put lipo and li-ion batteries in series I have two 3.7 volt 900 mAh LiPo battery, which I connected in series to provide 7.4 volts. But now I want 11.1 volts. Instead of buying another LiPo battery, am I able to put these two LiPo batteries and a 3.7 volt 900 LI-ON in series to achieve 11.1 volts? Is it safe to power a 1000kv brushless motor, 30a ESC, and an Arduino Nano with this connection?",
+  "original_answer": "What I think you needed to ask is \"are lithium-polymer and lithium-ion battery cells of the same capacity compatible in a single pack?\" The answer to that is that those are two different names for the same battery chemistry. As long as the discharge current limits match (as well as cell voltage and capacity), you should be good to go within the current limits of the cells. Where there's a potential for problems is that the two older cells may have some number of charge-discharge cycles already elapsed, while the new cell won't, therefore the discharge curves may no longer match (assuming they did when all the cells were new). So, while this should be theoretically okay (assuming all the cells can source your 30 A requirement without damage), I'd probably be more inclined to use all new cells for the 3s pack and save the 2s pack for its original application. By sourcing the new cells all together, you can ensure that all their specs match, including their life cycle condition. Lithium cells are relatively cheap compared to an entire drone stack and the potential liability if you have an in-flight battery fire and wind up igniting something on the ground.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In battery setups, is it risky to connect LiPo and Li-ion batteries in series if their specs are slightly different?",
+    "answer": "Yes, it's risky to connect LiPo and Li-ion batteries in series if their specs are even slightly different. Mixing batteries with different capacities or types can lead to imbalances during charging and discharging, which might cause overcharging, overheating, or even damage to the batteries. It's always best to use batteries that match in voltage, capacity, chemistry, and age when connecting them in series.",
+    "subquestion_reasoning": "Retrieve documents that address safety, performance, or risks of series-connecting LiPo and Li-ion batteries with differing specs; exclude those focused solely on parallel connections or generic battery advice.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss the risks or effects of connecting LiPo and Li-ion batteries with differing capacities or voltage characteristics in series.",
+     "relevance_signals": [
+      "series connection of different battery chemistries",
+      "effects of mismatched battery capacities or voltages"
+     ],
+     "irrelevance_signals": [
+      "parallel battery connections only",
+      "general battery safety unrelated to series or chemistry differences"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2545_doc_1",
+     "drones_ex_2545_doc_0",
+     "drones_ex_2545_doc_3",
+     "drones_ex_2545_doc_5",
+     "drones_ex_2545_doc_2"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "What happens if you mix older LiPos with a new Li-ion like that—does it mess with how the pack works or stays safe?",
+    "answer": "Mixing older LiPos with a new Li-ion in series definitely messes with how the pack works and can make it unsafe. The weaker or older battery will get used up faster and could be overcharged or over-discharged, leading to problems like overheating, leaking, or even total failure. The whole pack ends up being as weak as the oldest or smallest battery, which really isn’t good for safety or performance.",
+    "subquestion_reasoning": "Select documents that analyze or warn about series connections of mixed-age or mixed-chemistry lithium batteries, especially regarding discharge behavior and safety risks; exclude those focused solely on parallel setups or single-cell use.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss the effects on discharge performance and safety when combining LiPo and Li-ion cells of different ages or chemistries in series.",
+     "relevance_signals": [
+      "series connection of LiPo and Li-ion",
+      "battery age or cycle mismatch"
+     ],
+     "irrelevance_signals": [
+      "parallel battery connections only",
+      "information on single-cell operation only"
+     ]
+    },
+    "conversation_history": "Q: In battery setups, is it risky to connect LiPo and Li-ion batteries in series if their specs are slightly different?\nA: Yes, it's risky to connect LiPo and Li-ion batteries in series if their specs are even slightly different. Mixing batteries with different capacities or types can lead to imbalances during charging and discharging, which might cause overcharging, overheating, or even damage to the batteries. It's always best to use batteries that match in voltage, capacity, chemistry, and age when connecting them in series.",
+    "gold_doc_ids": [
+     "drones_ex_2545_doc_0",
+     "drones_ex_2545_doc_5",
+     "drones_ex_2545_doc_3",
+     "drones_ex_2545_doc_1",
+     "drones_ex_2545_doc_2"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Would something like a battery fire happen suddenly, or are there warning signs before things go wrong?",
+    "answer": "A battery fire usually doesn’t happen out of nowhere—there are often warning signs first. If you mix mismatched or older batteries, you might notice things like overheating, leaking, or the batteries swelling up before a fire actually starts. These are clear signs that something’s wrong and the pack is becoming unsafe, so it’s really important to stop using them if you see any of these problems.",
+    "subquestion_reasoning": "Select documents discussing fire hazards from improper series connections of mixed LiPo and Li-ion batteries, especially those detailing causes, safety issues, and real-world consequences of such fires.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain the risks and consequences of battery fires caused by improper charging or configuration of mixed LiPo and Li-ion packs in series.",
+     "relevance_signals": [
+      "battery fire risk",
+      "mixing LiPo and Li-ion",
+      "series configuration safety"
+     ],
+     "irrelevance_signals": [
+      "parallel battery configuration only",
+      "general battery chemistry",
+      "non-fire-related LiPo/Li-ion info"
+     ]
+    },
+    "conversation_history": "Q: In battery setups, is it risky to connect LiPo and Li-ion batteries in series if their specs are slightly different?\nA: Yes, it's risky to connect LiPo and Li-ion batteries in series if their specs are even slightly different. Mixing batteries with different capacities or types can lead to imbalances during charging and discharging, which might cause overcharging, overheating, or even damage to the batteries. It's always best to use batteries that match in voltage, capacity, chemistry, and age when connecting them in series.\nQ: What happens if you mix older LiPos with a new Li-ion like that—does it mess with how the pack works or stays safe?\nA: Mixing older LiPos with a new Li-ion in series definitely messes with how the pack works and can make it unsafe. The weaker or older battery will get used up faster and could be overcharged or over-discharged, leading to problems like overheating, leaking, or even total failure. The whole pack ends up being as weak as the oldest or smallest battery, which really isn’t good for safety or performance.",
+    "gold_doc_ids": [
+     "drones_ex_2545_doc_2",
+     "drones_ex_2545_doc_5",
+     "drones_ex_2545_doc_1",
+     "drones_ex_2545_doc_0"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 14,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T03:19:29.735187",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_2424",
+  "task": "drones",
+  "original_query": "What kind of drone could be remote controlled over 4km of open water? Aparently Taiwan shot down a civilian drone near the Lion islet of the coast of Xiamen ( source ). The island is 4km away from the Chinese city of Xiamen. Question, what kind of drone would be able to fly 4km over the open ocean while being remote controlled from land? I would think that for a low end commercial drone the range of the remote control is nowhere near 4km but I have no experience with that. Essentially is something like that within the capabilities of a commercially available hobby pilot drone or does that require military grade hardware?",
+  "original_answer": "Any purpose built machine can make it out that far: https://rotorbuilds.com/build/29119 That is well within the range of hobby grade analog and digital control and video systems. The DJI digital FPV system has a hard limit of 14km due to a timing anomaly, however for long rangers it is generally pretty reliable out to that point HDZero has definitely made it out that far Analog long range FPV records are pushing 100km. These are fixed wing machines, but multirotors can definitely make it that far in terms of battery life, and the radio equipment used is the same My personal FPV distance record on a multirotor is 4.7km with analog 5.8ghz video and ELRS radio. Worth noting that navigation is much more difficult than direct range when flying over open ocean. Magnetometers must be carefully calibrated so that a course can be maintained effectively.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In drone flight range, do fixed wing drones usually go farther than multirotor drones if they use the same radio and battery setup?",
+    "answer": "Fixed-wing drones usually go a lot farther than multirotor drones. While multirotor drones can reach up to 15 km, fixed-wing drones can have a much longer range—up to 600 km. So if they're using the same radio and battery setup, fixed-wing drones are generally built to travel much greater distances.",
+    "subquestion_reasoning": "Select documents that directly compare range capabilities of fixed wing and multirotor drones with similar control systems; avoid sources focused solely on military drones or unrelated drone features.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should compare the operational range of fixed wing and multirotor drones using similar radio equipment and battery technology.",
+     "relevance_signals": [
+      "fixed wing vs multirotor range",
+      "radio equipment and battery technology comparison"
+     ],
+     "irrelevance_signals": [
+      "military-only drones",
+      "drone features unrelated to range or control"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2424_doc_0"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "What would it actually take for a multirotor drone to keep a solid connection at 4km like that?",
+    "answer": "To keep a solid connection at 4km, a multirotor drone would need a strong transmission system like those found in many commercial drones. For example, the DJI Inspire 2 can easily manage up to 7 kilometers, so with the right setup, reaching 4km is definitely doable for high-end models. It's all about having a powerful enough system for communication between the drone and the controller.",
+    "subquestion_reasoning": "Select documents detailing FPV multirotor range achievements and the radio/video technology used; avoid sources focused solely on military drones or unrelated regulatory/policy discussions.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should describe the technical range limits and requirements for FPV multirotor drones, especially regarding radio and video transmission systems over multi-kilometer distances.",
+     "relevance_signals": [
+      "FPV drone range records",
+      "radio/video transmission systems (e.g., ELRS, 5.8GHz)"
+     ],
+     "irrelevance_signals": [
+      "military-grade drones only",
+      "general drone regulations or unrelated drone types"
+     ]
+    },
+    "conversation_history": "Q: In drone flight range, do fixed wing drones usually go farther than multirotor drones if they use the same radio and battery setup?\nA: Fixed-wing drones usually go a lot farther than multirotor drones. While multirotor drones can reach up to 15 km, fixed-wing drones can have a much longer range—up to 600 km. So if they're using the same radio and battery setup, fixed-wing drones are generally built to travel much greater distances.",
+    "gold_doc_ids": [
+     "drones_ex_2424_doc_2"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Are there actually any store-bought drones that promise a 4km range, or is that mostly just on paper?",
+    "answer": "Yeah, there are definitely store-bought drones that advertise a 4km range, and it’s not just marketing hype. For example, drones like the DJI Mavic and Phantom series can actually reach ranges of 4 kilometers or more under the right conditions. Some hobby drones can also get up to 4 or 5 km, especially as you move into higher price ranges. So, getting that kind of range is realistic with a good quality, off-the-shelf drone.",
+    "subquestion_reasoning": "Select documents that detail the maximum control ranges of commercial drones, focusing on manufacturer specifications or third-party tests, and avoid those discussing military drones or omitting specific range data.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should state the advertised or tested remote control range of commercial drones, especially models with ranges of 4km or more.",
+     "relevance_signals": [
+      "drone control range specifications",
+      "commercial drone model range comparisons"
+     ],
+     "irrelevance_signals": [
+      "military drone capabilities",
+      "general drone usage without range details"
+     ]
+    },
+    "conversation_history": "Q: In drone flight range, do fixed wing drones usually go farther than multirotor drones if they use the same radio and battery setup?\nA: Fixed-wing drones usually go a lot farther than multirotor drones. While multirotor drones can reach up to 15 km, fixed-wing drones can have a much longer range—up to 600 km. So if they're using the same radio and battery setup, fixed-wing drones are generally built to travel much greater distances.\nQ: What would it actually take for a multirotor drone to keep a solid connection at 4km like that?\nA: To keep a solid connection at 4km, a multirotor drone would need a strong transmission system like those found in many commercial drones. For example, the DJI Inspire 2 can easily manage up to 7 kilometers, so with the right setup, reaching 4km is definitely doable for high-end models. It's all about having a powerful enough system for communication between the drone and the controller.",
+    "gold_doc_ids": [
+     "drones_ex_2424_doc_2",
+     "drones_ex_2424_doc_3",
+     "drones_ex_2424_doc_1",
+     "drones_ex_2424_doc_4",
+     "drones_ex_2424_doc_0"
+    ]
+   },
+   {
+    "turn_id": 4,
+    "query": "I’m curious—do things like humidity or open water actually mess with the signal that much at that distance?",
+    "answer": "At distances like 4 kilometers, the main thing that affects the drone’s signal is interference and having a clear, open area. For example, drones using advanced transmission systems like OcuSync can reach up to 7 kilometers in open spaces without much interference. So, having a clear line of sight and fewer obstacles is what really helps keep the connection strong at those longer ranges.",
+    "subquestion_reasoning": "Select documents detailing hobby drone radio control technologies and their effective range over open environments, especially water, while excluding military-only or purely recreational/short-range drone discussions.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should describe radio control systems used in hobby drones for long-range (up to 4km) operation and discuss environmental impacts like open water on signal reliability.",
+     "relevance_signals": [
+      "drone radio control range",
+      "long-distance hobby drone communication",
+      "signal loss over water"
+     ],
+     "irrelevance_signals": [
+      "military drone systems",
+      "drone photography tips",
+      "short-range toy drones"
+     ]
+    },
+    "conversation_history": "Q: In drone flight range, do fixed wing drones usually go farther than multirotor drones if they use the same radio and battery setup?\nA: Fixed-wing drones usually go a lot farther than multirotor drones. While multirotor drones can reach up to 15 km, fixed-wing drones can have a much longer range—up to 600 km. So if they're using the same radio and battery setup, fixed-wing drones are generally built to travel much greater distances.\nQ: What would it actually take for a multirotor drone to keep a solid connection at 4km like that?\nA: To keep a solid connection at 4km, a multirotor drone would need a strong transmission system like those found in many commercial drones. For example, the DJI Inspire 2 can easily manage up to 7 kilometers, so with the right setup, reaching 4km is definitely doable for high-end models. It's all about having a powerful enough system for communication between the drone and the controller.\nQ: Are there actually any store-bought drones that promise a 4km range, or is that mostly just on paper?\nA: Yeah, there are definitely store-bought drones that advertise a 4km range, and it’s not just marketing hype. For example, drones like the DJI Mavic and Phantom series can actually reach ranges of 4 kilometers or more under the right conditions. Some hobby drones can also get up to 4 or 5 km, especially as you move into higher price ranges. So, getting that kind of range is realistic with a good quality, off-the-shelf drone.",
+    "gold_doc_ids": [
+     "drones_ex_2424_doc_4",
+     "drones_ex_2424_doc_2",
+     "drones_ex_2424_doc_1",
+     "drones_ex_2424_doc_0"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 4,
+   "gold_doc_count": 11,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T03:36:30.856295",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_2324",
+  "task": "drones",
+  "original_query": "Drone recommended for quality shooting but for non-experts I would need to buy a serious drone to make quality videos and footage. However, searching online there is a lot of stuff that is passed off as \"better than others\" . Could someone recommend a drone that is simple to use and is able to: Shoot at a quality of at least 1080p 60fps Have macros to follow a subject The drone should be durable and smart (avoid obstacles) Particularly resistant to sand and wind I would need not to spend too much so if you can recommend me the best quality/ price ratio drone with these pretty general features I would be grateful",
+  "original_answer": "This is exactly the niche that DJI have dominated. Near professional level features but easy to learn. They're not priced as 'toys' but they're a lot cheaper than professional gear. I'm not an expert in their various models, but features like following a subject and obstacle avoidance are quite advanced and rule out most of the cheaper copycat drones. 'Real' TV and movie filming will use much more expensive drones that require a lot more knowledge and experience, but it seems that any youtuber can buy a Mavic and produce great shots after skimming the manual. At the other end of the scale, there are cheaper options but none of them are nearly as popular. Either they don't have the same features, just don't work as well or they aren't as easy to use. There are a lot of cheap imitations aimed at people who don't do much research. They look similar and claim similar features for a lot less, but are missing features you don't realise are important, or just aren't much good.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In choosing a drone for video, is the subject tracking and obstacle avoidance on the DJI Mini 4 Pro really better than cheaper models?",
+    "answer": "Yes, the DJI Mini 4 Pro really stands out for subject tracking and obstacle avoidance compared to cheaper models. It has advanced tracking features and sensors on all sides, so it can follow moving subjects smoothly while actively avoiding obstacles—even in tight spaces. This makes it a great choice if you want reliable tracking and extra safety while filming.",
+    "subquestion_reasoning": "Retrieve documents that directly compare the DJI Mini 4 Pro’s tracking and obstacle avoidance to cheaper alternatives, focusing on feature effectiveness rather than general drone information.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should compare the subject tracking and obstacle avoidance features of the DJI Mini 4 Pro with those of similarly priced or cheaper drones.",
+     "relevance_signals": [
+      "DJI Mini 4 Pro subject tracking",
+      "obstacle avoidance comparison with cheaper drones"
+     ],
+     "irrelevance_signals": [
+      "general drone reviews without feature comparison",
+      "discussions not mentioning tracking or obstacle avoidance"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2324_doc_0",
+     "drones_ex_2324_doc_1"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Is it really worth paying more for the pro drones if I'm just starting out?",
+    "answer": "If you're just starting out, the Mini 4 Pro is actually a really solid choice because it packs a lot of advanced features—like great subject tracking, obstacle detection on all sides, and a high-quality camera—into a lightweight and easy-to-fly package. It's priced reasonably for everything it offers, so you get pro-level safety and video features without having to jump straight to the most expensive drones. Even beginners can fly it worry-free, which is a big plus.",
+    "subquestion_reasoning": "Retrieve documents that directly compare DJI Mini Series to professional drones in terms of price, video quality, and user-friendliness for non-experts; exclude content focused on unrelated drone uses or technical maintenance.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should compare DJI Mini Series drones to professional drones regarding video quality, smart features, ease of use, and price for non-expert users.",
+     "relevance_signals": [
+      "DJI Mini Series vs professional drones",
+      "price-to-performance for non-experts",
+      "video quality and smart features comparison"
+     ],
+     "irrelevance_signals": [
+      "drone racing",
+      "military drones",
+      "technical repair guides"
+     ]
+    },
+    "conversation_history": "Q: In choosing a drone for video, is the subject tracking and obstacle avoidance on the DJI Mini 4 Pro really better than cheaper models?\nA: Yes, the DJI Mini 4 Pro really stands out for subject tracking and obstacle avoidance compared to cheaper models. It has advanced tracking features and sensors on all sides, so it can follow moving subjects smoothly while actively avoiding obstacles—even in tight spaces. This makes it a great choice if you want reliable tracking and extra safety while filming.",
+    "gold_doc_ids": [
+     "drones_ex_2324_doc_1",
+     "drones_ex_2324_doc_0",
+     "drones_ex_2324_doc_2",
+     "drones_ex_2324_doc_3"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Why do you think so many beginners end up picking the Mini Series over those cheaper options?",
+    "answer": "A lot of beginners go for the Mini Series because it's super light, easy to carry around, and doesn't usually need a license to fly. Plus, you get really advanced features like obstacle avoidance and subject tracking that make flying and filming way less stressful, even if you're new to drones. The camera quality is excellent for the price, and the long battery life means you can spend more time practicing and capturing footage.",
+    "subquestion_reasoning": "Retrieve documents that directly compare DJI Mini Series to budget drones for non-experts, emphasizing user experience, video quality, and reliability; avoid sources unrelated to beginner needs or focused on advanced or toy drones.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should compare DJI Mini Series drones to cheaper alternatives, focusing on ease of use, video quality, reliability, and value for beginners.",
+     "relevance_signals": [
+      "DJI Mini Series vs cheaper drones",
+      "beginner drone recommendations",
+      "ease of use and reliability"
+     ],
+     "irrelevance_signals": [
+      "advanced/professional drone features only",
+      "general drone news",
+      "content focused solely on drone racing or toys"
+     ]
+    },
+    "conversation_history": "Q: In choosing a drone for video, is the subject tracking and obstacle avoidance on the DJI Mini 4 Pro really better than cheaper models?\nA: Yes, the DJI Mini 4 Pro really stands out for subject tracking and obstacle avoidance compared to cheaper models. It has advanced tracking features and sensors on all sides, so it can follow moving subjects smoothly while actively avoiding obstacles—even in tight spaces. This makes it a great choice if you want reliable tracking and extra safety while filming.\nQ: Is it really worth paying more for the pro drones if I'm just starting out?\nA: If you're just starting out, the Mini 4 Pro is actually a really solid choice because it packs a lot of advanced features—like great subject tracking, obstacle detection on all sides, and a high-quality camera—into a lightweight and easy-to-fly package. It's priced reasonably for everything it offers, so you get pro-level safety and video features without having to jump straight to the most expensive drones. Even beginners can fly it worry-free, which is a big plus.",
+    "gold_doc_ids": [
+     "drones_ex_2324_doc_0",
+     "drones_ex_2324_doc_1",
+     "drones_ex_2324_doc_2",
+     "drones_ex_2324_doc_3"
+    ]
+   },
+   {
+    "turn_id": 4,
+    "query": "And when it comes to wind or sand, do these Minis actually hold up better than the cheaper drones?",
+    "answer": "Yeah, the Mini drones like the DJI Mini 2 SE and Mini 3 actually do a great job in wind compared to a lot of cheaper options. They have a three-axis gimbal that keeps video smooth even in heavy gusts, so your footage looks steady and professional. Plus, they tend to have longer flight times, which is handy if you're out in challenging conditions. So if you’re worried about wind, these Minis definitely hold up better than most budget drones.",
+    "subquestion_reasoning": "Select documents that specifically discuss how DJI Mini Series drones outperform cheaper models in durability and reliability, especially in challenging conditions; avoid generic guides or documents lacking environmental context.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should compare DJI Mini Series drones to cheaper alternatives regarding durability, reliability, and performance in wind or sandy conditions.",
+     "relevance_signals": [
+      "DJI Mini Series vs alternatives",
+      "durability in wind or sand",
+      "reliability features"
+     ],
+     "irrelevance_signals": [
+      "general drone buying guides",
+      "specs without context",
+      "reviews unrelated to durability or environment"
+     ]
+    },
+    "conversation_history": "Q: In choosing a drone for video, is the subject tracking and obstacle avoidance on the DJI Mini 4 Pro really better than cheaper models?\nA: Yes, the DJI Mini 4 Pro really stands out for subject tracking and obstacle avoidance compared to cheaper models. It has advanced tracking features and sensors on all sides, so it can follow moving subjects smoothly while actively avoiding obstacles—even in tight spaces. This makes it a great choice if you want reliable tracking and extra safety while filming.\nQ: Is it really worth paying more for the pro drones if I'm just starting out?\nA: If you're just starting out, the Mini 4 Pro is actually a really solid choice because it packs a lot of advanced features—like great subject tracking, obstacle detection on all sides, and a high-quality camera—into a lightweight and easy-to-fly package. It's priced reasonably for everything it offers, so you get pro-level safety and video features without having to jump straight to the most expensive drones. Even beginners can fly it worry-free, which is a big plus.\nQ: Why do you think so many beginners end up picking the Mini Series over those cheaper options?\nA: A lot of beginners go for the Mini Series because it's super light, easy to carry around, and doesn't usually need a license to fly. Plus, you get really advanced features like obstacle avoidance and subject tracking that make flying and filming way less stressful, even if you're new to drones. The camera quality is excellent for the price, and the long battery life means you can spend more time practicing and capturing footage.",
+    "gold_doc_ids": [
+     "drones_ex_2324_doc_2",
+     "drones_ex_2324_doc_3"
+    ]
+   },
+   {
+    "turn_id": 5,
+    "query": "Is there a big difference in how smooth and sharp the videos look between these Minis and other brands at this price?",
+    "answer": "There’s definitely a noticeable difference in video quality with the Mini drones, especially the Mini 4 Pro. Its 4K/60fps camera captures really sharp, high-quality footage with better color accuracy and contrast, plus it can shoot HDR videos. So compared to other brands at the same price, you’re likely to get smoother and more detailed videos with these Minis.",
+    "subquestion_reasoning": "Retrieve documents that directly compare DJI Mini Series and other brands on 1080p 60fps video quality and beginner usability; avoid sources that lack specific model or feature comparisons.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should compare DJI Mini Series drones' 1080p 60fps video quality and ease of use to similarly priced competitors, specifically for beginners.",
+     "relevance_signals": [
+      "DJI Mini Series vs competitors",
+      "video quality (1080p 60fps) for beginners"
+     ],
+     "irrelevance_signals": [
+      "professional-only drones",
+      "general drone buying guides without brand or feature comparison"
+     ]
+    },
+    "conversation_history": "Q: In choosing a drone for video, is the subject tracking and obstacle avoidance on the DJI Mini 4 Pro really better than cheaper models?\nA: Yes, the DJI Mini 4 Pro really stands out for subject tracking and obstacle avoidance compared to cheaper models. It has advanced tracking features and sensors on all sides, so it can follow moving subjects smoothly while actively avoiding obstacles—even in tight spaces. This makes it a great choice if you want reliable tracking and extra safety while filming.\nQ: Is it really worth paying more for the pro drones if I'm just starting out?\nA: If you're just starting out, the Mini 4 Pro is actually a really solid choice because it packs a lot of advanced features—like great subject tracking, obstacle detection on all sides, and a high-quality camera—into a lightweight and easy-to-fly package. It's priced reasonably for everything it offers, so you get pro-level safety and video features without having to jump straight to the most expensive drones. Even beginners can fly it worry-free, which is a big plus.\nQ: Why do you think so many beginners end up picking the Mini Series over those cheaper options?\nA: A lot of beginners go for the Mini Series because it's super light, easy to carry around, and doesn't usually need a license to fly. Plus, you get really advanced features like obstacle avoidance and subject tracking that make flying and filming way less stressful, even if you're new to drones. The camera quality is excellent for the price, and the long battery life means you can spend more time practicing and capturing footage.\nQ: And when it comes to wind or sand, do these Minis actually hold up better than the cheaper drones?\nA: Yeah, the Mini drones like the DJI Mini 2 SE and Mini 3 actually do a great job in wind compared to a lot of cheaper options. They have a three-axis gimbal that keeps video smooth even in heavy gusts, so your footage looks steady and professional. Plus, they tend to have longer flight times, which is handy if you're out in challenging conditions. So if you’re worried about wind, these Minis definitely hold up better than most budget drones.",
+    "gold_doc_ids": [
+     "drones_ex_2324_doc_0"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 5,
+   "gold_doc_count": 13,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T03:50:15.085243",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_2271",
+  "task": "drones",
+  "original_query": "Will different brushless motor sizes work with the same flight controller and esc I recently built a 5-inch quad using: Diatone Mamba F405 Mk2 F40 Mk2 3-6S 30x30 Stack/Combo (F4 FC / 40A 4in1 ESC) Motors: iFlight Xing-E PRO 2207 1800Kv Motor with DShot 600 and 4S battery cell. I didn't notice any problems with the build when I did a test flight. I am now trying to build a larger drone (850mm or 950mm X-Class). I was wondering if the same flight controller/esc combo would work for motors: Cobra CM-2820/16 Multirotor Motor, Kv=740 ( link ) and iFlight XING X4214 400KV Motor ( link ) The cobra motor specifies that the pwm frequency is 8khz, but I didn't see any details on pwm frequency for the other brushless motors. So now I'm not sure whether pwm frequency is a parameter I need to consider when choosing an FC/ESC for a motor. Or is the 8khz a standard frequency that all FC/ESCs support? Usually I just make sure the ESC supports the maximum amp from the motor and propeller combination I plan to use, and that I have the correct LiPo battery cell count.",
+  "original_answer": "That should be fine, brushless ESCs can normally run a very wide variety of brushless motors. If they stutter or otherwise don't spin up reliably, you may need to adjust the timing settings in the ESC firmware. This controls when the motor winding are energised as they pass the magnets. Lower Kv motors can need a lower setting. Here's an article on BL Heli settings (the ESC firmware)",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In drone building, can the same ESC handle both high Kv and low Kv brushless motors without any issues?",
+    "answer": "You can use the same ESC with both high Kv and low Kv brushless motors as long as the ESC can handle the voltage of your battery and the maximum current draw of your motor and propeller setup. The important thing is to make sure the ESC's amp rating is high enough for your setup—it's fine if it's higher, but it shouldn't be too low. Checking compatibility with your battery is also key to avoid damaging your equipment.",
+    "subquestion_reasoning": "Retrieve documents discussing ESC operation across varying brushless motor Kv ratings, especially addressing compatibility or configuration limits; exclude sources focused on brushed motors or unrelated applications.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain ESC compatibility with both high Kv and low Kv brushless motors, including any limitations or required settings.",
+     "relevance_signals": [
+      "ESC compatibility with motor Kv",
+      "ESC support for different brushless motor types"
+     ],
+     "irrelevance_signals": [
+      "brushed motor information",
+      "non-drone or non-multirotor applications"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2271_doc_2",
+     "drones_ex_2271_doc_4"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "I wonder if running a lower PWM frequency makes big, low Kv motors start up smoother or not?",
+    "answer": "Running a higher PWM frequency usually makes motors run smoother and quieter, and it can even improve efficiency a bit. The trade-off is that you might get less braking power, which can make the motors feel a bit less responsive when slowing down. Lower PWM frequencies aren't specifically mentioned as making big, low Kv motors start up smoother—in fact, the general advice is that higher frequencies improve smoothness. So if you're looking for smoother startup and running, increasing the PWM frequency is typically the way to go.",
+    "subquestion_reasoning": "Select documents discussing ESC PWM frequency or timing in relation to brushless motor Kv and size, especially startup reliability; ignore those focused on brushed motors or unrelated drone topics.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how ESC PWM frequency and timing settings affect the startup and performance of large, low Kv brushless motors versus small, high Kv motors.",
+     "relevance_signals": [
+      "ESC PWM frequency impact",
+      "low Kv motor startup/performance"
+     ],
+     "irrelevance_signals": [
+      "brushed motors",
+      "general drone assembly without motor/ESC details"
+     ]
+    },
+    "conversation_history": "Q: In drone building, can the same ESC handle both high Kv and low Kv brushless motors without any issues?\nA: You can use the same ESC with both high Kv and low Kv brushless motors as long as the ESC can handle the voltage of your battery and the maximum current draw of your motor and propeller setup. The important thing is to make sure the ESC's amp rating is high enough for your setup—it's fine if it's higher, but it shouldn't be too low. Checking compatibility with your battery is also key to avoid damaging your equipment.",
+    "gold_doc_ids": [
+     "drones_ex_2271_doc_2",
+     "drones_ex_2271_doc_1"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Is there a way to tell if the PWM frequency on my ESC is too high or low for these bigger motors?",
+    "answer": "You can look at the recommended PWM frequency from the motor specs—like that 8kHz suggestion for the Cobra motor—to get a sense of what works well. Most ESCs support a wide range, usually from about 8kHz up to 80kHz, so you generally just need to make sure you're not going below the minimum needed for your motor. The key is that the motor’s windings act like a filter, so as long as your ESC is set within a typical range and meets the motor’s minimum, you should be fine.",
+    "subquestion_reasoning": "Retrieve documents discussing ESC PWM frequency selection or tuning for low Kv brushless motors, particularly regarding symptoms like stuttering or overheating, and avoid those focused solely on unrelated drone components or generic build guides.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how PWM frequency settings on ESCs affect compatibility and performance with different motor Kv ratings, especially when using low Kv motors.",
+     "relevance_signals": [
+      "ESC PWM frequency adjustment",
+      "low Kv motor compatibility",
+      "motor stuttering/overheating troubleshooting"
+     ],
+     "irrelevance_signals": [
+      "general drone assembly",
+      "flight controller software setup",
+      "propeller size recommendations"
+     ]
+    },
+    "conversation_history": "Q: In drone building, can the same ESC handle both high Kv and low Kv brushless motors without any issues?\nA: You can use the same ESC with both high Kv and low Kv brushless motors as long as the ESC can handle the voltage of your battery and the maximum current draw of your motor and propeller setup. The important thing is to make sure the ESC's amp rating is high enough for your setup—it's fine if it's higher, but it shouldn't be too low. Checking compatibility with your battery is also key to avoid damaging your equipment.\nQ: I wonder if running a lower PWM frequency makes big, low Kv motors start up smoother or not?\nA: Running a higher PWM frequency usually makes motors run smoother and quieter, and it can even improve efficiency a bit. The trade-off is that you might get less braking power, which can make the motors feel a bit less responsive when slowing down. Lower PWM frequencies aren't specifically mentioned as making big, low Kv motors start up smoother—in fact, the general advice is that higher frequencies improve smoothness. So if you're looking for smoother startup and running, increasing the PWM frequency is typically the way to go.",
+    "gold_doc_ids": [
+     "drones_ex_2271_doc_2",
+     "drones_ex_2271_doc_3"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 6,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T03:49:11.991167",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_2248",
+  "task": "drones",
+  "original_query": "What is the most invisible obstacles to avoid and notice when flying a drone? Now I am understanding one thing: there are two kinds of obstacles, in addition to the visible obstacles, such as trees, there are also invisible obstacles that will affect the flight of the drone. What invisible obstacles do you think need the most attention and avoid? And best practice advice on avoiding it and improving the safety of drone operations. This is a meaningful question because the visible ones will be noticed and avoided easiler, but the invisible ones need to be discussed and made more clearly understood.",
+  "original_answer": "Overhead wires are probably the biggest issue. You really have to watch out for the poles and use them to ensure you're high enough to avoid the wires because you often won't see the wires until it's too late. You should be aware of any wires before you fly, and make sure you're aware of where they are at all times during the flight (\"maintain situational awareness\" in pilot-speak). The one people talk about a lot is 'scraggle', or thin branches and twigs with no leaves. It's really only a problem if you're flying very close to trees and bushes. If you're trying to fly under a low branch, or through a gap in some trees, it's worth inspecting it first. The other class of 'invisible' obstacle are those that are behind you and out of sight. These are the ones that usually catch beginners. Don't fly backwards or sideways unless you're absolutely sure it's empty space. It's safest to keep moving forwards, as the wind could be carrying you backwards.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In drone flying, what are some invisible hazards like power lines or interference that pilots should watch out for?",
+    "answer": "When flying a drone, some of the biggest invisible hazards are electromagnetic interference from things like power lines, cell towers, and even dense clusters of Wi-Fi or Bluetooth signals in urban areas. These invisible fields can mess with your drone’s GPS, compass, and even disrupt the signal between your controller and the drone, sometimes causing sudden loss of control or crashes. Power lines are especially tricky because their electromagnetic fields are strong and unpredictable, and you can’t always tell how much they’ll affect your drone until you’re flying. That’s why it’s important to avoid flying near these sources when possible and to be aware that interference can come from many everyday electronics, not just the obvious big structures.",
+    "subquestion_reasoning": "Select documents detailing pre-flight identification and avoidance of invisible hazards like power lines or EMI; exclude those focused solely on visible obstacles or generic drone tips.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain methods for identifying and avoiding invisible drone hazards such as power lines and electromagnetic interference during pre-flight checks.",
+     "relevance_signals": [
+      "drone pre-flight safety",
+      "invisible hazards (e.g., power lines, EMI)"
+     ],
+     "irrelevance_signals": [
+      "visible obstacles only (e.g., trees, buildings)",
+      "general drone operation without hazard specifics"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2248_doc_2",
+     "drones_ex_2248_doc_0",
+     "drones_ex_2248_doc_1",
+     "drones_ex_2248_doc_6",
+     "drones_ex_2248_doc_5"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "What actually happens if you lose sight of your drone behind something? Is that a big deal?",
+    "answer": "Yeah, losing sight of your drone behind something can actually be a pretty big deal. When there’s a physical barrier—like a building, trees, or even a hill—between you and your drone, the signal can get weak or drop out completely. That means you could lose control or have delayed responses, which makes it much easier for something to go wrong. It’s always best to fly where you have a clear line of sight so you keep a strong connection the whole time.",
+    "subquestion_reasoning": "Select documents that address invisible risks like losing visual line-of-sight due to obstructions and offer prevention strategies; avoid those focused solely on visible hazards or unrelated technical topics.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss risks and consequences of losing visual line-of-sight with drones, and strategies or best practices to prevent this.",
+     "relevance_signals": [
+      "visual line-of-sight",
+      "drone flight planning",
+      "obstruction avoidance"
+     ],
+     "irrelevance_signals": [
+      "visible obstacles only",
+      "drone hardware reviews",
+      "general drone regulations without mention of line-of-sight"
+     ]
+    },
+    "conversation_history": "Q: In drone flying, what are some invisible hazards like power lines or interference that pilots should watch out for?\nA: When flying a drone, some of the biggest invisible hazards are electromagnetic interference from things like power lines, cell towers, and even dense clusters of Wi-Fi or Bluetooth signals in urban areas. These invisible fields can mess with your drone’s GPS, compass, and even disrupt the signal between your controller and the drone, sometimes causing sudden loss of control or crashes. Power lines are especially tricky because their electromagnetic fields are strong and unpredictable, and you can’t always tell how much they’ll affect your drone until you’re flying. That’s why it’s important to avoid flying near these sources when possible and to be aware that interference can come from many everyday electronics, not just the obvious big structures.",
+    "gold_doc_ids": [
+     "drones_ex_2248_doc_6",
+     "drones_ex_2248_doc_5"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "How can you actually tell if there’s interference from power lines before it becomes a problem?",
+    "answer": "It's actually really tough to tell if there’s interference from power lines before it causes problems, because those electromagnetic fields are invisible and unpredictable. Some pilots use tools like e-field readers to check EMF strength on the ground, but that’s not very practical or accurate for where the drone is actually flying. The most reliable way is to have an EMF sensor on the drone itself, which can give you real-time feedback and even warn you or help you avoid high-interference areas. But most people don’t have that setup, so the best thing you can do is avoid flying close to power lines whenever possible.",
+    "subquestion_reasoning": "Select documents that discuss electromagnetic risks from power lines and offer specific mitigation strategies; exclude those focused only on visible obstacles or unrelated drone safety topics.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how to detect and mitigate electromagnetic interference from power lines during drone flight, including best practices for maintaining control and signal stability.",
+     "relevance_signals": [
+      "electromagnetic interference",
+      "drone flight near power lines"
+     ],
+     "irrelevance_signals": [
+      "general drone safety",
+      "visible obstacles like trees"
+     ]
+    },
+    "conversation_history": "Q: In drone flying, what are some invisible hazards like power lines or interference that pilots should watch out for?\nA: When flying a drone, some of the biggest invisible hazards are electromagnetic interference from things like power lines, cell towers, and even dense clusters of Wi-Fi or Bluetooth signals in urban areas. These invisible fields can mess with your drone’s GPS, compass, and even disrupt the signal between your controller and the drone, sometimes causing sudden loss of control or crashes. Power lines are especially tricky because their electromagnetic fields are strong and unpredictable, and you can’t always tell how much they’ll affect your drone until you’re flying. That’s why it’s important to avoid flying near these sources when possible and to be aware that interference can come from many everyday electronics, not just the obvious big structures.\nQ: What actually happens if you lose sight of your drone behind something? Is that a big deal?\nA: Yeah, losing sight of your drone behind something can actually be a pretty big deal. When there’s a physical barrier—like a building, trees, or even a hill—between you and your drone, the signal can get weak or drop out completely. That means you could lose control or have delayed responses, which makes it much easier for something to go wrong. It’s always best to fly where you have a clear line of sight so you keep a strong connection the whole time.",
+    "gold_doc_ids": [
+     "drones_ex_2248_doc_2",
+     "drones_ex_2248_doc_1",
+     "drones_ex_2248_doc_0",
+     "drones_ex_2248_doc_5",
+     "drones_ex_2248_doc_6"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 12,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T03:54:26.003389",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_2240",
+  "task": "drones",
+  "original_query": "How to use real DJI controller in simulator I've got a DJI Mini 2 and I'm aware their official application (DJI Simulator) does not support it. Anyway, I wonder if I can use the real Mini 2 controller in any third-part simulator. I'm more interested in an Android app that simulate the camera view of a drone (like in real flying) rather than a desktop application (in any case I run Linux). I tried a couple of apps that claims to support USB controller but they didn't recognized mine (for example Freerider).",
+  "original_answer": "The transmitter needs to appear as a USB joystick to the computer. This is often displayed as 'HID' (human input device). At least, that's for desktops, I don't know if Android is the same. I've no idea if the DJI transmitter can do this. If not, you can buy a USB dummy RC transmitter. These used to be about \\$20, but I've just checked and they seem to be around \\$60 now. It could be cheaper to buy a basic real transmitter like a FlySky FS-i6 All the flight simulators I've seen have a choice of 'camera' positions. They can show you the view from the drone or the view from the ground (and often a 'chase plane' view). However they are all for race drones with fixed cameras (and LOS flying for fixed wings and helis). I don't think there are any that attempt to model the various GPS modes available on a DJI drone, or the camera gimbal.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In using the DJI Mini 2 controller with simulators, does it show up as a standard USB gamepad when plugged into Android or a computer?",
+    "answer": "The DJI Mini 2 controller doesn't show up as a standard USB gamepad when plugged into Android or a computer. It doesn't send button or joystick data over USB, so it's not recognized by simulators like regular game controllers are. If you want to use a controller with a simulator, you'll need to look at other options that are designed for this purpose.",
+    "subquestion_reasoning": "Select documents that test or describe the DJI Mini 2 controller's USB connection behavior, specifically if it appears as a joystick/gamepad (HID) to computers or Android devices; exclude general simulator info or wireless-only discussions.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should state whether the DJI Mini 2 controller is recognized as a USB joystick/gamepad by Android devices or computers.",
+     "relevance_signals": [
+      "DJI Mini 2 controller USB identification",
+      "recognized as joystick/gamepad",
+      "HID device compatibility"
+     ],
+     "irrelevance_signals": [
+      "general drone simulator reviews",
+      "DJI flight features unrelated to USB",
+      "Mini 2 controller wireless/Bluetooth only"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "drones_ex_2240_doc_0",
+     "drones_ex_2240_doc_2",
+     "drones_ex_2240_doc_3"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Are there any Android apps that actually let you fly with a camera view using a DJI-style controller?",
+    "answer": "Yes, there are Android apps that let you fly in a simulator with a camera view using a DJI-style controller. SRIZFLY is one example—it supports actual DJI controllers and gives you a realistic flight experience, including camera controls. Another app called SimuDrone also works with DJI remote controllers, so you can practice flying virtually on your phone or tablet.",
+    "subquestion_reasoning": "Select documents discussing Android drone simulators with camera view that explicitly mention support for DJI-style or non-racing controllers; exclude those focused solely on racing drones, desktop apps, or lacking controller compatibility details.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should describe Android drone simulators that support camera view and are compatible with DJI-style or non-racing controllers.",
+     "relevance_signals": [
+      "Android drone simulator",
+      "DJI controller compatibility",
+      "camera view simulation"
+     ],
+     "irrelevance_signals": [
+      "only racing drone simulators",
+      "desktop-only solutions",
+      "no mention of controller compatibility"
+     ]
+    },
+    "conversation_history": "Q: In using the DJI Mini 2 controller with simulators, does it show up as a standard USB gamepad when plugged into Android or a computer?\nA: The DJI Mini 2 controller doesn't show up as a standard USB gamepad when plugged into Android or a computer. It doesn't send button or joystick data over USB, so it's not recognized by simulators like regular game controllers are. If you want to use a controller with a simulator, you'll need to look at other options that are designed for this purpose.",
+    "gold_doc_ids": [
+     "drones_ex_2240_doc_4",
+     "drones_ex_2240_doc_1"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Do any of those apps actually let you use GPS modes like Return-to-Home with a non-DJI controller?",
+    "answer": "SRIZFLY is designed to work with actual DJI controllers and lets you practice flying different DJI drone models on your Android device. It has a realistic flight experience and supports setting up your controller through the app, but it doesn't mention support for GPS modes like Return-to-Home with non-DJI controllers. The focus is really on training with real DJI gear for the most accurate simulation.",
+    "subquestion_reasoning": "Retrieve documents describing Android drone simulators that replicate DJI GPS modes and support external controllers; exclude those focused on desktop platforms or lacking DJI-specific features.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss Android drone simulators that specifically model DJI GPS flight modes (e.g., Position Hold, Return-to-Home) and their compatibility with third-party controllers.",
+     "relevance_signals": [
+      "DJI flight modes",
+      "Android drone simulator",
+      "Position Hold",
+      "Return-to-Home",
+      "third-party controller support"
+     ],
+     "irrelevance_signals": [
+      "desktop-only simulators",
+      "general drone flying tips",
+      "simulators without GPS or DJI features"
+     ]
+    },
+    "conversation_history": "Q: In using the DJI Mini 2 controller with simulators, does it show up as a standard USB gamepad when plugged into Android or a computer?\nA: The DJI Mini 2 controller doesn't show up as a standard USB gamepad when plugged into Android or a computer. It doesn't send button or joystick data over USB, so it's not recognized by simulators like regular game controllers are. If you want to use a controller with a simulator, you'll need to look at other options that are designed for this purpose.\nQ: Are there any Android apps that actually let you fly with a camera view using a DJI-style controller?\nA: Yes, there are Android apps that let you fly in a simulator with a camera view using a DJI-style controller. SRIZFLY is one example—it supports actual DJI controllers and gives you a realistic flight experience, including camera controls. Another app called SimuDrone also works with DJI remote controllers, so you can practice flying virtually on your phone or tablet.",
+    "gold_doc_ids": [
+     "drones_ex_2240_doc_4"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 6,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T04:06:46.414467",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ }
+]

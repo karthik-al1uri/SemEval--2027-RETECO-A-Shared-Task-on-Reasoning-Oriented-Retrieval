@@ -1,0 +1,1240 @@
+[
+ {
+  "id": "ex_34769",
+  "task": "medicalsciences",
+  "original_query": "Is it futile to try dieting while being sleep-deficient? I'm currently debating the hypothesis, \"Is it futile to attempt dieting while being sleep-deficient since most of the weight we lose comes from lean body mass, not fat?\". I've been reading 'Why We Sleep' by Matthew Walker, and it is suggested on page 4 of the book, \"Worse, should you attempt to diet but don't get enough sleep while doing so, it is futile, since most of the weight you lose will come from lean body mass, not fat\". Let me be precise: by 'dieting' I mean reducing calorie intake (while maintaining recommended micronutrient intake), and by 'being sleep-deficient' I mean sleeping less than the recommended sleep duration of 7 hours per twenty-four hours as stipulated by the CDC ( https://www.cdc.gov/niosh/work-hour-training-for-nurses/longhours/mod2/08.html ). I've been trying to find some answers online (for example, I've looked into an article by the National Library of Medicine: https://pmc.ncbi.nlm.nih.gov/articles/PMC9031614/ ). Although it IS mentioned that studies have been proving that getting enough sleep can help with losing fat, I didn't see that losing weight from lean body mass is mentioned in the article. I'd greatly appreciate it if your answer could be sustained with a legitimate scientific study so I can verify the integrity of the answer. NOTE: I've noticed some comments in my initial question and acknowledged mistakes in it, so I've edited the question.",
+  "original_answer": "WebMD says: Researchers found that when dieters cut back on sleep over a 14-day period, the amount of weight they lost from fat dropped by 55%, even though their calories stayed equal. They felt hungrier and less satisfied after meals, and their energy was zapped. Although no research has been cited. The article you mentioned in the question (published on NCBI) says the following which answers your question: Calvin and colleagues proposed that people undergoing sleep deprivation tend to gain weight due to increased caloric intake, and that therefore sleep deprivation may provide a strong impetus for the development of obesity. An average increase in energy intake of 200 to 500 kcal/day has been documented after imposed sleep deprivation, compared with normal sleep duration, suggesting that increased sleep duration may be largely due to the weight gain observed after sleep deprivation. Further, Some studies suggest that sleep plays a role in weight loss, and specifically fat loss, during calorie restriction. In a study of people undergoing 14 days of calorie restriction, the participants lost less fat when they spent 5.5 h a day in bed than when they spent 8.5 h a day in bed. In line with this finding, an intervention that included a 4-day controlled diet combined with short sleep (4 h a day in bed) resulted in less weight loss than with normal sleep (9 h a day in bed). Harvard article on an experiment is tagged in here . A para of it: New research boosts this premise, suggesting that adults who are better rested consume significantly fewer calories than those who are chronically sleep-deprived. This article: After a diet-induced 13.1 kg weight loss, participants with short sleep duration at randomization regained 5.3 kg body weight (p = .0008) and had less reduction in body fat percentage compared with participants with normal sleep duration (p = .007) during the 1-year weight maintenance phase. Participants with poor sleep quality before the weight loss regained 3.5 kg body weight compared with good quality sleepers (p = .010).",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In dieting, does not getting enough sleep change whether you lose more fat or more muscle?",
+    "answer": "Yes, not getting enough sleep while dieting can really change what kind of weight you lose. When people don’t sleep enough, they tend to lose less fat and more muscle compared to when they get enough rest—even if they’re eating the same reduced-calorie diet. So, getting good sleep actually helps your body hold onto muscle and lose more fat during weight loss.",
+    "subquestion_reasoning": "Retrieve studies comparing fat and lean mass loss during calorie restriction with and without sleep deprivation; exclude documents lacking body composition outcomes or not involving both variables.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should report how sleep restriction during calorie-restricted dieting affects the ratio of fat loss to lean body mass loss.",
+     "relevance_signals": [
+      "sleep restriction AND calorie restriction",
+      "fat loss vs lean mass loss"
+     ],
+     "irrelevance_signals": [
+      "sleep effects without dieting",
+      "weight loss without body composition analysis"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34769_doc_0",
+     "medicalsciences_ex_34769_doc_3",
+     "medicalsciences_ex_34769_doc_1",
+     "medicalsciences_ex_34769_doc_2",
+     "medicalsciences_ex_34769_doc_4"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Is it harder to stick to a diet when you’re sleep-deprived because you feel hungrier or less satisfied after meals?",
+    "answer": "Yes, it does seem harder to stick to a diet when you’re not getting enough sleep. When people sleep less, they experience more hunger, even while eating the same amount of calories. That extra hunger can make it tougher to feel satisfied after meals and stay on track with dieting.",
+    "subquestion_reasoning": "Select documents that directly measure or discuss hunger, appetite, or meal satisfaction in sleep-deprived individuals who are dieting or restricting calories; exclude those focused solely on weight loss, metabolism, or sleep without behavioral eating outcomes.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should report on the effects of sleep deficiency on hunger, meal satisfaction, or appetite regulation during calorie restriction or dieting.",
+     "relevance_signals": [
+      "sleep deprivation AND hunger/appetite",
+      "sleep loss AND meal satisfaction/satiety"
+     ],
+     "irrelevance_signals": [
+      "sleep and weight loss without mention of hunger or satisfaction",
+      "studies on sleep and metabolism without behavioral outcomes"
+     ]
+    },
+    "conversation_history": "Q: In dieting, does not getting enough sleep change whether you lose more fat or more muscle?\nA: Yes, not getting enough sleep while dieting can really change what kind of weight you lose. When people don’t sleep enough, they tend to lose less fat and more muscle compared to when they get enough rest—even if they’re eating the same reduced-calorie diet. So, getting good sleep actually helps your body hold onto muscle and lose more fat during weight loss.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34769_doc_0"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "I wonder if losing sleep makes it easier to put the weight back on, even after dieting?",
+    "answer": "Yeah, losing sleep while dieting could make it easier to put weight back on, especially since you lose more muscle and less fat when you don’t get enough rest. Muscle helps keep your metabolism up, so losing more of it can make it harder to maintain weight loss in the long run. Plus, sleep loss makes you hungrier, which can also make it tougher to keep the weight off after dieting.",
+    "subquestion_reasoning": "Select documents that examine how chronic sleep deprivation influences weight regain and fat accumulation after dieting, and avoid those focused solely on short-term sleep loss or unrelated weight loss strategies.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss the effects of chronic sleep deprivation on post-diet weight regain, specifically regarding fat accumulation or increased obesity risk.",
+     "relevance_signals": [
+      "chronic sleep deprivation and weight regain",
+      "fat accumulation after dieting"
+     ],
+     "irrelevance_signals": [
+      "acute sleep loss only",
+      "weight loss interventions unrelated to sleep"
+     ]
+    },
+    "conversation_history": "Q: In dieting, does not getting enough sleep change whether you lose more fat or more muscle?\nA: Yes, not getting enough sleep while dieting can really change what kind of weight you lose. When people don’t sleep enough, they tend to lose less fat and more muscle compared to when they get enough rest—even if they’re eating the same reduced-calorie diet. So, getting good sleep actually helps your body hold onto muscle and lose more fat during weight loss.\nQ: Is it harder to stick to a diet when you’re sleep-deprived because you feel hungrier or less satisfied after meals?\nA: Yes, it does seem harder to stick to a diet when you’re not getting enough sleep. When people sleep less, they experience more hunger, even while eating the same amount of calories. That extra hunger can make it tougher to feel satisfied after meals and stay on track with dieting.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34769_doc_0",
+     "medicalsciences_ex_34769_doc_1",
+     "medicalsciences_ex_34769_doc_2",
+     "medicalsciences_ex_34769_doc_3",
+     "medicalsciences_ex_34769_doc_4"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 11,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T10:09:09.032843",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_34719",
+  "task": "medicalsciences",
+  "original_query": "Why is inert gas asphyxiation so rapid if people can hold their breath for much longer? Wikipedia says that inhaling a pure inert gas causes a loss of consciousness in only a few breaths. But how can that be if people can hold their breath for way longer, well over a minute or even two minutes, without becoming unconscious? Does the extra air your breath in during the \"deep breath\" contain enough oxygen to account for this?",
+  "original_answer": "When you breathe out and back in, you replace the gas in your lungs with the gas in the outside air. The lungs have a high surface area interface between blood gas and lung gas and function to make the partial pressures of gases in the lungs and blood nearly equal. Importantly, you do not use up all the oxygen in the lungs between breaths. To do so, you'd have to also use up all the oxygen in the blood: remember that the lungs make the partial pressures nearly equal. Typical partial pressures of oxygen in the atmosphere are around 160 Torr, lungs around 100 Torr, arterial blood around 100 Torr, venous blood around 50 Torr. See for example Wikipedia Pulmonary Gas Pressures . If you hold your breath, then the total oxygen in your body is the amount dissolved in the blood and all the tissues and the amount in the lungs. You'll eventually use this up in metabolism, and when the partial pressure of oxygen drops sufficiently you will eventually lose consciousness, but this is relatively slow. If you breathe an inert gas like nitrogen, every breath is a pump taking the amount of oxygen in the lungs and replacing it with zero oxygen. The lungs then will fill with some oxygen from the blood before the next breath, at which point it will all be pumped out again.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In inert gas asphyxiation, why does breathing pure inert gas make you pass out faster than just holding your breath?",
+    "answer": "Breathing pure inert gas makes you pass out much faster than just holding your breath because you keep exhaling carbon dioxide without getting any new oxygen. Since the inert gas has no taste or smell and doesn't trigger the usual sense of suffocation, your oxygen levels drop really fast—sometimes enough to make you lose consciousness in only a few breaths, and you don't even feel it happening.",
+    "subquestion_reasoning": "Select documents detailing the physiological mechanisms of oxygen removal from blood during inert gas inhalation, especially those discussing lung partial pressures and gas exchange differences compared to breath-holding.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how breathing pure inert gas versus holding breath affects oxygen depletion in the blood via lung partial pressures.",
+     "relevance_signals": [
+      "gas exchange physiology",
+      "lung partial pressures",
+      "inert gas asphyxiation"
+     ],
+     "irrelevance_signals": [
+      "general asphyxiation causes",
+      "breath-holding world records",
+      "non-respiratory effects of gases"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34719_doc_0"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Is it the leftover oxygen in your lungs that lets you stay conscious longer when you hold your breath?",
+    "answer": "Yeah, that's right—the leftover oxygen in your lungs is what keeps you conscious longer when you hold your breath. Even when you're not breathing in, there's still a reserve of oxygen in your lungs that your body can use for a short time. This oxygen store usually lasts about a minute before your levels get too low and hypoxia sets in. That's why you can hold your breath for a bit before passing out, compared to breathing in an inert gas, which flushes out the oxygen much faster.",
+    "subquestion_reasoning": "Select documents that compare oxygen utilization in breath-holding and inert gas inhalation, focusing on lung physiology and consciousness duration; avoid sources about unrelated gas exposures or anesthesia.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how oxygen in the lungs' functional residual capacity sustains consciousness during breath-holding versus when breathing inert gas.",
+     "relevance_signals": [
+      "functional residual capacity",
+      "oxygen depletion during breath-holding",
+      "inert gas asphyxiation mechanisms"
+     ],
+     "irrelevance_signals": [
+      "general anesthesia",
+      "carbon dioxide toxicity",
+      "non-respiratory gas exposures"
+     ]
+    },
+    "conversation_history": "Q: In inert gas asphyxiation, why does breathing pure inert gas make you pass out faster than just holding your breath?\nA: Breathing pure inert gas makes you pass out much faster than just holding your breath because you keep exhaling carbon dioxide without getting any new oxygen. Since the inert gas has no taste or smell and doesn't trigger the usual sense of suffocation, your oxygen levels drop really fast—sometimes enough to make you lose consciousness in only a few breaths, and you don't even feel it happening.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34719_doc_0",
+     "medicalsciences_ex_34719_doc_2",
+     "medicalsciences_ex_34719_doc_3",
+     "medicalsciences_ex_34719_doc_1"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "What happens to the oxygen pressure in your lungs when you switch from air to pure inert gas?",
+    "answer": "When you switch from breathing air to pure inert gas, the oxygen pressure in your lungs drops very quickly. That's because you're no longer bringing in any new oxygen, but you keep exhaling the oxygen that's already there. In just a couple of breaths, the oxygen level in your lungs can fall low enough that even some of the oxygen in your blood moves back into your lungs and gets breathed out, which makes you lose consciousness really fast.",
+    "subquestion_reasoning": "Select documents discussing oxygen partial pressures and their impact on oxygen depletion rates in scenarios comparing breath-holding and inert gas inhalation; avoid sources lacking physiological or gas exchange details.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how oxygen partial pressures in air and lungs affect the rate of oxygen depletion during inert gas inhalation versus breath-holding.",
+     "relevance_signals": [
+      "oxygen partial pressure",
+      "gas exchange during breath-holding and inert gas inhalation"
+     ],
+     "irrelevance_signals": [
+      "general asphyxiation without gas details",
+      "irrelevant gases (e.g., carbon monoxide)"
+     ]
+    },
+    "conversation_history": "Q: In inert gas asphyxiation, why does breathing pure inert gas make you pass out faster than just holding your breath?\nA: Breathing pure inert gas makes you pass out much faster than just holding your breath because you keep exhaling carbon dioxide without getting any new oxygen. Since the inert gas has no taste or smell and doesn't trigger the usual sense of suffocation, your oxygen levels drop really fast—sometimes enough to make you lose consciousness in only a few breaths, and you don't even feel it happening.\nQ: Is it the leftover oxygen in your lungs that lets you stay conscious longer when you hold your breath?\nA: Yeah, that's right—the leftover oxygen in your lungs is what keeps you conscious longer when you hold your breath. Even when you're not breathing in, there's still a reserve of oxygen in your lungs that your body can use for a short time. This oxygen store usually lasts about a minute before your levels get too low and hypoxia sets in. That's why you can hold your breath for a bit before passing out, compared to breathing in an inert gas, which flushes out the oxygen much faster.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34719_doc_0",
+     "medicalsciences_ex_34719_doc_1",
+     "medicalsciences_ex_34719_doc_3",
+     "medicalsciences_ex_34719_doc_2"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 9,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T10:11:08.987938",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_34687",
+  "task": "medicalsciences",
+  "original_query": "Should bystander CPR be modified or avoided for a patient who has had open heart surgery? If a person who is known to have had open heart surgery is unconscious and pulseless outside a hospital, should an untrained bystander follow normal CPR procedures, perform CPR in a different way than usual, or avoid CPR entirely and only call emergency services?",
+  "original_answer": "@Michael's comment is correct. With pulselessness, seriously, every second counts. The brain is very sensitive to hypoxia, and brain damage starts at around 4-5 minutes of pulselessness (depending on the person's health, it might take less or more time, but not a lot.) After that, the patient might still \"make it\", but with brain impairment; the longer it lasts, the worse the outcome. The heart can last a bit longer than the brain, but only a few minutes more. So the focus of CPR is quick assessment and quickly commencing effective compressions. The only contraindication for CPR is when resuscitative efforts are considered medically futile or ethically inappropriate. In other words, CPR is the same whether the patient had previous cardiac surgery or not. Cardiopulmonary Resuscitation",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In bystander CPR after heart surgery, should someone start chest compressions right away or wait because of the person’s surgery?",
+    "answer": "If someone collapses without a pulse after heart surgery, you should start chest compressions right away—there’s no need to wait because of their surgery. Doing CPR, including firm, rapid chest compressions, is considered safe even if they’ve recently had bypass surgery, a stent, or even a plated sternum. The most important thing is to get blood circulating again as soon as possible.",
+    "subquestion_reasoning": "Select documents that address CPR recommendations for laypersons encountering cardiac arrest in individuals with prior open heart surgery, and avoid those focused solely on hospital protocols or advanced provider interventions.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should state whether standard bystander CPR procedures apply to patients with a history of open heart surgery in out-of-hospital cardiac arrest.",
+     "relevance_signals": [
+      "bystander CPR after cardiac surgery",
+      "CPR guidelines for post-surgical patients"
+     ],
+     "irrelevance_signals": [
+      "CPR for in-hospital settings only",
+      "CPR modifications for trained medical personnel only"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34687_doc_0",
+     "medicalsciences_ex_34687_doc_3"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Would waiting to start CPR make brain damage more likely for someone who’s had heart surgery?",
+    "answer": "Waiting to start CPR after heart surgery can be risky, but there’s a special approach for these patients. In some cases, like in a cardiac ICU, the team might hold off on chest compressions for up to a minute to quickly try things like defibrillation or pacing first. The idea is to fix reversible causes right away, but if those don’t work, chest compressions should still be started as soon as possible to keep blood flowing.",
+    "subquestion_reasoning": "Retrieve documents linking CPR timing to brain injury or survival in post-cardiac surgery patients; exclude those focused solely on CPR methods or surgical healing.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss the effects of CPR timing on brain outcomes after cardiac arrest, specifically in patients with a history of open heart surgery.",
+     "relevance_signals": [
+      "CPR timing and neurological outcomes",
+      "open heart surgery and cardiac arrest"
+     ],
+     "irrelevance_signals": [
+      "CPR techniques only",
+      "surgical recovery without reference to cardiac arrest or CPR"
+     ]
+    },
+    "conversation_history": "Q: In bystander CPR after heart surgery, should someone start chest compressions right away or wait because of the person’s surgery?\nA: If someone collapses without a pulse after heart surgery, you should start chest compressions right away—there’s no need to wait because of their surgery. Doing CPR, including firm, rapid chest compressions, is considered safe even if they’ve recently had bypass surgery, a stent, or even a plated sternum. The most important thing is to get blood circulating again as soon as possible.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34687_doc_4"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Are there any cases where you actually shouldn’t do regular CPR if someone’s had open heart surgery?",
+    "answer": "There are some special cases after open heart surgery where regular chest compressions can actually be risky, especially right after surgery because the heart and blood vessels are more fragile. In intensive care units, there’s a special protocol where the team might focus first on fixing reversible causes, and sometimes even open the chest right away if needed. Regular CPR is still used if nothing else works, but the approach can be different in these patients to avoid damaging the surgical repairs.",
+    "subquestion_reasoning": "Select documents that directly address bystander CPR recommendations for post-open heart surgery patients, not those focused on in-hospital care or general post-operative recovery.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should state whether standard bystander CPR protocols should be modified or avoided for patients with a history of open heart surgery, according to current guidelines.",
+     "relevance_signals": [
+      "bystander CPR after cardiac surgery",
+      "CPR contraindications in post-surgical patients"
+     ],
+     "irrelevance_signals": [
+      "CPR techniques for trained professionals only",
+      "general cardiac surgery recovery advice"
+     ]
+    },
+    "conversation_history": "Q: In bystander CPR after heart surgery, should someone start chest compressions right away or wait because of the person’s surgery?\nA: If someone collapses without a pulse after heart surgery, you should start chest compressions right away—there’s no need to wait because of their surgery. Doing CPR, including firm, rapid chest compressions, is considered safe even if they’ve recently had bypass surgery, a stent, or even a plated sternum. The most important thing is to get blood circulating again as soon as possible.\nQ: Would waiting to start CPR make brain damage more likely for someone who’s had heart surgery?\nA: Waiting to start CPR after heart surgery can be risky, but there’s a special approach for these patients. In some cases, like in a cardiac ICU, the team might hold off on chest compressions for up to a minute to quickly try things like defibrillation or pacing first. The idea is to fix reversible causes right away, but if those don’t work, chest compressions should still be started as soon as possible to keep blood flowing.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34687_doc_4",
+     "medicalsciences_ex_34687_doc_3",
+     "medicalsciences_ex_34687_doc_1"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 6,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T10:18:24.099871",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_34651",
+  "task": "medicalsciences",
+  "original_query": "Why doesn&#39;t a glucose meter detect sugar in water? I have a Dr. Morepen glucose meter (used for checking blood sugar levels). Out of curiosity, I dissolved table sugar (sucrose) in water and tried to test it using the meter. Surprisingly, the reading showed nothing—just as if I hadn't applied any sample. I understand that these devices are meant for blood, but I assumed they would at least detect some kind of sugar concentration. Why doesn't the meter detect sugar in a water solution, even if sugar is present? Is this because of the type of sugar (sucrose vs glucose), or is there something specific about blood that enables detection? I'm not planning to use the device for anything outside its intended purpose—I’m just curious about the science behind how it works and why it doesn’t respond to sugar water.",
+  "original_answer": "Detection of glucose in blood works over enzymatic degradation and electrochemical detection of a by product of this reaction. The test strips contain glucose oxidase, an enzyme that very selectively oxidizes glucose into gluconolactone. The now reduced enzyme recovers by converting oxygen to hydrogen peroxide (modern monitors may use other electron acceptors) The hydrogen peroxide is then oxidized by an electrode, generating a current that is converted into a glucose concentration value. Modern monitors might use direct transfer of electrons from enzyme to electrode. Glucose biosensors Two reasons why you don't measure a concentration: Table sugar, i.e., sucrose, is a different molecule than glucose. Sucrose is a disaccharide of fructose and glucose. The enzyme will not be able to oxidize sucrose. Enzyme activity is also often tightly linked to its chemical environment, where pH, salt concentration, and other factors will determine stability and conversion rate. Tap water might not be the best medium. Enzyme activity You may try glucose sources like a solution of honey.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In glucose meters, how come they only pick up glucose and not other sugars like sucrose in water?",
+    "answer": "Glucose meters use an enzyme called glucose oxidase, which is very specific and only reacts with D-glucose. This means it won't pick up other sugars like sucrose, because the enzyme just doesn't recognize or interact with them. That's why the meter is able to measure only glucose, even if other sugars are present in the water.",
+    "subquestion_reasoning": "Select documents detailing glucose oxidase's selective reaction with glucose versus other sugars; avoid those focused on unrelated testing methods or general device usage.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how glucose oxidase specifically reacts with glucose and why it does not react with sucrose or other sugars in aqueous solutions.",
+     "relevance_signals": [
+      "glucose oxidase specificity",
+      "enzyme-substrate interaction with glucose"
+     ],
+     "irrelevance_signals": [
+      "general blood sugar testing procedures",
+      "non-enzymatic sugar detection methods"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34651_doc_1",
+     "medicalsciences_ex_34651_doc_0"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Is there something about the structure of sucrose that makes it invisible to the enzyme in the meter?",
+    "answer": "Yeah, the structure of sucrose is different from glucose, and that's why the enzyme in the meter doesn't recognize it. Glucose oxidase is really specific—it only reacts with the beta-D-glucopyranose form of glucose, which is a particular shape that sucrose just doesn't have. So, even if sucrose is present, the enzyme ignores it because it doesn't fit the way glucose does.",
+    "subquestion_reasoning": "Select documents discussing enzyme-substrate specificity, especially glucose oxidase's inability to process sucrose due to its structure. Avoid general sugar metabolism or topics not focused on enzyme recognition.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain the structural differences between sucrose and glucose, specifically why sucrose is not recognized by glucose meter enzymes.",
+     "relevance_signals": [
+      "enzyme specificity",
+      "structural comparison of sucrose and glucose",
+      "glucose oxidase mechanism"
+     ],
+     "irrelevance_signals": [
+      "general sugar metabolism",
+      "non-enzymatic glucose detection",
+      "unrelated blood sugar topics"
+     ]
+    },
+    "conversation_history": "Q: In glucose meters, how come they only pick up glucose and not other sugars like sucrose in water?\nA: Glucose meters use an enzyme called glucose oxidase, which is very specific and only reacts with D-glucose. This means it won't pick up other sugars like sucrose, because the enzyme just doesn't recognize or interact with them. That's why the meter is able to measure only glucose, even if other sugars are present in the water.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34651_doc_0",
+     "medicalsciences_ex_34651_doc_1"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Oh, so is it the hydrogen peroxide part that actually triggers the meter’s reading?",
+    "answer": "Yeah, that's right—the actual reading on the meter comes from the electrical signal that’s generated during the glucose reaction. When glucose oxidase reacts with glucose in the blood, it creates a chemical reaction that produces an electrical current. The meter measures this current, and the number you see on the screen reflects how much glucose is in the sample, based on the strength of that signal.",
+    "subquestion_reasoning": "Select documents detailing the enzymatic reaction (glucose oxidase, hydrogen peroxide) in glucose meters and why this process is specific to glucose, not sucrose or plain water.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain the glucose oxidase-based electrochemical detection mechanism in glucose meters and its substrate specificity for glucose over sucrose.",
+     "relevance_signals": [
+      "glucose oxidase mechanism",
+      "hydrogen peroxide generation",
+      "substrate specificity (glucose vs sucrose)"
+     ],
+     "irrelevance_signals": [
+      "general diabetes management",
+      "non-enzymatic glucose sensors",
+      "sucrose metabolism in the body"
+     ]
+    },
+    "conversation_history": "Q: In glucose meters, how come they only pick up glucose and not other sugars like sucrose in water?\nA: Glucose meters use an enzyme called glucose oxidase, which is very specific and only reacts with D-glucose. This means it won't pick up other sugars like sucrose, because the enzyme just doesn't recognize or interact with them. That's why the meter is able to measure only glucose, even if other sugars are present in the water.\nQ: Is there something about the structure of sucrose that makes it invisible to the enzyme in the meter?\nA: Yeah, the structure of sucrose is different from glucose, and that's why the enzyme in the meter doesn't recognize it. Glucose oxidase is really specific—it only reacts with the beta-D-glucopyranose form of glucose, which is a particular shape that sucrose just doesn't have. So, even if sucrose is present, the enzyme ignores it because it doesn't fit the way glucose does.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34651_doc_1",
+     "medicalsciences_ex_34651_doc_4",
+     "medicalsciences_ex_34651_doc_0"
+    ]
+   },
+   {
+    "turn_id": 4,
+    "query": "And does the oxygen part in that reaction explain why the meter just ignores sucrose in water?",
+    "answer": "Yeah, the oxygen is part of the reaction that only happens with glucose because glucose oxidase is so specific. The enzyme needs the particular shape of glucose to kick off the reaction with oxygen, which then leads to the signal the meter reads. Since sucrose doesn’t fit that shape, the enzyme doesn’t react with it, so there’s no oxygen reaction and nothing for the meter to detect.",
+    "subquestion_reasoning": "Select documents detailing the glucose oxidase reaction, oxygen’s role in signal generation, and enzyme specificity for glucose over sucrose; avoid general diabetes care or unrelated sugar detection topics.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain the glucose oxidase reaction, specifically how oxygen is used to generate a measurable signal in glucose meters and why this reaction is specific to glucose, not sucrose.",
+     "relevance_signals": [
+      "glucose oxidase mechanism",
+      "hydrogen peroxide formation",
+      "enzyme specificity"
+     ],
+     "irrelevance_signals": [
+      "general diabetes management",
+      "sucrose metabolism in humans",
+      "non-enzymatic sugar detection methods"
+     ]
+    },
+    "conversation_history": "Q: In glucose meters, how come they only pick up glucose and not other sugars like sucrose in water?\nA: Glucose meters use an enzyme called glucose oxidase, which is very specific and only reacts with D-glucose. This means it won't pick up other sugars like sucrose, because the enzyme just doesn't recognize or interact with them. That's why the meter is able to measure only glucose, even if other sugars are present in the water.\nQ: Is there something about the structure of sucrose that makes it invisible to the enzyme in the meter?\nA: Yeah, the structure of sucrose is different from glucose, and that's why the enzyme in the meter doesn't recognize it. Glucose oxidase is really specific—it only reacts with the beta-D-glucopyranose form of glucose, which is a particular shape that sucrose just doesn't have. So, even if sucrose is present, the enzyme ignores it because it doesn't fit the way glucose does.\nQ: Oh, so is it the hydrogen peroxide part that actually triggers the meter’s reading?\nA: Yeah, that's right—the actual reading on the meter comes from the electrical signal that’s generated during the glucose reaction. When glucose oxidase reacts with glucose in the blood, it creates a chemical reaction that produces an electrical current. The meter measures this current, and the number you see on the screen reflects how much glucose is in the sample, based on the strength of that signal.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34651_doc_1",
+     "medicalsciences_ex_34651_doc_4",
+     "medicalsciences_ex_34651_doc_0"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 4,
+   "gold_doc_count": 10,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T10:19:09.649920",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_34599",
+  "task": "medicalsciences",
+  "original_query": "Is there any evidence to say the COVID vaccine can cause long COVID symptoms? I saw a video of Dr. Jordon Vaughn's speaking before Congress saying he believes that the COVID vaccine can cause long COVID symptoms. I was hoping someone can shed some light on this claim from a scientific perspective. Way over my level of expertise. I apologize if the question may be inappropriate or off topic. Insight is always appreciated. Thank you P.S. Submitted for your perusal. https://www.congress.gov/118/meeting/house/117456/witnesses/HHRG-118-JU05-Wstate-VaughnMDABIMJ-20240626.pdf",
+  "original_answer": "Well, you link to a doctor who says he has patients that have long COVID symptoms from the COVID vaccine. That's some evidence, isn't it? It seems like not very good evidence , though. The doctor doesn't actually provide support that these folks haven't actually had COVID. There's no control group. The study is unplanned, making conclusions likely to be spurious. It's entirely anecdotal. A reasonably rigorous scientific approach would at least compare the likelihood of getting long COVID symptoms without the vaccine to with the vaccine; this would help to establish a cost-benefit and to help cancel out any unrecognized COVID infections in the two groups as well as alternative causes for symptoms. That's the main point of a randomized trial: to compare two groups that differ only in the specific treatment given. Without randomization, it's hard to determine whether a particular exposure difference is actually the cause of the outcome difference. The reason that someone testifies before Congress is that someone has invited them there to make a point for them. I think it's telling that for someone who wanted to make this particular point that this was the best they could come up with. A systematic review of long-COVID after vaccination ( Byambasuren, O., Stehlik, P., Clark, J., Alcorn, K., & Glasziou, P. (2023). Effect of covid-19 vaccination on long covid: systematic review. BMJ medicine, 2(1), e000385. ) found randomized controlled trials lacking, but among observational trials: 12 studies reported data on vaccination before infection with the SARS-CoV-2 virus, and 10 showed a significant reduction in the incidence of long covid: the odds ratio of developing long covid with one dose of vaccine ranged from 0.22 to 1.03; with two doses, odds ratios were 0.25-1; with three doses, 0.16; and with any dose, 0.48-1.01 This would be evidence that vaccines are protective against long COVID, presumably by protecting against severe COVID infection, weighed against a doctor who thinks he might have seen patients that got long COVID symptoms from the vaccine.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "Regarding COVID vaccines, is there any evidence they can cause long COVID symptoms compared to being unvaccinated?",
+    "answer": "There's no evidence that getting a COVID vaccine increases your risk of long COVID compared to being unvaccinated. In a large study, people who had two or more doses of the vaccine were just as likely to get long COVID as those who weren't vaccinated. Other factors like age, being female, and how severe your initial COVID infection was seemed to play a bigger role.",
+    "subquestion_reasoning": "Retrieve documents that present empirical data or systematic reviews comparing long COVID outcomes between vaccinated and unvaccinated groups; exclude those lacking such comparative analysis.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should report scientific studies comparing long COVID rates in vaccinated versus unvaccinated individuals.",
+     "relevance_signals": [
+      "long COVID incidence",
+      "COVID-19 vaccination status comparison"
+     ],
+     "irrelevance_signals": [
+      "case reports without comparison",
+      "documents focused only on vaccine side effects unrelated to long COVID"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34599_doc_2"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Is there any idea how a vaccine could even trigger long COVID symptoms, biologically speaking?",
+    "answer": "There’s some evidence that, in rare cases, people can develop nerve-related symptoms after getting a COVID vaccine, like tingling or issues with sweating and heart rate. In these cases, it seems the immune system might react in a way that affects small nerve fibers, possibly triggering symptoms similar to those seen in long COVID. Some people improved with treatments that calm the immune system, which supports the idea that it could be immune-related.",
+    "subquestion_reasoning": "Retrieve documents that discuss biological or immunological explanations for vaccine-induced long COVID-like symptoms and directly compare these to mechanisms of long COVID after infection; exclude sources that only address prevalence, efficacy, or lack mechanistic detail.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should describe proposed biological mechanisms linking COVID vaccines to long COVID-like symptoms and compare these to mechanisms after SARS-CoV-2 infection.",
+     "relevance_signals": [
+      "biological mechanisms",
+      "COVID vaccine adverse effects",
+      "comparison to post-infection long COVID"
+     ],
+     "irrelevance_signals": [
+      "general vaccine efficacy",
+      "long COVID prevalence only",
+      "non-mechanistic opinions"
+     ]
+    },
+    "conversation_history": "Q: Regarding COVID vaccines, is there any evidence they can cause long COVID symptoms compared to being unvaccinated?\nA: There's no evidence that getting a COVID vaccine increases your risk of long COVID compared to being unvaccinated. In a large study, people who had two or more doses of the vaccine were just as likely to get long COVID as those who weren't vaccinated. Other factors like age, being female, and how severe your initial COVID infection was seemed to play a bigger role.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34599_doc_3"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "I wonder if not having those big controlled trials makes it harder to trust the results?",
+    "answer": "Yeah, not having big controlled trials does make things a bit trickier. The results we have are mixed—some studies say vaccines lower the risk of long COVID or even help symptoms, while others suggest certain symptoms might get worse or link vaccination to long COVID. So, without those large, controlled studies, it’s harder to be totally confident, and that’s why more research is still needed.",
+    "subquestion_reasoning": "Select documents that analyze how the absence of randomized controlled trials affects evidence quality regarding COVID vaccines and long COVID, while excluding those that discuss unrelated vaccine topics or lack methodological focus.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss the impact of study design—especially the lack of randomized controlled trials—on the reliability of conclusions about COVID vaccines causing or preventing long COVID.",
+     "relevance_signals": [
+      "randomized controlled trials",
+      "study design limitations",
+      "long COVID and vaccination"
+     ],
+     "irrelevance_signals": [
+      "general vaccine safety",
+      "COVID vaccine efficacy against infection",
+      "opinions without methodological discussion"
+     ]
+    },
+    "conversation_history": "Q: Regarding COVID vaccines, is there any evidence they can cause long COVID symptoms compared to being unvaccinated?\nA: There's no evidence that getting a COVID vaccine increases your risk of long COVID compared to being unvaccinated. In a large study, people who had two or more doses of the vaccine were just as likely to get long COVID as those who weren't vaccinated. Other factors like age, being female, and how severe your initial COVID infection was seemed to play a bigger role.\nQ: Is there any idea how a vaccine could even trigger long COVID symptoms, biologically speaking?\nA: There’s some evidence that, in rare cases, people can develop nerve-related symptoms after getting a COVID vaccine, like tingling or issues with sweating and heart rate. In these cases, it seems the immune system might react in a way that affects small nerve fibers, possibly triggering symptoms similar to those seen in long COVID. Some people improved with treatments that calm the immune system, which supports the idea that it could be immune-related.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34599_doc_0"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 3,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T10:18:13.938195",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_34486",
+  "task": "medicalsciences",
+  "original_query": "Why are there cervical and lumbar enlargements in spinal cord? Two regions of the spinal cord are enlarged to accommodate the greater number of nerve cells and connections needed to process information related to the upper and lower limbs (see Figure 1.10B). External Anatomy of Spinal Cord This is the explanation I found for cervical and lumbar enlargements of the spinal cord. My problem is that Since the neurons are descending from or ascending to the brain how can thoracic be thinner than lumbar segments. And by that logic spinal cord should reduce in thickness from cervical to sacral without any irregularities. As all ascending tracts and descending tracts from lower segments will pass through upper segments, Right?? My attempt \"More number of neurons needed to process\"? Maybe it is referring to reflexes because all other processing voluntary occurs at the brain. Or maybe it has multiple sensory neurons that relay to only one at spinal cord which then ascends to cortex. This doesn't seem correct because limbs should need fine motor movements so more motor neurons.",
+  "original_answer": "The spinal cord isn't just \"tracts\". There are lots of neurons in the spinal cord. Roughly, the \"white matter\" of the spinal cord is made up of projections to or from the brain; the \"gray matter\" are cells for local processing. See e.g. https://www.ncbi.nlm.nih.gov/books/NBK11008/ Some of that are the neurons involved in reflex arcs, yes, but those neurons aren't \"just\" there for reflexes. Consider for example that every single lower motor neuron in the parts of the body served by the spinal cord (the neurons that synapses onto a muscle) has its cell body in the spinal cord . There is a lot of motor processing that happens within the spinal cord itself, the \"voluntary\" part just barely scratches the surface of motor control of skeletal muscle, there is lots of additional processing in the brainstem as well as the spinal cord. Additionally, these \"enlargements\" are relative to the immediately preceding segments; the book and passage you refer to does not make any claim that the lumbar enlargement is larger than the cervical spinal cord, so don't mistake that it has.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In spinal cord anatomy, how does the way gray and white matter are arranged lead to those bigger areas in the cervical and lumbar regions?",
+    "answer": "Those bigger areas you see in the cervical and lumbar regions of the spinal cord are actually due to the way gray matter is arranged there. The ventral gray horn is much larger in these segments because it has to handle all the nerves that go out to your arms and legs. Basically, since the cervical and lumbar regions control the limb muscles, they need more nerve cells packed in, which makes those areas look bigger.",
+    "subquestion_reasoning": "Retrieve documents that discuss the relationship between gray/white matter and spinal cord enlargements, especially in the cervical and lumbar regions; exclude sources lacking detail on gray matter or focusing solely on tract pathways or peripheral nerves.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how the distribution of gray and white matter relates to the cervical and lumbar enlargements of the spinal cord.",
+     "relevance_signals": [
+      "gray matter distribution",
+      "spinal cord enlargements",
+      "motor/sensory neuron localization"
+     ],
+     "irrelevance_signals": [
+      "general spinal cord anatomy without mention of enlargements",
+      "focus only on tracts without gray matter",
+      "peripheral nerve structure"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34486_doc_1"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Where exactly do those motor neuron cell bodies for the arms and legs sit in the spinal cord?",
+    "answer": "The motor neuron cell bodies for your arms and legs sit in the ventral horn of the spinal cord, specifically in areas called lamina VIII and IX. In the cervical enlargement (C5–T1), these cells control the arms, while in the lumbar enlargement (L2–S3), they control the legs. The lateral motor column in these regions is what actually sends signals out to the muscles in your limbs.",
+    "subquestion_reasoning": "Select documents that specify where lower motor neuron cell bodies for limb muscles are located in the spinal cord, especially in the ventral horn of cervical and lumbar enlargements, and avoid those focusing on upper motor neurons or sensory pathways.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should state the location of lower motor neuron cell bodies that innervate the upper and lower limbs within the spinal cord (e.g., anterior/ventral horn of cervical and lumbar enlargements).",
+     "relevance_signals": [
+      "lower motor neurons",
+      "anterior/ventral horn",
+      "cervical and lumbar enlargements"
+     ],
+     "irrelevance_signals": [
+      "upper motor neurons",
+      "sensory neuron cell bodies",
+      "brainstem nuclei"
+     ]
+    },
+    "conversation_history": "Q: In spinal cord anatomy, how does the way gray and white matter are arranged lead to those bigger areas in the cervical and lumbar regions?\nA: Those bigger areas you see in the cervical and lumbar regions of the spinal cord are actually due to the way gray matter is arranged there. The ventral gray horn is much larger in these segments because it has to handle all the nerves that go out to your arms and legs. Basically, since the cervical and lumbar regions control the limb muscles, they need more nerve cells packed in, which makes those areas look bigger.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34486_doc_1",
+     "medicalsciences_ex_34486_doc_0"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Is there more going on in those enlarged gray matter areas besides just handling reflexes for the limbs?",
+    "answer": "Yeah, there’s more going on in those enlarged gray matter areas than just basic reflexes. Besides handling reflexes, these regions have special columns—like the lateral and medial motor columns—that send signals to different muscle groups in your arms and legs. There are also interneurons and proprioceptive neurons there, which help process movement and body position, so those areas are really packed with cells that keep your limbs coordinated and responsive.",
+    "subquestion_reasoning": "Select documents describing how gray matter in cervical/lumbar enlargements contributes to limb movement control and sensory integration, not just reflexes or generic spinal cord structure.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain the roles of spinal cord gray matter in cervical and lumbar enlargements beyond reflex mediation, particularly in processing and integrating motor and sensory information for limb movement.",
+     "relevance_signals": [
+      "spinal cord gray matter function",
+      "integration/processing of limb motor and sensory signals"
+     ],
+     "irrelevance_signals": [
+      "only reflex arcs",
+      "general spinal cord anatomy without functional detail"
+     ]
+    },
+    "conversation_history": "Q: In spinal cord anatomy, how does the way gray and white matter are arranged lead to those bigger areas in the cervical and lumbar regions?\nA: Those bigger areas you see in the cervical and lumbar regions of the spinal cord are actually due to the way gray matter is arranged there. The ventral gray horn is much larger in these segments because it has to handle all the nerves that go out to your arms and legs. Basically, since the cervical and lumbar regions control the limb muscles, they need more nerve cells packed in, which makes those areas look bigger.\nQ: Where exactly do those motor neuron cell bodies for the arms and legs sit in the spinal cord?\nA: The motor neuron cell bodies for your arms and legs sit in the ventral horn of the spinal cord, specifically in areas called lamina VIII and IX. In the cervical enlargement (C5–T1), these cells control the arms, while in the lumbar enlargement (L2–S3), they control the legs. The lateral motor column in these regions is what actually sends signals out to the muscles in your limbs.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34486_doc_1"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 4,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T10:38:48.577967",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_34329",
+  "task": "medicalsciences",
+  "original_query": "How is nominal width of condoms related to penis girth? What is the mathematical relation between the girth of the penis (defined as the maximum circumference) and the nominal width of the condom (an industry label) that should be used? I see a lot of contradicting information on the internet. My question is about latex condoms. All sources below are either about latex condoms or condoms in general. On the one hand, Healthline and Very Well Health say that you should divide the girth by 3.14 to get the width. You can figure out the width of your penis the same way you’d determine the diameter of a circle. To do this, divide your girth measurement by 3.14 . The resulting number is your width. To calculate the width, divide the girth by 3.14 . For example, if your penis girth is 5 inches, then the penis width would be 1.59 inches (5 inches ÷ 3.14 = 1.59 inches). On the other hand, many webites provide tables in which the ratio is between 2 and 2.5 : condom-sizes , condomerie , postcondooms . Consider this quote from condomerie.com: Regular sized condoms usually range from around 52 – 54mm, meaning they’ll fit those with a girth of around 110 – 120mm. The ratio is here around 115/53= 2.2 ; this is much smaller than 3.14 . There is also a Reddit post with 565 upvotes, stating that nominal width should be 2.36 times smaller than penis girth: How do you compute the \"nominal width\" that you require? There's a simple calculation that most people aren't taught. You measure your wrap-around circumference and divide by 2.36 . So what is the correct method, dividing by 3.14, or dividing by something like 2.36?",
+  "original_answer": "The root of this confusion is the relation between penis circumference and condom width . Intuitively, it seems logical that the condom width equals the diameter of the penis, which is 3.14 (pi) times smaller than the circumference. However, this is not how the condom industry defines condom width. The number that you can see on condom packages is the nominal width . This is called the `flat width' by the International Organization for Standardization . On page 5 of the ISO standard it says (I made the part bold): For the purpose of this test, the mid-body width is the mean flat width rounded to the nearest 0,5 mm of 13 condoms measured in accordance with Annex E at a point (75 ± 5) mm from the closed end excluding the reservoir tip. When a condom is laid flat, its width equals half its circumference. The only source cited by the Healthline article that talks about condom width, is condom-sizes.org . This website has a page where they explain the difference between flat width and diameter: Flat width = Circumference/2 Flat width ≈ 1.57*diameter We have now arrived at a factor 2 . The reason for using a slightly larger factor than 2, is that condom circumference should be slightly smaller than penis circumference. This makes sure the condom is tight enough. Another source that confirms this, is condom manufacturer Durex. The Dutch Durex website contains a table of penis circumferences and condom sizes, where the ratios are between 2 and 2.2 .",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In condom sizing, what exactly does 'nominal width' mean and how do manufacturers figure it out?",
+    "answer": "Nominal width is basically the width of a condom when it’s laid out flat, measured across the open end. Manufacturers figure this out by unrolling the condom, laying it flat, and measuring from one side to the other. This flat width is about half the full circumference of the condom, so it helps match up the condom size to your girth for a better fit.",
+    "subquestion_reasoning": "Select documents that specifically describe what 'nominal width' means for condoms and detail its measurement by manufacturers; avoid general advice or unrelated anatomical discussions.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should define 'nominal width' in condom sizing and explain how manufacturers measure it.",
+     "relevance_signals": [
+      "nominal width definition",
+      "condom sizing standards",
+      "manufacturer measurement method"
+     ],
+     "irrelevance_signals": [
+      "general condom use advice",
+      "penis anatomy without sizing context",
+      "non-latex condom materials"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34329_doc_3",
+     "medicalsciences_ex_34329_doc_0",
+     "medicalsciences_ex_34329_doc_2"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Wait, why isn’t the diameter used for sizing instead of this flat width thing?",
+    "answer": "That’s a good question! Condom sizing uses the flat width because it’s easier to measure—just lay the condom flat and measure across. This flat width is actually half the condom’s full circumference, and you can relate it to diameter with a little math, but measuring flat is just a simpler and more practical way for manufacturers to keep things consistent.",
+    "subquestion_reasoning": "Retrieve documents that describe condom nominal width as the flat measurement (half circumference) and explain this sizing method, while excluding sources that focus on diameter or unrelated measurement techniques.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how nominal width is measured by laying a condom flat, making it equal to half its circumference, and why this method is used for sizing.",
+     "relevance_signals": [
+      "nominal width measurement",
+      "condom laid flat",
+      "half circumference"
+     ],
+     "irrelevance_signals": [
+      "penis diameter calculation",
+      "non-condom sizing methods",
+      "irrelevant product measurements"
+     ]
+    },
+    "conversation_history": "Q: In condom sizing, what exactly does 'nominal width' mean and how do manufacturers figure it out?\nA: Nominal width is basically the width of a condom when it’s laid out flat, measured across the open end. Manufacturers figure this out by unrolling the condom, laying it flat, and measuring from one side to the other. This flat width is about half the full circumference of the condom, so it helps match up the condom size to your girth for a better fit.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34329_doc_0"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "How come the nominal width ends up being smaller than the diameter you'd get from dividing girth by pi?",
+    "answer": "The nominal width ends up smaller than the diameter you'd get by dividing girth by pi because condoms are measured flat—just the width across when laid out, which is half the circumference. Plus, condoms are designed to be a bit tighter than the actual girth so they stay on securely, so their circumference is intentionally smaller than your measurement. That way, when you wear it, the condom stretches to fit you snugly.",
+    "subquestion_reasoning": "Retrieve documents that detail industry definitions of nominal width and its mathematical relation to penis girth, while excluding general advice or non-standard condom discussions.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how condom nominal width is defined and calculated by the industry, especially in relation to penis girth and diameter.",
+     "relevance_signals": [
+      "nominal width definition",
+      "condom sizing standards",
+      "relationship between girth and nominal width"
+     ],
+     "irrelevance_signals": [
+      "general condom usage advice",
+      "penis health unrelated to sizing",
+      "non-latex condom materials"
+     ]
+    },
+    "conversation_history": "Q: In condom sizing, what exactly does 'nominal width' mean and how do manufacturers figure it out?\nA: Nominal width is basically the width of a condom when it’s laid out flat, measured across the open end. Manufacturers figure this out by unrolling the condom, laying it flat, and measuring from one side to the other. This flat width is about half the full circumference of the condom, so it helps match up the condom size to your girth for a better fit.\nQ: Wait, why isn’t the diameter used for sizing instead of this flat width thing?\nA: That’s a good question! Condom sizing uses the flat width because it’s easier to measure—just lay the condom flat and measure across. This flat width is actually half the condom’s full circumference, and you can relate it to diameter with a little math, but measuring flat is just a simpler and more practical way for manufacturers to keep things consistent.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34329_doc_0",
+     "medicalsciences_ex_34329_doc_2",
+     "medicalsciences_ex_34329_doc_3",
+     "medicalsciences_ex_34329_doc_1"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 8,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T10:53:06.156990",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_34296",
+  "task": "medicalsciences",
+  "original_query": "Can cold water induced arrhythmia be used diagnostically? I ran across an extraordinary claim in the Sunday Times: Professor Mike Tipton of the University of Portsmouth, who has been studying the effects of cold water on the body for 40 years, found that young and healthy individuals had a 1 to 3 per cent chance of cardiac arrhythmia when in cold water. But when they were asked to hold their breath beforehand, that figure rose to 63 per cent. “It’s an incredible way of reproducing cardiac arrhythmias in otherwise fit and healthy individuals,” he said. I didn't immediately find evidence for this on PubMed, but I wasn't very diligent in my search. This abstract says 38% of a small group of test subjects, though I think this is summed up from 36 separate trials. It is quite common to ask patients to wear a heart monitor for an extended period to check for occasional arrhythmias; but even then, who knows if they do what it would take to trigger an event during that period? Can breath holding and/or cold water be used in a clinical setting to reveal underlying conduction disorders?",
+  "original_answer": "As mentioned in the comments, establishing a kind of cold water testing to evaluate for possible arrhythmias in the controlled clinical environment is probably not feasible, largely for practical purposes of test set-up, etc. However, consider the physiologic mechanism involved in inducing \"cold water arrhythmias\" and perhaps we can replicate the effects in our clinical labs. In the study that you linked, the authors postulate the physiologic mechanism to be as follows: ...these arrhythmias may have been due to conflicting chronotropic inputs to the heart. With continued submersion, both positive and negative chronotropic inputs to the heart are most likely to be occurring simultaneously just after the cessation of breath holding...The suggestion that an augmented sympathetic and parasympathetic influence on the heart may provoke these arrhythmias is supported by the absence or reduced incidence of arrhythmias in situations where the sympathetic or parasympathetic response predominates. Thus, if we can find ways (which we have) to trigger or simulate the autonomic nervous system, we can attempt to provoke cardiac arrhythmias in a controlled setting. For example, Exercise Stress Test: Through exercising, the patient will activate their sympathetic nervous system, potentially triggering clinically relevant arrhythmias. (Though exercise induced arrhythmias can be caused by other factors as well, such as ischemia.) Electrophysiology Study: In the EP lab, electrophysiolgists perform various pacing maneuvers to try and induce arrhythmias, and will also adminster isoproterenol (a non-selective beta agonist) to make the patient more susceptible to arrhythmia induction upon pacing. Tilt Table Test: The patient is strapped to a table that is gradually tilted upward. In some patients, this can elicit an exaggerate vagal response, and potentially diagnose bradyarrhythmias. While I don't think that any of the current diagnostic tests exactly replicate this phenomenon of \"cold water induced arrhythmia,\" there is also a question of how far you're willing to look for something that may or may not be of any clinical significance. As noted in the study: Although the cause of the arrhythmias immediately after breath holding is of physiologic interest, from a practical viewpoint their clinical implication are unclear. The evidence from the present study suggests that although the arrhythmias occur in cold water in certain conditions, the majority have little clinical importance, being of short duration, supraventiucular in origin, and producing no symptoms. Alternatively, their occurrence may be significant in susceptible individuals, such as those with underlying conduction defects. In sum, I think cold water testing can be used diagnostically; however, we have far more practical and safer testing modalities already in practice and we should utilize them first. Resources: Tipton, Mike & Kelleher, P & Golden, F. (1994). Supraventricular arrhythmias following breath-hold submersions in cold water. Undersea & hyperbaric medicine : Journal of the Undersea and Hyperbaric Medical Society, Inc. 21. 305-13. https://www.researchgate.net/publication/15248043_Supraventricular_arrhythmias_following_breath-hold_submersions_in_cold_water Vilcant V, Zeltser R. Treadmill Stress Testing. [Updated 2023 Jun 20]. In: StatPearls [Internet]. Treasure Island (FL): StatPearls Publishing; 2024 Jan-. Available from: https://www.ncbi.nlm.nih.gov/books/NBK499903/ Guasch, E., & Mont, L. (2017). Diagnosis, pathophysiology, and management of exercise-induced arrhythmias. Nature reviews. Cardiology, 14(2), 88–101. https://doi.org/10.1038/nrcardio.2016.173 Majeed H, Sattar Y. Electrophysiologic Study Indications and Evaluation. [Updated 2023 Apr 3]. In: StatPearls [Internet]. Treasure Island (FL): StatPearls Publishing; 2024 Jan-. Available from: https://www.ncbi.nlm.nih.gov/books/NBK567719/ Thijs, R. D., Brignole, M., Falup-Pecurariu, C., Fanciulli, A., Freeman, R., Guaraldi, P., Jordan, J., Habek, M., Hilz, M., Traon, A. P., Stankovic, I., Struhal, W., Sutton, R., Wenning, G., & Van Dijk, J. G. (2021). Recommendations for tilt table testing and other provocative cardiovascular autonomic tests in conditions that may cause transient loss of consciousness : Consensus statement of the European Federation of Autonomic Societies (EFAS) endorsed by the American Autonomic Society (AAS) and the European Academy of Neurology (EAN). Clinical autonomic research : official journal of the Clinical Autonomic Research Society, 31(3), 369–384. https://doi.org/10.1007/s10286-020-00738-6",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In cold water immersion, how does holding your breath make healthy people more likely to have heart rhythm problems?",
+    "answer": "Holding your breath during cold water immersion makes heart rhythm problems much more likely, even in healthy people, because it creates something called 'autonomic conflict.' Basically, both parts of your nervous system send mixed signals to your heart at the same time—one telling it to speed up from the cold shock, and the other telling it to slow down from holding your breath. This clash can trigger arrhythmias, which are abnormal heart rhythms, and the risk jumps from just a few percent to over 60% or even 80% when breath holding is involved.",
+    "subquestion_reasoning": "Select documents discussing the physiological mechanisms of arrhythmia provocation by autonomic conflict during cold water immersion or breath holding in healthy subjects; exclude those focused solely on unrelated arrhythmia triggers or patient populations.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how autonomic conflict (simultaneous sympathetic and parasympathetic activation) during cold water immersion and/or breath holding can provoke cardiac arrhythmias in healthy individuals.",
+     "relevance_signals": [
+      "autonomic conflict",
+      "arrhythmia during cold water immersion or breath holding"
+     ],
+     "irrelevance_signals": [
+      "arrhythmias unrelated to cold water or breath holding",
+      "studies only on chronic heart disease patients"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34296_doc_0",
+     "medicalsciences_ex_34296_doc_4",
+     "medicalsciences_ex_34296_doc_1"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Is using cold water or breath holding actually safer or riskier than just doing a treadmill test to spot arrhythmias?",
+    "answer": "Cold water immersion with breath holding is actually much riskier for triggering arrhythmias than a treadmill test. Arrhythmias show up way more often during cold water face immersion and diving than during exercise testing, with some methods showing sensitivities close to 89%. So, if the goal is to spot or provoke arrhythmias, cold water and breath holding really bring them out much more than just running on a treadmill does.",
+    "subquestion_reasoning": "Select documents directly comparing or discussing the effectiveness and safety of exercise stress testing versus cold water or breath-hold provocation in arrhythmia screening; exclude those focused solely on ischemia or non-cardiac effects of cold.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should compare the diagnostic yield and safety of exercise stress testing versus cold water or breath-hold provocation for arrhythmia detection.",
+     "relevance_signals": [
+      "exercise stress testing AND arrhythmia detection",
+      "cold water or breath-hold provocation AND diagnostic yield/safety"
+     ],
+     "irrelevance_signals": [
+      "exercise testing for ischemia only",
+      "cold exposure without cardiac outcomes"
+     ]
+    },
+    "conversation_history": "Q: In cold water immersion, how does holding your breath make healthy people more likely to have heart rhythm problems?\nA: Holding your breath during cold water immersion makes heart rhythm problems much more likely, even in healthy people, because it creates something called 'autonomic conflict.' Basically, both parts of your nervous system send mixed signals to your heart at the same time—one telling it to speed up from the cold shock, and the other telling it to slow down from holding your breath. This clash can trigger arrhythmias, which are abnormal heart rhythms, and the risk jumps from just a few percent to over 60% or even 80% when breath holding is involved.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34296_doc_3",
+     "medicalsciences_ex_34296_doc_4"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "I wonder if the stronger vagal response actually lines up with more bradyarrhythmias in people who already have hidden heart issues?",
+    "answer": "Yes, a stronger vagal response does seem to line up with more bradyarrhythmias, especially in people who already have hidden heart issues like long QT syndrome. When people with these underlying problems do things like cold water face immersion or diving, they're much more likely to show significant arrhythmias—including bradyarrhythmias—compared to healthy people. This kind of stress brings out heart rhythm problems that might not show up otherwise, which is why these tests are actually really good at finding hidden arrhythmia risks.",
+    "subquestion_reasoning": "Retrieve documents that quantitatively link vagal activation from cold water or breath holding to bradyarrhythmia risk in humans, especially those with latent conduction issues; exclude studies on unrelated arrhythmias, non-vagal mechanisms, or animal-only research.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss quantitative relationships between vagal activation (e.g., during cold water immersion or breath holding) and the induction of bradyarrhythmias, particularly in individuals with latent conduction abnormalities.",
+     "relevance_signals": [
+      "vagal activation measurement",
+      "cold water or breath holding induced bradyarrhythmia",
+      "latent conduction system abnormalities"
+     ],
+     "irrelevance_signals": [
+      "arrhythmias unrelated to vagal mechanisms",
+      "studies on tachyarrhythmias only",
+      "animal studies without human data"
+     ]
+    },
+    "conversation_history": "Q: In cold water immersion, how does holding your breath make healthy people more likely to have heart rhythm problems?\nA: Holding your breath during cold water immersion makes heart rhythm problems much more likely, even in healthy people, because it creates something called 'autonomic conflict.' Basically, both parts of your nervous system send mixed signals to your heart at the same time—one telling it to speed up from the cold shock, and the other telling it to slow down from holding your breath. This clash can trigger arrhythmias, which are abnormal heart rhythms, and the risk jumps from just a few percent to over 60% or even 80% when breath holding is involved.\nQ: Is using cold water or breath holding actually safer or riskier than just doing a treadmill test to spot arrhythmias?\nA: Cold water immersion with breath holding is actually much riskier for triggering arrhythmias than a treadmill test. Arrhythmias show up way more often during cold water face immersion and diving than during exercise testing, with some methods showing sensitivities close to 89%. So, if the goal is to spot or provoke arrhythmias, cold water and breath holding really bring them out much more than just running on a treadmill does.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34296_doc_3",
+     "medicalsciences_ex_34296_doc_0",
+     "medicalsciences_ex_34296_doc_4",
+     "medicalsciences_ex_34296_doc_1",
+     "medicalsciences_ex_34296_doc_2"
+    ]
+   },
+   {
+    "turn_id": 4,
+    "query": "Are there things those standard tests just can’t pick up if the trigger is something like cold shock?",
+    "answer": "Absolutely, there are things that standard tests like treadmill exercise just can’t pick up if the trigger is something like cold shock. Arrhythmias that show up during cold water immersion—especially with breath holding—are much more common and can be very specific to that kind of stress. Some heart rhythm problems only appear when the body is hit with both cold shock and breath holding at the same time, a situation that standard exercise tests just don’t recreate. So, if someone is at risk because of these unique triggers, a treadmill test might miss it entirely.",
+    "subquestion_reasoning": "Select documents that evaluate how well current diagnostic tests detect arrhythmias provoked by cold water or breath holding, and exclude those focused solely on general arrhythmia detection or unrelated cold exposure effects.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss limitations of current arrhythmia diagnostic methods in detecting arrhythmias triggered specifically by cold water immersion and/or breath holding.",
+     "relevance_signals": [
+      "cold water immersion arrhythmia",
+      "diagnostic test limitations",
+      "breath holding provocation"
+     ],
+     "irrelevance_signals": [
+      "general arrhythmia diagnosis",
+      "pharmacological provocation only",
+      "non-cardiac cold water effects"
+     ]
+    },
+    "conversation_history": "Q: In cold water immersion, how does holding your breath make healthy people more likely to have heart rhythm problems?\nA: Holding your breath during cold water immersion makes heart rhythm problems much more likely, even in healthy people, because it creates something called 'autonomic conflict.' Basically, both parts of your nervous system send mixed signals to your heart at the same time—one telling it to speed up from the cold shock, and the other telling it to slow down from holding your breath. This clash can trigger arrhythmias, which are abnormal heart rhythms, and the risk jumps from just a few percent to over 60% or even 80% when breath holding is involved.\nQ: Is using cold water or breath holding actually safer or riskier than just doing a treadmill test to spot arrhythmias?\nA: Cold water immersion with breath holding is actually much riskier for triggering arrhythmias than a treadmill test. Arrhythmias show up way more often during cold water face immersion and diving than during exercise testing, with some methods showing sensitivities close to 89%. So, if the goal is to spot or provoke arrhythmias, cold water and breath holding really bring them out much more than just running on a treadmill does.\nQ: I wonder if the stronger vagal response actually lines up with more bradyarrhythmias in people who already have hidden heart issues?\nA: Yes, a stronger vagal response does seem to line up with more bradyarrhythmias, especially in people who already have hidden heart issues like long QT syndrome. When people with these underlying problems do things like cold water face immersion or diving, they're much more likely to show significant arrhythmias—including bradyarrhythmias—compared to healthy people. This kind of stress brings out heart rhythm problems that might not show up otherwise, which is why these tests are actually really good at finding hidden arrhythmia risks.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34296_doc_3",
+     "medicalsciences_ex_34296_doc_1",
+     "medicalsciences_ex_34296_doc_0",
+     "medicalsciences_ex_34296_doc_4"
+    ]
+   },
+   {
+    "turn_id": 5,
+    "query": "Is it even practical to do this kind of test in a regular clinic, or would it be too risky?",
+    "answer": "Doing this kind of test in a regular clinic probably isn’t practical, and it could be risky. These arrhythmias have actually shown up during specialized underwater escape training, like what the military or oil industry workers do, and even then, the breath holds are short and the conditions are controlled. Plus, some fatal cases linked to heart rhythm problems after immersion have been missed or misdiagnosed, which shows just how serious and unpredictable these risks can be outside of a very controlled setting.",
+    "subquestion_reasoning": "Retrieve documents that address practical, safety, or resource barriers to using cold water or breath holding for arrhythmia diagnosis in clinical settings; exclude those focused only on mechanisms, animal models, or standard diagnostics.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss logistical, safety, or resource challenges of using cold water immersion or breath holding as clinical provocation tests for arrhythmias.",
+     "relevance_signals": [
+      "clinical implementation challenges",
+      "safety concerns",
+      "resource or feasibility issues"
+     ],
+     "irrelevance_signals": [
+      "basic physiology of cold water immersion",
+      "animal studies",
+      "general arrhythmia diagnostics without provocation"
+     ]
+    },
+    "conversation_history": "Q: In cold water immersion, how does holding your breath make healthy people more likely to have heart rhythm problems?\nA: Holding your breath during cold water immersion makes heart rhythm problems much more likely, even in healthy people, because it creates something called 'autonomic conflict.' Basically, both parts of your nervous system send mixed signals to your heart at the same time—one telling it to speed up from the cold shock, and the other telling it to slow down from holding your breath. This clash can trigger arrhythmias, which are abnormal heart rhythms, and the risk jumps from just a few percent to over 60% or even 80% when breath holding is involved.\nQ: Is using cold water or breath holding actually safer or riskier than just doing a treadmill test to spot arrhythmias?\nA: Cold water immersion with breath holding is actually much riskier for triggering arrhythmias than a treadmill test. Arrhythmias show up way more often during cold water face immersion and diving than during exercise testing, with some methods showing sensitivities close to 89%. So, if the goal is to spot or provoke arrhythmias, cold water and breath holding really bring them out much more than just running on a treadmill does.\nQ: I wonder if the stronger vagal response actually lines up with more bradyarrhythmias in people who already have hidden heart issues?\nA: Yes, a stronger vagal response does seem to line up with more bradyarrhythmias, especially in people who already have hidden heart issues like long QT syndrome. When people with these underlying problems do things like cold water face immersion or diving, they're much more likely to show significant arrhythmias—including bradyarrhythmias—compared to healthy people. This kind of stress brings out heart rhythm problems that might not show up otherwise, which is why these tests are actually really good at finding hidden arrhythmia risks.\nQ: Are there things those standard tests just can’t pick up if the trigger is something like cold shock?\nA: Absolutely, there are things that standard tests like treadmill exercise just can’t pick up if the trigger is something like cold shock. Arrhythmias that show up during cold water immersion—especially with breath holding—are much more common and can be very specific to that kind of stress. Some heart rhythm problems only appear when the body is hit with both cold shock and breath holding at the same time, a situation that standard exercise tests just don’t recreate. So, if someone is at risk because of these unique triggers, a treadmill test might miss it entirely.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34296_doc_1"
+    ]
+   },
+   {
+    "turn_id": 6,
+    "query": "Have they actually figured out a safe way to do this kind of test in the lab?",
+    "answer": "They have managed to do this kind of testing in the lab, but only under very controlled conditions and usually with healthy people. For example, short breath holds with cold face immersion or even underwater escape training have been used to safely bring out these arrhythmias while monitoring participants closely. Even then, the tests are carefully designed to be as brief and safe as possible, since the risks can be serious if someone has an underlying heart issue.",
+    "subquestion_reasoning": "Select documents detailing human studies on arrhythmia induction via cold water or breath holding, especially those reporting protocols and success rates; exclude animal-only research or studies on unrelated arrhythmia triggers.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should describe controlled protocols using cold water immersion and/or breath holding to induce arrhythmias and report induction rates in healthy or at-risk individuals.",
+     "relevance_signals": [
+      "cold water immersion protocols",
+      "arrhythmia induction rates"
+     ],
+     "irrelevance_signals": [
+      "animal studies only",
+      "arrhythmias unrelated to cold or breath holding"
+     ]
+    },
+    "conversation_history": "Q: In cold water immersion, how does holding your breath make healthy people more likely to have heart rhythm problems?\nA: Holding your breath during cold water immersion makes heart rhythm problems much more likely, even in healthy people, because it creates something called 'autonomic conflict.' Basically, both parts of your nervous system send mixed signals to your heart at the same time—one telling it to speed up from the cold shock, and the other telling it to slow down from holding your breath. This clash can trigger arrhythmias, which are abnormal heart rhythms, and the risk jumps from just a few percent to over 60% or even 80% when breath holding is involved.\nQ: Is using cold water or breath holding actually safer or riskier than just doing a treadmill test to spot arrhythmias?\nA: Cold water immersion with breath holding is actually much riskier for triggering arrhythmias than a treadmill test. Arrhythmias show up way more often during cold water face immersion and diving than during exercise testing, with some methods showing sensitivities close to 89%. So, if the goal is to spot or provoke arrhythmias, cold water and breath holding really bring them out much more than just running on a treadmill does.\nQ: I wonder if the stronger vagal response actually lines up with more bradyarrhythmias in people who already have hidden heart issues?\nA: Yes, a stronger vagal response does seem to line up with more bradyarrhythmias, especially in people who already have hidden heart issues like long QT syndrome. When people with these underlying problems do things like cold water face immersion or diving, they're much more likely to show significant arrhythmias—including bradyarrhythmias—compared to healthy people. This kind of stress brings out heart rhythm problems that might not show up otherwise, which is why these tests are actually really good at finding hidden arrhythmia risks.\nQ: Are there things those standard tests just can’t pick up if the trigger is something like cold shock?\nA: Absolutely, there are things that standard tests like treadmill exercise just can’t pick up if the trigger is something like cold shock. Arrhythmias that show up during cold water immersion—especially with breath holding—are much more common and can be very specific to that kind of stress. Some heart rhythm problems only appear when the body is hit with both cold shock and breath holding at the same time, a situation that standard exercise tests just don’t recreate. So, if someone is at risk because of these unique triggers, a treadmill test might miss it entirely.\nQ: Is it even practical to do this kind of test in a regular clinic, or would it be too risky?\nA: Doing this kind of test in a regular clinic probably isn’t practical, and it could be risky. These arrhythmias have actually shown up during specialized underwater escape training, like what the military or oil industry workers do, and even then, the breath holds are short and the conditions are controlled. Plus, some fatal cases linked to heart rhythm problems after immersion have been missed or misdiagnosed, which shows just how serious and unpredictable these risks can be outside of a very controlled setting.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34296_doc_4",
+     "medicalsciences_ex_34296_doc_0",
+     "medicalsciences_ex_34296_doc_3",
+     "medicalsciences_ex_34296_doc_1"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 6,
+   "gold_doc_count": 19,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T10:57:05.225562",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_34029",
+  "task": "medicalsciences",
+  "original_query": "Why isn’t porphyria treated with ferrochelatase supplementation? Erythropoietic protoporphyria (EPP) is a disorder characterized by ferrochelatase enzyme deficiency in all tissues. Ferrochelatase puts the iron in protoporphyrin to make haem. Other enzyme deficiencies such as lactose intolerance are treated with enzyme supplementation. Why is porphyria not treated with ferrochelatase supplementation?",
+  "original_answer": "Ferrochelatase is an enzyme found within cells , specifically in the mitochondria. Lactase is a secreted enzyme, its function occurs outside cells (specifically, in the digestive cavity). If you want to replace a secreted enzyme, the process is fairly simple: you just need to add it to the solution it would be secreted into. You can skip all the steps that came before secretion. If you want to replace an internal enzyme, you would need to not just add it to the space outside of cells, you need some mechanism to get it inside cells. That's the hard part. Cells have complicated machinery for bringing specific molecules and ions into cells and keeping others out; that's pretty much the essence of all biology. For something that is normally produced internally and trafficked internally to where it needs to be, there is no already available machinery for getting that enzyme from outside the cell to inside the cell. If you were to build this machinery artificially, you'd still be stuck without a way to get your machinery into the cells in the first place. Genetic engineering may be an alternative in some cases, I don't know if it's been studied with respect to this specific disorder. Viruses are an example of some machinery that can get things inside of cells that aren't normally supposed to be there; genetic engineering would involve using viral machinery to get DNA into a cell that contains the pattern required to produce a protein that is otherwise missing, so it can be assembled where it needs to be.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In erythropoietic protoporphyria, why is it so hard to treat the disease by just giving the missing ferrochelatase enzyme?",
+    "answer": "It's tough to treat erythropoietic protoporphyria just by giving the missing ferrochelatase enzyme because this enzyme works inside the mitochondria, specifically on the inner mitochondrial membrane. Getting an enzyme to the right spot inside the cell—especially inside mitochondria—is really challenging, which makes simple enzyme replacement very difficult.",
+    "subquestion_reasoning": "Select documents discussing intracellular or mitochondrial enzyme replacement challenges, especially for ferrochelatase, and avoid those focused only on extracellular enzymes or unrelated aspects of porphyria.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how the mitochondrial localization of ferrochelatase impedes enzyme supplementation therapy for EPP.",
+     "relevance_signals": [
+      "mitochondrial localization",
+      "enzyme delivery barriers"
+     ],
+     "irrelevance_signals": [
+      "extracellular enzyme therapy",
+      "general porphyria symptoms"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34029_doc_2",
+     "medicalsciences_ex_34029_doc_0"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Is that why taking enzymes by mouth only works when the enzyme acts outside cells?",
+    "answer": "Yes, that's right—taking enzymes by mouth only really works when the enzyme is supposed to act outside of cells, like in the digestive system. Digestive enzymes, for example, work in your gut to help break down food, so supplementing them can be helpful when your body isn't making enough. But for enzymes that need to get inside cells, or even specific parts of cells, just taking them by mouth doesn't help because they can't reach where they're needed.",
+    "subquestion_reasoning": "Retrieve documents comparing enzyme replacement for secreted versus intracellular enzymes, especially those discussing delivery barriers for intracellular enzymes. Avoid documents not addressing enzyme delivery mechanisms or focused solely on disease symptoms.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain why oral enzyme supplementation works for secreted enzyme deficiencies but not for intracellular enzyme deficiencies like EPP.",
+     "relevance_signals": [
+      "enzyme replacement therapy",
+      "intracellular vs extracellular enzyme delivery"
+     ],
+     "irrelevance_signals": [
+      "treatment of unrelated diseases",
+      "discussion of porphyria symptoms only"
+     ]
+    },
+    "conversation_history": "Q: In erythropoietic protoporphyria, why is it so hard to treat the disease by just giving the missing ferrochelatase enzyme?\nA: It's tough to treat erythropoietic protoporphyria just by giving the missing ferrochelatase enzyme because this enzyme works inside the mitochondria, specifically on the inner mitochondrial membrane. Getting an enzyme to the right spot inside the cell—especially inside mitochondria—is really challenging, which makes simple enzyme replacement very difficult.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34029_doc_1",
+     "medicalsciences_ex_34029_doc_3"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "What actually stops the enzyme from getting into the mitochondria if you try to add it from outside?",
+    "answer": "The main problem is that ferrochelatase works deep inside the cell, on the matrix-facing side of the inner mitochondrial membrane. If you try to add the enzyme from outside, it just can’t get to that specific spot inside the mitochondria where it’s needed to help make heme. So, it never reaches the right location to actually do its job.",
+    "subquestion_reasoning": "Select documents discussing why ferrochelatase cannot be supplemented due to cellular or mitochondrial delivery barriers; avoid those focused on EPP symptoms, dietary advice, or unrelated enzyme treatments.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain the cellular and molecular barriers to delivering ferrochelatase enzyme into cells or mitochondria for EPP treatment.",
+     "relevance_signals": [
+      "cellular uptake of enzymes",
+      "mitochondrial targeting barriers",
+      "protein delivery challenges"
+     ],
+     "irrelevance_signals": [
+      "general porphyria symptoms",
+      "dietary management of EPP",
+      "extracellular enzyme supplementation"
+     ]
+    },
+    "conversation_history": "Q: In erythropoietic protoporphyria, why is it so hard to treat the disease by just giving the missing ferrochelatase enzyme?\nA: It's tough to treat erythropoietic protoporphyria just by giving the missing ferrochelatase enzyme because this enzyme works inside the mitochondria, specifically on the inner mitochondrial membrane. Getting an enzyme to the right spot inside the cell—especially inside mitochondria—is really challenging, which makes simple enzyme replacement very difficult.\nQ: Is that why taking enzymes by mouth only works when the enzyme acts outside cells?\nA: Yes, that's right—taking enzymes by mouth only really works when the enzyme is supposed to act outside of cells, like in the digestive system. Digestive enzymes, for example, work in your gut to help break down food, so supplementing them can be helpful when your body isn't making enough. But for enzymes that need to get inside cells, or even specific parts of cells, just taking them by mouth doesn't help because they can't reach where they're needed.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_34029_doc_0",
+     "medicalsciences_ex_34029_doc_2"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 6,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T11:15:48.008096",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_33780",
+  "task": "medicalsciences",
+  "original_query": "Research into caffeine that wears off quickly Everyone agrees that the sleep disruption is the biggest reason to avoid caffeine. But what if we can make a caffeinated product that only lasts a few hours, so that we can fall asleep both on time and for sufficient duration? In fact maybe such miracle substance can help people with insomnia sleep better, paradoxically. I wonder if there has been research into such short-lived caffeine product, or mechanisms to prematurely evict caffeine from the body?",
+  "original_answer": "According to https://www.ncbi.nlm.nih.gov/books/NBK223808/ caffeine spreads readily throughout the body, including the brain, and has only few things that influence its metabolisation positively or effect negatively, namely: the main metabolic product of itself (paraxanthine), which has the same effect equipotentially and differs mainly by being able to readily be excreted through the renal tract, smoking, and exogenous estrogen. Therefore, given you do not want to take estrogen pills or smoke a lot, you will hardly be able to reduce or shorten the effect of caffeine. This paper reinforces the point and makes clear that the main factor for interindividual differences in the usual half-life of about 4-5 hours is genetics. That said, paraxanthine itself is the only substance of the chemical family caffeine belongs to which kind of fits the bill since its half-life is about an hour shorter while having the same effect as caffeine itself, with slightly less toxicity. But beware, you may be a bit more wriggly than under caffeine for as long as it lasts. This may, in turn, let you sleep better, who knows?",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In caffeine metabolism, how do things like smoking or birth control pills change how fast caffeine leaves the body?",
+    "answer": "Smoking actually speeds up how quickly your body breaks down caffeine, so caffeine leaves your system faster if you smoke. On the other hand, things like birth control pills can influence how long caffeine stays in your body, since the overall range for how fast caffeine is cleared can change depending on factors like using oral contraceptives or smoking.",
+    "subquestion_reasoning": "Select documents that directly discuss how smoking or oral contraceptive use alters caffeine metabolism in humans; avoid those focused on unrelated caffeine effects or lacking mention of these factors.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should describe how smoking and/or oral contraceptives affect caffeine metabolism speed or clearance in humans.",
+     "relevance_signals": [
+      "caffeine metabolism",
+      "effects of smoking or nicotine",
+      "oral contraceptives or estrogen"
+     ],
+     "irrelevance_signals": [
+      "caffeine effects unrelated to metabolism",
+      "studies not involving smoking or contraceptives",
+      "animal-only studies without human data"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_33780_doc_3",
+     "medicalsciences_ex_33780_doc_2"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Would it be tough to make caffeine wear off faster just because it spreads through your whole system so quickly?",
+    "answer": "It can be tough to make caffeine wear off faster because once it's absorbed, it spreads quickly through your body and starts working right away. Even though things like exercise can help your body clear caffeine a bit faster—by lowering its half-life—it still takes time for your system to process and eliminate it. So, while you might feel the effects quickly, there's no simple way to make it disappear from your system instantly.",
+    "subquestion_reasoning": "Select documents discussing caffeine's rapid distribution in the body and brain, especially those linking this property to its duration of action. Exclude sources that focus only on general health effects or unrelated stimulants.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how caffeine's rapid distribution and penetration into the brain affect its duration of action and challenge efforts to shorten its effects.",
+     "relevance_signals": [
+      "caffeine pharmacokinetics",
+      "blood-brain barrier penetration",
+      "distribution and duration of action"
+     ],
+     "irrelevance_signals": [
+      "general caffeine health effects",
+      "caffeine sources or consumption habits",
+      "non-caffeine stimulants"
+     ]
+    },
+    "conversation_history": "Q: In caffeine metabolism, how do things like smoking or birth control pills change how fast caffeine leaves the body?\nA: Smoking actually speeds up how quickly your body breaks down caffeine, so caffeine leaves your system faster if you smoke. On the other hand, things like birth control pills can influence how long caffeine stays in your body, since the overall range for how fast caffeine is cleared can change depending on factors like using oral contraceptives or smoking.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_33780_doc_4",
+     "medicalsciences_ex_33780_doc_5",
+     "medicalsciences_ex_33780_doc_0"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Is there a way to speed up how fast paraxanthine leaves your system compared to regular caffeine?",
+    "answer": "There are some things that can affect how quickly paraxanthine leaves your system. For example, the flavonoid quercetin—which is found in a lot of fruits and vegetables—can actually decrease the amount of paraxanthine your body gets rid of through urine. So, certain foods or nutrients might change how fast paraxanthine is cleared, but it doesn’t necessarily mean it will speed things up compared to regular caffeine.",
+    "subquestion_reasoning": "Select documents that detail paraxanthine's renal elimination and its impact on pharmacokinetics, especially those discussing ways to enhance excretion to reduce stimulant duration. Exclude sources focused only on caffeine or unrelated metabolic pathways.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how paraxanthine's renal excretion affects its duration in the body and discuss the potential to modify this pathway to alter stimulant effects.",
+     "relevance_signals": [
+      "paraxanthine renal excretion",
+      "duration of action",
+      "modifying stimulant clearance"
+     ],
+     "irrelevance_signals": [
+      "general caffeine effects",
+      "non-renal metabolism",
+      "paraxanthine unrelated to excretion or duration"
+     ]
+    },
+    "conversation_history": "Q: In caffeine metabolism, how do things like smoking or birth control pills change how fast caffeine leaves the body?\nA: Smoking actually speeds up how quickly your body breaks down caffeine, so caffeine leaves your system faster if you smoke. On the other hand, things like birth control pills can influence how long caffeine stays in your body, since the overall range for how fast caffeine is cleared can change depending on factors like using oral contraceptives or smoking.\nQ: Would it be tough to make caffeine wear off faster just because it spreads through your whole system so quickly?\nA: It can be tough to make caffeine wear off faster because once it's absorbed, it spreads quickly through your body and starts working right away. Even though things like exercise can help your body clear caffeine a bit faster—by lowering its half-life—it still takes time for your system to process and eliminate it. So, while you might feel the effects quickly, there's no simple way to make it disappear from your system instantly.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_33780_doc_1"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 6,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T11:52:58.407193",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_33726",
+  "task": "medicalsciences",
+  "original_query": "Can patients receive SHINGRIX together with TWINRIX or AREXVY? Can patients receive SHINGRIX (Recombinant Adjuvanted Zoster Vaccine) together with other vaccines? Specifically either: TWINRIX (Hepatitis A & Hepatitis B Recombinant Vaccine) AREXVY (Respiratory syncytial virus (RSV) vaccine) Is there increased risk for severe side effects in either case?",
+  "original_answer": "The US Centers for Disease Control has a page which discusses simultaneous administration of SHINGRIX with other vaccines : CDC general recommendations advise that recombinant and adjuvanted vaccines, such as Shingrix, can be administered concomitantly, at different anatomic sites, with other adult vaccines , including COVID-19 vaccines. Concomitant administration of Shingrix with Fluarix Quadrivalent (influenza vaccine, QIV), 23-valent pneumococcal polysaccharide vaccine (Pneumovax23, PPSV23) and Tetanus Toxoid, Reduced Diphtheria Toxoid and Acellular Pertussis Vaccine, Adsorbed (Boostrix) has been studied, and there was no evidence for interference in the immune response to either vaccine or safety concerns. Coadministration of Shingrix with adjuvanted influenza vaccine (Fluad) and COVID-19 vaccines is being studied. [Emphasis added] Since both Twinrix and Arexvy are adult recommended recombinant and adjuvanted vaccines, we can conclude that general recommendations advise they can be administered at the same time, but at different sites. However, from the CDC page, we can also surmise that no studies are available specifically for Twinrix or Arexvy. The information provided by GSK (the manufacturer of both vaccines) says as much: The package insert for Twinrix notes: There are no data to assess the concomitant use of TWINRIX with other vaccines Meanwhile, the package insert for Arexvy notes: Concomitant administration of AREXVY with other vaccines are unknown. Thus, the CDC generally recommends that all recombinant and adjuvanted vaccines can be administered together. There is no information to suggest and increased risk of adverse events, but there have been no specific studies to detect them other than the Vaccine Adverse Event Reporting System .",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In vaccine safety, is it okay for people to get SHINGRIX at the same time as TWINRIX or AREXVY, or is there a higher risk of side effects?",
+    "answer": "It's okay for people to get SHINGRIX and AREXVY at the same time—studies show that getting both together works just as well as getting them separately, and the side effects are similar, mostly things like soreness, tiredness, or muscle aches. For TWINRIX, though, there isn't data about getting it with SHINGRIX, so we don't really know how safe or effective that combination is yet.",
+    "subquestion_reasoning": "Retrieve documents discussing safety, effectiveness, or policy on giving SHINGRIX with TWINRIX, AREXVY, or other vaccines; exclude those focused on unrelated vaccines or single vaccine use.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should contain evidence or official guidance on the safety or effectiveness of administering SHINGRIX with TWINRIX or AREXVY, or with other vaccines.",
+     "relevance_signals": [
+      "concomitant administration",
+      "SHINGRIX and TWINRIX or AREXVY",
+      "safety or adverse events data"
+     ],
+     "irrelevance_signals": [
+      "monotherapy studies",
+      "unrelated vaccines",
+      "non-human studies"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_33726_doc_2",
+     "medicalsciences_ex_33726_doc_1",
+     "medicalsciences_ex_33726_doc_3",
+     "medicalsciences_ex_33726_doc_0"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Are there any studies coming up that look at mixing SHINGRIX with other vaccines like the flu or COVID shots?",
+    "answer": "Yes, there are studies going on that look at giving SHINGRIX at the same time as the flu shot (specifically, the adjuvanted flu vaccine called Fluad) and COVID-19 vaccines. They're checking to see how well this works and what the side effects are when these vaccines are given together at different spots on the body.",
+    "subquestion_reasoning": "Select documents describing current or planned research on SHINGRIX given with other adjuvanted vaccines, especially if they mention clinical trials, protocols, or safety/effectiveness outcomes.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should mention ongoing or planned studies of SHINGRIX coadministration with adjuvanted vaccines (e.g., Fluad, COVID-19 vaccines).",
+     "relevance_signals": [
+      "SHINGRIX AND Fluad/COVID-19 coadministration",
+      "clinical trials or studies in progress"
+     ],
+     "irrelevance_signals": [
+      "studies unrelated to SHINGRIX or adjuvanted vaccines",
+      "general vaccine coadministration without study details"
+     ]
+    },
+    "conversation_history": "Q: In vaccine safety, is it okay for people to get SHINGRIX at the same time as TWINRIX or AREXVY, or is there a higher risk of side effects?\nA: It's okay for people to get SHINGRIX and AREXVY at the same time—studies show that getting both together works just as well as getting them separately, and the side effects are similar, mostly things like soreness, tiredness, or muscle aches. For TWINRIX, though, there isn't data about getting it with SHINGRIX, so we don't really know how safe or effective that combination is yet.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_33726_doc_0"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Do they need to be given in different spots if you get them together?",
+    "answer": "Yes, if you get SHINGRIX together with other vaccines like the flu shot or the COVID vaccine, they should be given in different spots on your body. This is standard practice for recombinant and adjuvanted vaccines, and it's what studies are looking at when testing how well these vaccines work together.",
+    "subquestion_reasoning": "Select documents that specify anatomical site recommendations for coadministration of SHINGRIX with TWINRIX or AREXVY; exclude those focused on unrelated vaccines or timing without mention of injection site.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should state whether SHINGRIX and TWINRIX or AREXVY must be administered at different anatomic sites if given together.",
+     "relevance_signals": [
+      "concomitant vaccine administration",
+      "anatomic site requirements"
+     ],
+     "irrelevance_signals": [
+      "pediatric vaccine guidance",
+      "vaccine scheduling intervals only"
+     ]
+    },
+    "conversation_history": "Q: In vaccine safety, is it okay for people to get SHINGRIX at the same time as TWINRIX or AREXVY, or is there a higher risk of side effects?\nA: It's okay for people to get SHINGRIX and AREXVY at the same time—studies show that getting both together works just as well as getting them separately, and the side effects are similar, mostly things like soreness, tiredness, or muscle aches. For TWINRIX, though, there isn't data about getting it with SHINGRIX, so we don't really know how safe or effective that combination is yet.\nQ: Are there any studies coming up that look at mixing SHINGRIX with other vaccines like the flu or COVID shots?\nA: Yes, there are studies going on that look at giving SHINGRIX at the same time as the flu shot (specifically, the adjuvanted flu vaccine called Fluad) and COVID-19 vaccines. They're checking to see how well this works and what the side effects are when these vaccines are given together at different spots on the body.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_33726_doc_0",
+     "medicalsciences_ex_33726_doc_2"
+    ]
+   },
+   {
+    "turn_id": 4,
+    "query": "How do doctors usually decide what to do when there isn’t much data on giving these together?",
+    "answer": "When there isn’t much data about giving certain vaccines together, doctors usually weigh a few things: whether the person is already up to date on their vaccines, how easy it would be for them to come back for another dose, the risk of catching those diseases, how the vaccines tend to behave in terms of side effects, and what the patient prefers. So, it’s a mix of medical guidelines and what makes the most sense for the patient’s situation.",
+    "subquestion_reasoning": "Select documents addressing SHINGRIX coadministration guidance or safety when direct evidence is absent; exclude those unrelated to vaccine combinations or focused on unrelated vaccines.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should discuss clinical considerations, guidance, or safety implications of coadministering SHINGRIX with other vaccines, especially when direct study data is lacking.",
+     "relevance_signals": [
+      "coadministration of SHINGRIX with other vaccines",
+      "clinical decision-making in absence of direct data"
+     ],
+     "irrelevance_signals": [
+      "studies unrelated to vaccine coadministration",
+      "documents focused solely on unrelated vaccines or diseases"
+     ]
+    },
+    "conversation_history": "Q: In vaccine safety, is it okay for people to get SHINGRIX at the same time as TWINRIX or AREXVY, or is there a higher risk of side effects?\nA: It's okay for people to get SHINGRIX and AREXVY at the same time—studies show that getting both together works just as well as getting them separately, and the side effects are similar, mostly things like soreness, tiredness, or muscle aches. For TWINRIX, though, there isn't data about getting it with SHINGRIX, so we don't really know how safe or effective that combination is yet.\nQ: Are there any studies coming up that look at mixing SHINGRIX with other vaccines like the flu or COVID shots?\nA: Yes, there are studies going on that look at giving SHINGRIX at the same time as the flu shot (specifically, the adjuvanted flu vaccine called Fluad) and COVID-19 vaccines. They're checking to see how well this works and what the side effects are when these vaccines are given together at different spots on the body.\nQ: Do they need to be given in different spots if you get them together?\nA: Yes, if you get SHINGRIX together with other vaccines like the flu shot or the COVID vaccine, they should be given in different spots on your body. This is standard practice for recombinant and adjuvanted vaccines, and it's what studies are looking at when testing how well these vaccines work together.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_33726_doc_0",
+     "medicalsciences_ex_33726_doc_3",
+     "medicalsciences_ex_33726_doc_1"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 4,
+   "gold_doc_count": 10,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T12:18:21.937035",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_32699",
+  "task": "medicalsciences",
+  "original_query": "How much lead would need to be ingested daily to show symptoms of lead poisoning? There are a number of sources that claim 18th century aristocrats contracted lead poisoning from eating tomatoes off of pewter plates: Because tomatoes are so high in acidity, when placed on this particular tableware, the fruit would leach lead from the plate, resulting in many deaths from lead poisoning This is presented as one reason for the slow adoption of tomatoes in European cuisine. There are a couple of things I question about this claim: There are plenty of common foods that are more acidic than tomatoes, e.g. vinegar, red wine, apples. If this was happening with tomatoes, it should be happening quite frequently; My understanding is that lead poisoning takes time to develop , which would make the attribution \"eating tomatoes makes me sick\" difficult or impossible. The CDC recommends adults stay below 10 µg/dl blood lead - how much would need to be eaten daily over a long period of time to reach those levels? Alternatively, how much lead would need to be eaten in a single sitting to cause symptoms of acute lead toxicity?",
+  "original_answer": "Poisoning from acute exposure will depend on the form of the lead. Elemental lead is poorly absorbed, whereas lead salts are much more likely to cause toxicity, so 0.5g of elemental lead in the form of a salt can be fatal. (Source: UK National Poisons Information Service via Toxbase website). UK legal limits in occupational exposure are slightly higher - action is needed if blood levels reach 50mcg/dl (25mcg/dl in 'women of child bearing age' and 40mcg/dl for young people). As Ian Campbell pointed out in the comments, US guidance is tighter with treatment advised in children levels over 35mcg/dL. Chronic exposure is trickier to work out. Absorption for lead salts is reported to be higher in children (50-80%) than adults (3-10%). In the steady state, most lead is stored in bone whereas the toxic level is based on the blood concentration. Ingestion, movement between compartments, and excretion occur at different rates; models have existed for a long time but also show significant variability between individuals. Also worth noting that absorption of lead is highly variable - depending on particle size, inhaled lead may be better absorbed than ingested, and deficiency of calcium or zinc, and some genetic variations , also lead to higher uptake. An ingested dose of 100mcg/day for a year was modelled to give an increase in steady state lead levels of 3.3-8.4 mcg/dl. While this is not entirely 'safe' it would still be below the limit you discussed in the question, and would suggest that a daily ingested dose of around 120-300mcg would reach that blood concentration.",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In lead poisoning, how does the amount of lead someone eats each day affect their blood lead levels over time?",
+    "answer": "Basically, the more lead someone eats each day, the more likely it is to build up in their blood over time. Even relatively small amounts, like 61 micrograms per day, have been shown to increase blood lead levels in infants. But when daily intake is kept low—around 3 to 4 micrograms per kilogram of body weight—there’s no noticeable rise in blood lead. So, the amount you take in really does make a difference in how much lead ends up in your body.",
+    "subquestion_reasoning": "Retrieve documents that model or quantify how ingested lead translates to blood lead levels in humans, especially those discussing individual differences in absorption and excretion rates.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should describe the relationship between ingested lead dose and resulting blood lead levels, accounting for absorption, distribution, and excretion variability in humans.",
+     "relevance_signals": [
+      "lead toxicokinetics",
+      "dose-blood lead relationship",
+      "absorption/excretion variability"
+     ],
+     "irrelevance_signals": [
+      "environmental lead sources only",
+      "lead poisoning symptoms without dose-response",
+      "animal-only studies"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_32699_doc_1",
+     "medicalsciences_ex_32699_doc_0"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Is there a rough limit for how much lead someone could eat each day without going over that CDC level?",
+    "answer": "Yeah, there actually is a rough limit that was set for kids—a daily intake of up to 300 micrograms of lead was considered okay and not likely to push blood lead levels past what used to be the CDC's concern level. This was based on the idea that most of the lead you eat gets excreted, so staying under that amount should keep blood lead from rising too much.",
+    "subquestion_reasoning": "Select documents quantifying how daily lead ingestion affects adult blood lead levels, especially those referencing CDC thresholds; exclude sources focused solely on children, non-ingestion exposure, or lacking quantitative data.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should provide quantitative relationships between daily lead ingestion and resulting adult blood lead concentrations.",
+     "relevance_signals": [
+      "lead intake and blood lead levels",
+      "dose-response in adults",
+      "CDC or health authority recommendations"
+     ],
+     "irrelevance_signals": [
+      "lead exposure in children only",
+      "environmental/occupational exposure without ingestion data",
+      "historical anecdotes without quantitative data"
+     ]
+    },
+    "conversation_history": "Q: In lead poisoning, how does the amount of lead someone eats each day affect their blood lead levels over time?\nA: Basically, the more lead someone eats each day, the more likely it is to build up in their blood over time. Even relatively small amounts, like 61 micrograms per day, have been shown to increase blood lead levels in infants. But when daily intake is kept low—around 3 to 4 micrograms per kilogram of body weight—there’s no noticeable rise in blood lead. So, the amount you take in really does make a difference in how much lead ends up in your body.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_32699_doc_0"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Do you know at what point doctors actually step in for lead levels in kids or adults?",
+    "answer": "Doctors usually start to get concerned when blood lead levels reach around 40 micrograms per deciliter, since that was used as a sign of too much lead absorption. At higher levels, like 25 to 60 micrograms per deciliter, people can start to show symptoms like trouble concentrating, irritability, and headaches. Once blood lead gets even higher—over 50 or 80—more serious problems like anemia or severe stomach pain can show up, and really high levels above 100 can lead to dangerous effects on the brain.",
+    "subquestion_reasoning": "Select documents that specify UK/US blood lead intervention limits or discuss clinical symptom thresholds in humans. Exclude those focusing solely on environmental sources, non-human studies, or lacking quantitative medical criteria.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should state current UK and US blood lead level thresholds for medical intervention in adults and children, and/or compare these to levels causing clinical symptoms.",
+     "relevance_signals": [
+      "blood lead level thresholds",
+      "medical intervention guidelines",
+      "clinical symptoms of lead poisoning"
+     ],
+     "irrelevance_signals": [
+      "environmental lead sources only",
+      "lead poisoning in animals",
+      "historical anecdotes without medical thresholds"
+     ]
+    },
+    "conversation_history": "Q: In lead poisoning, how does the amount of lead someone eats each day affect their blood lead levels over time?\nA: Basically, the more lead someone eats each day, the more likely it is to build up in their blood over time. Even relatively small amounts, like 61 micrograms per day, have been shown to increase blood lead levels in infants. But when daily intake is kept low—around 3 to 4 micrograms per kilogram of body weight—there’s no noticeable rise in blood lead. So, the amount you take in really does make a difference in how much lead ends up in your body.\nQ: Is there a rough limit for how much lead someone could eat each day without going over that CDC level?\nA: Yeah, there actually is a rough limit that was set for kids—a daily intake of up to 300 micrograms of lead was considered okay and not likely to push blood lead levels past what used to be the CDC's concern level. This was based on the idea that most of the lead you eat gets excreted, so staying under that amount should keep blood lead from rising too much.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_32699_doc_3",
+     "medicalsciences_ex_32699_doc_0"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 5,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T12:12:57.702119",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ },
+ {
+  "id": "ex_32435",
+  "task": "medicalsciences",
+  "original_query": "Can radiography procedures in medicine use gamma radiation? Can radiography with gamma rays be used in medicine? If not, why not? Is it a technical issue (gamma rays are not easy to generate or detect for this purpose) or is it a safety issue (gamma rays are too dangerous)?",
+  "original_answer": "X-rays and gamma radiation X-rays and gamma radiation are both types of electromagnetic radiation. X-rays originate from outside the nucleus of an atom (interactions of electrons), whereas gamma radiation originated in the nucleus of the atom as part of radioactive decay. Gamma radiation is (by definition) of higher energy and shorter wavelength than x-ray radiation. Both have wavelengths shorter than visible light. Gamma rays are more penetrating and more ionising than x-rays, so they have more potential to cause cellular damage; a feature that is useful in radiotherapy applications (though both x-rays and gamma rays are used for this). Gamma radiation in medicine Gamma radiation is widely used in medical imaging and treatment. This usually comes under the remit of a nuclear medicine department. Diagnosis Radioisotopes that emit gamma radiation can be injected and gamma cameras used to record uptake in the body. Different radioisotopes are taken up to varying amounts by different organs. Two-dimensional imaging is called scintigraphy , while three-dimensional imaging includes SPECT and PET (often done alongside a standard CT scan that uses x-rays). Therapeutics Gamma radiation (and other types, such as neutron beams) are used in radiotherapy, as part of the treatment for cancer. For example, gamma knife surgery is a very precise stereotactic gamma radiotherapy used for certain brain tumours. Another example is that radioactive iodine is preferentially absorbed by the thyroid gland and is used to treat certain types of hyperthyroidism and thyroid cancer. The related MIBG scan can also be used for other diagnostic purposes, including pheochromocytoma . Other sources Gamma rays in medicine",
+  "turns": [
+   {
+    "turn_id": 1,
+    "query": "In medical radiography, does it matter that gamma rays come from the nucleus while x-rays come from outside it?",
+    "answer": "In medical radiography, what's important is how each type of radiation is used. X-rays are commonly used for imaging because they create clearer pictures of bones and tissues, while gamma rays tend to produce poorer quality images and require longer exposure times. So, even though gamma rays and X-rays come from different parts of the atom, it's really their practical differences—like image quality and safety—that matter most in medical settings.",
+    "subquestion_reasoning": "Select documents that compare gamma and x-ray origins and discuss how these differences influence their suitability for medical radiography.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how the nuclear origin of gamma rays versus the extranuclear origin of x-rays affects their properties and medical radiography use.",
+     "relevance_signals": [
+      "gamma rays origin",
+      "x-rays origin",
+      "impact on medical imaging"
+     ],
+     "irrelevance_signals": [
+      "non-medical gamma ray applications",
+      "general radiation safety without origin discussion"
+     ]
+    },
+    "conversation_history": "No previous conversation.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_32435_doc_2",
+     "medicalsciences_ex_32435_doc_3"
+    ]
+   },
+   {
+    "turn_id": 2,
+    "query": "Would using something that powerful make it harder to get clear images for everyday scans?",
+    "answer": "Yes, using something as powerful as gamma rays actually makes it harder to get clear images for routine scans. Gamma rays tend to give poorer quality radiographs, and you’d often need longer exposure times. That’s one big reason why X-rays are preferred for everyday medical imaging.",
+    "subquestion_reasoning": "Select documents that discuss the effect of gamma ray penetration on their appropriateness for diagnostic radiography, not just their use in therapy or general imaging.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how the higher penetrating power of gamma rays compared to x-rays impacts their use or non-use in routine diagnostic radiography in medicine.",
+     "relevance_signals": [
+      "penetrating power of gamma rays vs x-rays",
+      "suitability or limitations of gamma rays for diagnostic imaging"
+     ],
+     "irrelevance_signals": [
+      "gamma rays in cancer therapy only",
+      "general radiography procedures without mention of gamma rays"
+     ]
+    },
+    "conversation_history": "Q: In medical radiography, does it matter that gamma rays come from the nucleus while x-rays come from outside it?\nA: In medical radiography, what's important is how each type of radiation is used. X-rays are commonly used for imaging because they create clearer pictures of bones and tissues, while gamma rays tend to produce poorer quality images and require longer exposure times. So, even though gamma rays and X-rays come from different parts of the atom, it's really their practical differences—like image quality and safety—that matter most in medical settings.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_32435_doc_2"
+    ]
+   },
+   {
+    "turn_id": 3,
+    "query": "Now I’m curious—how is gamma radiation actually used in medicine if it’s not for regular scans?",
+    "answer": "Gamma radiation is mainly used in medicine to treat cancer cells and to sterilize medical equipment and devices. So, while it’s not great for regular imaging, it plays an important role in cancer therapy and keeping medical tools safe and clean.",
+    "subquestion_reasoning": "Select documents that detail medical uses of gamma radiation, especially in nuclear medicine imaging or therapy, and that compare these to x-ray radiography; exclude sources focusing solely on industrial uses, general radiation safety, or x-ray-only procedures.",
+    "subquestion_reasoning_metadata": {
+     "target_information": "Documents should explain how gamma radiation is used for imaging and treatment in nuclear medicine, contrasting these with conventional x-ray radiography.",
+     "relevance_signals": [
+      "gamma radiation in nuclear medicine",
+      "imaging vs. treatment applications",
+      "comparison with x-ray radiography"
+     ],
+     "irrelevance_signals": [
+      "industrial radiography",
+      "general radiation safety without medical context",
+      "x-ray imaging only"
+     ]
+    },
+    "conversation_history": "Q: In medical radiography, does it matter that gamma rays come from the nucleus while x-rays come from outside it?\nA: In medical radiography, what's important is how each type of radiation is used. X-rays are commonly used for imaging because they create clearer pictures of bones and tissues, while gamma rays tend to produce poorer quality images and require longer exposure times. So, even though gamma rays and X-rays come from different parts of the atom, it's really their practical differences—like image quality and safety—that matter most in medical settings.\nQ: Would using something that powerful make it harder to get clear images for everyday scans?\nA: Yes, using something as powerful as gamma rays actually makes it harder to get clear images for routine scans. Gamma rays tend to give poorer quality radiographs, and you’d often need longer exposure times. That’s one big reason why X-rays are preferred for everyday medical imaging.",
+    "gold_doc_ids": [
+     "medicalsciences_ex_32435_doc_3"
+    ]
+   }
+  ],
+  "metadata": {
+   "num_turns": 3,
+   "gold_doc_count": 4,
+   "version": "unified_v1",
+   "created_at": "2025-12-22T12:40:46.264318",
+   "source": "annotated_data",
+   "method": "unified_bright_workflow"
+  }
+ }
+]
