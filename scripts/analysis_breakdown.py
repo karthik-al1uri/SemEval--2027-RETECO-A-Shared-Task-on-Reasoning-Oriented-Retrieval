@@ -21,7 +21,7 @@ from collections import defaultdict
 
 import numpy as np
 
-from reteco.analysis_tools import SYSTEMS
+from reteco.analysis_tools import STAGES, SYSTEMS
 from reteco.analysis_tools.perquery import per_query_systems
 from reteco.analysis_tools.qtypes import TYPES
 from reteco.analysis_tools.significance import query_bootstrap_ci
@@ -37,7 +37,9 @@ DELTA_PAIRS = [
     ("dense_best", "sparse_best"),
     ("hybrid_best", "sparse_best"),
     ("hybrid_best", "dense_best"),
+    ("final", "hybrid_best"),
 ]
+SCORED = SYSTEMS + STAGES      # per-query scores; tables and "best system" use SYSTEMS only
 
 
 def col(system: str, metric: str) -> str:
@@ -50,14 +52,14 @@ def load_types() -> dict[tuple[str, str], dict]:
 
 
 def build_rows(split: str, types) -> list[dict]:
-    per = per_query_systems(SYSTEMS, split)
+    per = per_query_systems(SCORED, split)
     rows = []
     for i, base in enumerate(per[SYSTEMS[0]]):
         t = types[(split, base["qid"])]
         row = {"split": split, "domain": base["domain"], "qid": base["qid"],
                "type": t["type"], "cv_pred": t["cv_pred"], "anchored": int(t["anchored"]),
                "n_words": int(t["n_words"])}
-        for s in SYSTEMS:
+        for s in SCORED:
             assert per[s][i]["qid"] == base["qid"]
             for m in METRICS:
                 row[col(s, m)] = per[s][i][m]
@@ -81,7 +83,7 @@ def main() -> None:
     types = load_types()
     rows = {s: build_rows(s, types) for s in ("train", "dev")}
 
-    score_cols = [col(s, m) for s in SYSTEMS for m in METRICS]
+    score_cols = [col(s, m) for s in SCORED for m in METRICS]
     write_csv(OUT / "analysis_per_query.csv",
               ["split", "domain", "qid", "type", "cv_pred", "anchored", "n_words"] + score_cols,
               [[r["split"], r["domain"], r["qid"], r["type"], r["cv_pred"], r["anchored"],

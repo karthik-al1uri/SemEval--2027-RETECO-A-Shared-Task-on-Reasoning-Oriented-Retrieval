@@ -1,6 +1,6 @@
 # Analysis of the existing systems (Sub-track 1a)
 
-Post-hoc analysis of five existing runs on **dev**: `bm25`, `bm25+temporal_fit_present`, `sparse_best`, `dense_best`, `hybrid_best`. Sections 1–6 build no new retrieval system and change no run. Section 7 adds one post-processing step, near-duplicate demotion, tuned on train. Code is in `src/reteco/analysis_tools/` and `scripts/analysis_*.py`, outputs are in `results/analysis_*.csv`, figures are in `paper/figures/`, and the paper draft is in `paper/`.
+Post-hoc analysis of five existing runs on **dev**: `bm25`, `bm25+temporal_fit_present`, `sparse_best`, `dense_best`, `hybrid_best`. Sections 1–6 build no new retrieval system and change no run. Section 7 adds one post-processing step, near-duplicate demotion, tuned on train. Section 8 applies it to the final system (cross-encoder pipeline, `docs/RERANK.md`), where it was adopted; the breakdowns, significance tests and figures were then re-run with `final` as a sixth system. Code is in `src/reteco/analysis_tools/` and `scripts/analysis_*.py`, outputs are in `results/analysis_*.csv`, figures are in `paper/figures/`, and the paper draft is in `paper/`.
 
 The per-query scorer reproduces every logged macro score exactly (dev nDCG@10 / R@100: bm25 0.1148 / 0.4045, temporal 0.1304 / 0.4045, sparse 0.2541 / 0.6531, dense 0.2765 / 0.6259, hybrid 0.3189 / 0.7158).
 
@@ -10,7 +10,7 @@ The per-query scorer reproduces every logged macro score exactly (dev nDCG@10 / 
 - **Sparse and dense win different types, on both splits.** Tuned sparse is ahead on *specific date*, *ordering/sequence* and *change over time* queries. Dense is ahead on *era/period* queries and, on train, by a wide margin on queries without temporal intent (+0.102, CI excludes 0). Most per-type gaps are not significant on their own.
 - **Temporal re-scoring only acts on anchored queries.** It gains +0.022 nDCG@10 (dev) and +0.017 (train) on queries where the extractor finds a time, and is flat on the rest. This follows from its design, since queries without times are left unchanged.
 - **Duration and no-temporal-intent queries are the hardest types** for every system (dev hybrid 0.289 and 0.229, against 0.312 for all queries).
-- **Significance (dev, macro, Holm-corrected).** Every consecutive step is significant except sparse → dense (+0.022, p = 0.45; the order of the two flips between train and dev). Hybrid beats both of its inputs on nDCG@10 and Recall@100 (p ≤ 0.001). BM25 → BM25+temporal is significant (+0.016, p = 0.02), but only +0.007 without iota.
+- **Significance (dev, macro, Holm-corrected).** Every consecutive step is significant except sparse → dense (+0.022, p = 0.45; the order of the two flips between train and dev). Hybrid beats both of its inputs on nDCG@10 and Recall@100 (p ≤ 0.001). BM25 → BM25+temporal is significant (+0.016, p = 0.04), but only +0.007 without iota.
 - **Errors.** Among 25 dev queries where hybrid scores 0, the most common named cause is vocabulary mismatch (8). Next are long, noisy queries (4) and ambiguous queries (2). A wrong time period is the primary cause only once (secondary 3 times). The largest group (9, "other") is mostly near-misses: on-topic non-gold documents, often near-duplicates of each other, fill the top 10 while a gold document sits at ranks 11–50.
 - **Near-duplicates are common in the top 10.** 9.7% of hybrid's dev top-10 slots repeat a higher-ranked document (word 5-gram Jaccard ≥ 0.8), in 56% of queries; in history it is 13.6%. v1.1 removed only exact duplicates.
 - **Demoting near-duplicates helps a little** (§7). Moving each near-duplicate below the next non-duplicate (Jaccard ≥ 0.9, tuned on train) gives **+0.0012 train / +0.0039 dev** (dev p = 0.011; **+0.0020 without iota**). A stronger variant, which moves duplicates to the end of the top 100, gives +0.0056 train / +0.0090 dev (+0.0063 without iota). 60 of 11,495 documents demoted on train were gold. In 59 of those, the higher-ranked copy is not gold, and 38 of those pairs differ only in case or punctuation.
@@ -166,24 +166,28 @@ Better systems retrieve more near-duplicates, because the duplicated texts are o
 
 - **Paired randomization test:** 10,000 sign flips of the per-query differences, two-sided, p = (hits + 1) / (10,001).
 - **Paired bootstrap:** 10,000 resamples of queries within each domain (domain sizes fixed), 95% percentile CI.
-- **Holm correction** over the seven pairs of each metric.
+- **Holm correction** over the eleven pairs of each metric (the original seven, plus hybrid → final and its three second-stage steps, added in §8; the p-values below are the eleven-pair ones).
 - Every test is repeated without iota.
 
 nDCG@10, dev:
 
 | Pair | Δ macro | 95% CI | p (Holm) | Δ without iota | p without iota |
 | --- | ---: | --- | ---: | ---: | ---: |
-| bm25 → bm25+temporal | +0.0157 | [+0.0051, +0.0266] | 0.020 | +0.0073 | 0.040 |
-| bm25+temporal → sparse_best | +0.1236 | [+0.0982, +0.1492] | < 0.001 | +0.1280 | < 0.001 |
-| sparse_best → dense_best | +0.0224 | [−0.0209, +0.0718] | 0.446 | +0.0080 | 0.622 |
-| dense_best → hybrid_best | +0.0424 | [+0.0198, +0.0644] | 0.001 | +0.0506 | < 0.001 |
-| bm25 → sparse_best * | +0.1393 | [+0.1111, +0.1673] | < 0.001 | +0.1353 | < 0.001 |
-| bm25 → dense_best * | +0.1617 | [+0.1257, +0.2003] | < 0.001 | +0.1433 | < 0.001 |
-| sparse_best → hybrid_best * | +0.0648 | [+0.0344, +0.0993] | < 0.001 | +0.0586 | < 0.001 |
+| bm25 → bm25+temporal | +0.0157 | [+0.0051, +0.0266] | 0.040 | +0.0073 | 0.040 |
+| bm25+temporal → sparse_best | +0.1236 | [+0.0982, +0.1492] | 0.001 | +0.1280 | < 0.001 |
+| sparse_best → dense_best | +0.0224 | [−0.0209, +0.0718] | 0.891 | +0.0080 | 0.622 |
+| dense_best → hybrid_best | +0.0424 | [+0.0198, +0.0644] | 0.002 | +0.0506 | < 0.001 |
+| hybrid_best → final | +0.0214 | [+0.0088, +0.0346] | 0.006 | +0.0198 | 0.004 |
+| bm25 → sparse_best * | +0.1393 | [+0.1111, +0.1673] | 0.001 | +0.1353 | < 0.001 |
+| bm25 → dense_best * | +0.1617 | [+0.1257, +0.2003] | 0.001 | +0.1433 | < 0.001 |
+| sparse_best → hybrid_best * | +0.0648 | [+0.0344, +0.0993] | 0.001 | +0.0586 | < 0.001 |
+| hybrid_best → + cross-encoder (interpolated) † | +0.0127 | [+0.0019, +0.0234] | 0.070 | +0.0137 | 0.026 |
+| → + temporal † | −0.0013 | [−0.0051, +0.0019] | 0.891 | −0.0014 | 0.518 |
+| → + near-duplicate demotion = final † | +0.0100 | [+0.0041, +0.0170] | 0.001 | +0.0075 | < 0.001 |
 
-Recall@100, dev: sparse → dense −0.027 (p = 0.59); dense → hybrid +0.090, sparse → hybrid +0.063, bm25 → sparse +0.249 (all p < 0.001). BM25 → temporal is 0 by construction.
+Recall@100, dev: sparse → dense −0.027 (p = 1.00); dense → hybrid +0.090, sparse → hybrid +0.063, bm25 → sparse +0.249 (all p ≤ 0.001); hybrid → final +0.028 (p = 0.61), all of it from the cross-encoder stage. BM25 → temporal is 0 by construction.
 
-\* not consecutive in the progression. The 10k permutations bound p below at about 10⁻⁴; "< 0.001" means no permuted statistic reached the observed one, or only a handful did.
+\* not consecutive in the progression. † single second-stage step (`rerank_minilm_interp`, `rerank_minilm_interp+rerank_temporal_fit_present`, `final`); p without iota is uncorrected. The 10k permutations bound p below at about 10⁻⁴; "< 0.001" means no permuted statistic reached the observed one, or only a handful did.
 
 **Reading.** Sparse vs. dense is a tie: the dev ordering (dense ahead) is the opposite of train (sparse ahead, 0.2435 vs. 0.2261), and the CI spans ±0.05. The temporal gain is real but small, and half of it is iota.
 
@@ -267,6 +271,37 @@ On train, 60 demoted documents are gold, 44 of them in history. In all but one, 
 
 **Not done.** The order within a duplicate group is not changed (the top copy always wins), and duplicates are only detected inside each top-100 list. Deeper candidate lists (depth 1000) would let the to-end variant pull new documents into the top 100, but that needs the fusion code and is left to the system agents.
 
+## 8. Near-duplicate demotion on the final system
+
+The final system of `docs/RERANK.md` (hybrid_best → MiniLM cross-encoder, interpolated → temporal) still has near-duplicates in its top 10: 10.5% of dev top-10 slots (shingle test, §3), in 59% of queries, slightly more than hybrid (9.7%). Both §7 variants were re-tuned on its **train** run, `runs/train/final.trec` (before demotion; 0.2976), with the §7 grid and tie rule. Full grid: `results/analysis_dedup_grid_final_train.csv`.
+
+| Train nDCG@10 Δ vs 0.2976 | strict | ≥1.0 | ≥0.95 | ≥0.9 | ≥0.85 | ≥0.8 | ≥0.7 | ≥0.6 | ≥0.5 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| skip 1 (below next) | +0.0017 | +0.0017 | +0.0019 | +0.0023 | +0.0023 | **+0.0026** | +0.0024 | +0.0026 | +0.0025 |
+| skip 3 | +0.0026 | +0.0026 | +0.0030 | +0.0036 | +0.0039 | +0.0041 | +0.0038 | +0.0039 | +0.0038 |
+| skip 0 (to end) | +0.0035 | +0.0035 | +0.0038 | +0.0044 | **+0.0049** | +0.0050 | +0.0046 | +0.0042 | +0.0042 |
+| demoted docs (train) | 7,921 | 7,924 | 10,518 | 12,209 | 13,701 | 14,910 | 16,609 | 17,728 | 18,773 |
+| of which gold | 47 | 47 | 67 | 73 | 75 | 82 | 108 | 137 | 179 |
+
+Selected: skip 1 → Jaccard ≥ 0.8 (0.3001; 0.6 is higher by less than 10⁻⁴, so the stricter threshold wins), skip 0 → Jaccard ≥ 0.85 (0.3025; 0.8 is higher by less than 10⁻⁴). The pattern is the same as on hybrid_best: moving duplicates to the end matters more than the threshold, and the gain on the reranked run is about as large as on hybrid (+0.0049 vs +0.0056 on train), so the cross-encoder does not remove the redundancy.
+
+**Adopted: `dedup_end`** (`configs/final_dedup_end.yaml`), the variant with the higher train nDCG@10, under the rule fixed beforehand (adopt only if it improves the final system on train). It is now the last stage of `configs/final.yaml` and `reteco.pipeline`; `runs/{train,dev}/final.trec` were regenerated and are identical to `final+dedup`.
+
+`results/analysis_dedup_final.csv` (`scripts/analysis_dedup.py --base final --variant dedup:final_dedup_end --tag _final`; CI and p as in §7):
+
+| System | Split | nDCG@10 | Δ | 95% CI | p | Δ w/o iota | p w/o iota | Queries better / worse |
+| --- | --- | ---: | ---: | --- | ---: | ---: | ---: | --- |
+| final before demotion | train | 0.2976 | | | | | | |
+| final+dedup | train | 0.3025 | +0.0049 | [+0.0013, +0.0084] | 0.004 | +0.0052 | 0.005 | 250 / 15 |
+| final before demotion | dev | 0.3303 | | | | | | |
+| final+dedup | dev | **0.3403** | **+0.0100** | [+0.0041, +0.0170] | < 0.001 | **+0.0075** | < 0.001 | 115 / 8 |
+
+- **Iota is a quarter of the dev gain**, as on hybrid: it gains +0.041 on 3 queries. Without iota the dev gain (+0.0075) is still larger than on train.
+- **History carries it** (+0.017 train, +0.021 dev, 171 / 10 queries better / worse on train). Losses are small and in the crypto and quant domains: monero −0.003 train / −0.002 dev, quant −0.004 train, cardano −0.014 dev (1 query better, 1 worse). Per domain: `results/analysis_dedup_final_domains.csv`.
+- After demotion, 0.8% of final's dev top-10 slots hold a near-duplicate (shingle test), against 10.5% before (`results/analysis_neardup.csv`).
+
+**Gold audit** (`results/analysis_dedup_final_gold.csv`): on train, 75 of 13,701 demoted documents (0.5%) are gold, 16 of them from the top 10; 55 of the 75 are in history. In 73 of the 75 the higher-ranked copy they repeat is **not** gold, and 47 of the pairs are identical up to case and punctuation. On dev (descriptive only): 24 of 5,760, 10 strict, 3 with a gold partner. This repeats the §7 finding on a stronger ranking. The v1.1 release merged only texts that are identical after collapsing whitespace, so copies that differ in punctuation remain as separate documents, and the gold label is usually attached to only one of them. A ranker cannot tell which copy is judged.
+
 ## Reproduce
 
 ```bash
@@ -286,6 +321,10 @@ for c in dedup dedup_end; do for s in train dev; do
   python -m reteco.analysis_tools.dedup --run runs/$s/hybrid_best.trec --split $s --config configs/$c.yaml
 done; done                                   # writes runs, appends to experiments.csv
 python scripts/analysis_dedup.py             # gains, significance, gold audit
+# §8: on the final system (before demotion), see docs/RERANK.md section 8 (Reproduce) for the full commands
+python -m reteco.analysis_tools.dedup --tune --skip 0 --run runs/train/final.trec \
+    --config configs/final_dedup_end.yaml
+python scripts/analysis_dedup.py --base final --variant dedup:final_dedup_end --tag _final
 python paper/make_tables.py
 python -m pytest tests/test_analysis_tools.py
 ```

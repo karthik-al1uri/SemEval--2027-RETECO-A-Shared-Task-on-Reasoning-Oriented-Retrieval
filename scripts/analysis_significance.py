@@ -6,9 +6,11 @@ Reads results/analysis_per_query.csv (scripts/analysis_breakdown.py).
 Writes results/analysis_significance.csv.
 
 "Consecutive" pairs follow the progression bm25 -> bm25+temporal -> sparse_best
--> dense_best -> hybrid_best. Three more pairs answer the questions the
+-> dense_best -> hybrid_best -> final. More pairs answer the questions the
 progression skips (do tuned sparse and dense each beat the baseline; does fusion
-beat its sparse input). Holm correction is applied per metric over all seven pairs.
+beat its sparse input) and test each second-stage step on its own (cross-encoder
+with interpolation, temporal on top, near-duplicate demotion). Holm correction is
+applied per metric over all pairs.
 """
 from __future__ import annotations
 
@@ -16,7 +18,7 @@ import csv
 
 import numpy as np
 
-from reteco.analysis_tools import SYSTEMS
+from reteco.analysis_tools import STAGES, SYSTEMS
 from reteco.analysis_tools.significance import (bootstrap_ci, holm, macro_diff,
                                                 randomization_test)
 from reteco.data import REPO_ROOT
@@ -29,6 +31,9 @@ PAIRS = [(SYSTEMS[i], SYSTEMS[i + 1], "consecutive") for i in range(len(SYSTEMS)
     ("bm25", "sparse_best", "extra"),
     ("bm25", "dense_best", "extra"),
     ("sparse_best", "hybrid_best", "extra"),
+    ("hybrid_best", STAGES[0], "stage"),
+    (STAGES[0], STAGES[1], "stage"),
+    (STAGES[1], "final", "stage"),
 ]
 
 

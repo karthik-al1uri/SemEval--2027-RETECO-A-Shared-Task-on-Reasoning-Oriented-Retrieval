@@ -16,7 +16,7 @@ import csv
 import re
 from collections import defaultdict
 
-from reteco.analysis_tools import SYSTEMS
+from reteco.analysis_tools import STAGES, SYSTEMS
 from reteco.analysis_tools.errors import fetch_docs, ranks
 from reteco.data import DOMAINS, REPO_ROOT, load_queries
 from reteco.runs import read_run
@@ -40,7 +40,8 @@ def main() -> None:
     qdom = {q.id: d for d in DOMAINS for q in load_queries(d, "dev")}
     tops = {}
     need = set()
-    for s in SYSTEMS:
+    systems = SYSTEMS[:-1] + STAGES[-1:] + SYSTEMS[-1:]   # final before and after demotion
+    for s in systems:
         rk = ranks(read_run(REPO_ROOT / "runs" / "dev" / f"{s}.trec"))
         tops[s] = {q: [d for d, r in sorted(v.items(), key=lambda x: x[1]) if r <= TOP]
                    for q, v in rk.items()}
@@ -52,7 +53,7 @@ def main() -> None:
     sh = {d: shingles(t) for d, t in docs.items()}
 
     out = []
-    for s in SYSTEMS:
+    for s in systems:
         agg = defaultdict(lambda: [0, 0, 0, 0, 0])   # queries, slots, strict, shingle, q_with_dup
         for q, lst in tops[s].items():
             dom = qdom[q]
