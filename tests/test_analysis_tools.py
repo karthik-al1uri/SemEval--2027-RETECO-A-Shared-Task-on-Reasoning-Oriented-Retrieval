@@ -110,3 +110,13 @@ def test_profile_and_apply(tiny_data):
     assert sorted(new["q1"], key=new["q1"].get, reverse=True) == ["iota/d1", "iota/d3", "iota/d2"]
     assert demoted == {"q1": ["iota/d2"]}
     assert not is_dup(p, 0.99).any()
+
+
+def test_profile_with_given_texts_matches_disk(tiny_data):
+    from reteco.analysis_tools.errors import fetch_docs
+
+    run = {"q1": {"iota/d1": 3.0, "iota/d2": 2.0, "iota/d3": 1.0}}
+    a = profile(run, root=tiny_data)["q1"]
+    b = profile(run, texts=fetch_docs(set(run["q1"]), tiny_data))["q1"]
+    assert a["docs"] == b["docs"]
+    assert np.array_equal(a["maxprev"], b["maxprev"]) and np.array_equal(a["strict"], b["strict"])

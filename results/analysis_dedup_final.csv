@@ -1,0 +1,3 @@
+split,variant,threshold,skip,base_macro,macro,delta,ci_low,ci_high,p_randomization,base_macro_no_iota,macro_no_iota,delta_no_iota,p_no_iota,micro_delta,n_better,n_worse,n_same,recall@100_delta,demoted,demoted_from_top10,demoted_gold,demoted_gold_from_top10,demoted_gold_partner_gold
+train,dedup,0.85,0,0.2976,0.3025,+0.0049,+0.0013,+0.0084,0.0038,0.2879,0.2931,+0.0052,0.0053,+0.0099,250,15,946,+0.0000,13701,1179,75,16,2
+dev,dedup,0.85,0,0.3303,0.3403,+0.0100,+0.0041,+0.0170,0.0002,0.3030,0.3105,+0.0075,0.0009,+0.0136,115,8,396,+0.0000,5760,512,24,8,3

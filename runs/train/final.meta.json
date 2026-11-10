@@ -1,5 +1,5 @@
 {
-  "description": "sparse+dense RRF k=20 w_dense=0.5 -> ms-marco-MiniLM-L-6-v2 top 200 (clean query) -> interp a=0.55 zscore -> temporal rerank_temporal_fit_present",
+  "description": "sparse+dense RRF k=20 w_dense=0.5 -> ms-marco-MiniLM-L-6-v2 top 200 (clean query) -> interp a=0.55 zscore -> temporal rerank_temporal_fit_present -> dedup final_dedup_end",
   "config": "configs/final.yaml",
   "domains": [
     "bitcoin",
@@ -17,12 +17,13 @@
     "workplace"
   ],
   "latency_ms_per_query": {
-    "sparse": 4.3,
-    "dense": 9.2,
-    "fusion": 1.9,
+    "sparse": 4.0,
+    "dense": 9.1,
+    "fusion": 1.8,
     "rerank": 1061.7,
     "interp": 0.1,
     "temporal": 1.9,
-    "total": 1079.0
+    "dedup": 20.7,
+    "total": 1099.3
   }
 }

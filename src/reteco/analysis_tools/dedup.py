@@ -92,11 +92,13 @@ def ranked(docs: dict[str, float]) -> list[str]:
     return [d for d, _ in order]
 
 
-def profile(run: dict[str, dict[str, float]], root=None) -> dict[str, dict]:
+def profile(run: dict[str, dict[str, float]], root=None,
+            texts: dict[str, str] | None = None) -> dict[str, dict]:
     """Per query: ranked doc ids, max Jaccard to any higher-ranked doc (and which one), and
     whether the doc strictly repeats a higher-ranked one (and which one).
 
-    Any threshold can then be applied without touching the documents again.
+    Any threshold can then be applied without touching the documents again. `texts`
+    (doc id -> content) skips reading the corpora; by default they are streamed from disk.
     """
     by_dom: dict[str, list[str]] = defaultdict(list)
     for q, docs in run.items():
@@ -106,9 +108,10 @@ def profile(run: dict[str, dict[str, float]], root=None) -> dict[str, dict]:
     for dom in sorted(by_dom):
         qids = by_dom[dom]
         need = {d for q in qids for d in run[q]}
-        texts = fetch_docs(need, root)
+        dom_texts = ({d: texts[d] for d in need if d in texts} if texts is not None
+                     else fetch_docs(need, root))
         vocab: dict[str, int] = {}
-        feats = {d: (strict_key(t), shingle_hashes(t, vocab)) for d, t in texts.items()}
+        feats = {d: (strict_key(t), shingle_hashes(t, vocab)) for d, t in dom_texts.items()}
         for q in qids:
             lst = ranked(run[q])
             keys = [feats[d][0] if d in feats else hash(d) for d in lst]
@@ -130,7 +133,7 @@ def profile(run: dict[str, dict[str, float]], root=None) -> dict[str, dict]:
                     first[keys[i]] = i
             out[q] = {"docs": lst, "maxprev": maxprev, "argprev": argprev, "strict": strict,
                       "strict_of": strict_of}
-        print(f"  {dom}: {len(qids)} queries, {len(texts)} documents", file=sys.stderr)
+        print(f"  {dom}: {len(qids)} queries, {len(dom_texts)} documents", file=sys.stderr)
     return out
 
 

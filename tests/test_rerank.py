@@ -125,3 +125,15 @@ def test_prepare_query_uses_callers_config_not_encoders():
     assert enc.prepare_query("a b c d", {"model": "m", "max_query_tokens": 2}) == "a b"
     assert enc.compatible({"model": "m", "query_clean": []})
     assert not enc.compatible({"model": "other"})
+
+
+def test_pipeline_dedup_stage_is_optional():
+    from reteco.pipeline import describe
+
+    cfg = {"components": {"rerank": False, "temporal": False},
+           "fusion": {"k": 20, "w_dense": 0.5}, "dedup": {"config": "configs/final_dedup_end.yaml"}}
+    assert describe(cfg).endswith("dedup final_dedup_end")
+    cfg["components"]["dedup"] = False
+    assert "dedup" not in describe(cfg)
+    del cfg["dedup"], cfg["components"]["dedup"]
+    assert "dedup" not in describe(cfg)      # configs without a dedup section still work

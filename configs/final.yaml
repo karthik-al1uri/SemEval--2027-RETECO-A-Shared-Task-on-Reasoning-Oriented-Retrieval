@@ -1,4 +1,5 @@
-# Final Sub-track 1a system. Every setting below was selected on TRAIN; see docs/RERANK.md.
+# Final Sub-track 1a system. Every setting below was selected on TRAIN; see docs/RERANK.md
+# and, for the last stage (near-duplicate demotion), docs/ANALYSIS.md section 8.
 #   python -m reteco.pipeline --config configs/final.yaml              -> runs/{train,dev}/final.trec
 #   python -m reteco.pipeline --config configs/final.yaml --ablation   -> + results/ablation.csv (dev)
 system_name: final
@@ -10,6 +11,7 @@ components:          # the ablation switches each of these off in turn
   rerank: true
   interpolate: true
   temporal: true
+  dedup: true
 
 sparse:
   config: configs/sparse_best.yaml      # BM25, per-domain k1/b, query cleaning (docs/SPARSE.md)
@@ -36,3 +38,6 @@ interpolate:                            # tuned on train (cache/rerank/interp/re
 
 temporal:
   config: configs/rerank_temporal_fit_present.yaml   # re-tuned on the reranked train run
+
+dedup:                                  # near-duplicate demotion, tuned on runs/train/final.trec
+  config: configs/final_dedup_end.yaml  # (before dedup); jaccard >= 0.85, duplicates to the end

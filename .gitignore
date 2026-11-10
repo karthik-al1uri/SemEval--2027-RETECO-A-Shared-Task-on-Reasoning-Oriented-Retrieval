@@ -64,6 +64,7 @@ runs/*/hybrid_*
 # (regenerate with python -m reteco.rerank.run / python -m reteco.pipeline)
 runs/*/rerank_*
 runs/*/final_*
+runs/*/final+*
 runs/*/*+rerank_temporal_*
 
 # Python 3.13 environment for torch (see README)

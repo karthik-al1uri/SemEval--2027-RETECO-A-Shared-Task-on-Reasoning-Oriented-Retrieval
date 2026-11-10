@@ -1,12 +1,14 @@
-"""Evaluate near-duplicate demotion on hybrid_best: gains, significance, gold demotions.
+"""Evaluate near-duplicate demotion on a base run: gains, significance, gold demotions.
 
     PYTHONPATH=src RETECO_DATA=data/data/track1_tempo python scripts/analysis_dedup.py
+    # the same on the final system (runs/<split>/final+dedup.trec, configs/final_dedup_end.yaml)
+    python scripts/analysis_dedup.py --base final --variant dedup:final_dedup_end --tag _final
 
-Needs the runs written by `python -m reteco.analysis_tools.dedup` with configs/dedup.yaml
-and configs/dedup_end.yaml. Qrels are read only to score runs and to audit which
+Needs the runs written by `python -m reteco.analysis_tools.dedup` (by default with
+configs/dedup.yaml and configs/dedup_end.yaml on hybrid_best). Qrels are read only to score runs and to audit which
 demoted documents were gold (train is the requested check; dev is descriptive).
 
-Writes
+Writes (with --tag T, results/analysis_dedup{T}.csv etc.)
     results/analysis_dedup.csv          per variant and split: macro with/without iota,
                                         deltas, CI, p, queries better/worse, demotions
     results/analysis_dedup_domains.csv  per-domain nDCG@10 deltas
@@ -14,6 +16,7 @@ Writes
 """
 from __future__ import annotations
 
+import argparse
 import csv
 
 import numpy as np
@@ -26,11 +29,18 @@ from reteco.data import DOMAINS, REPO_ROOT, load_qrels
 from reteco.runs import read_run
 
 OUT = REPO_ROOT / "results"
-BASE = "hybrid_best"
-VARIANTS = ["dedup", "dedup_end"]
 
 
-def main() -> None:
+def main(argv=None) -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--base", default="hybrid_best", help="base run name in runs/<split>/")
+    ap.add_argument("--variant", action="append", metavar="RUN_SUFFIX:CONFIG",
+                    help="runs/<split>/<base>+<RUN_SUFFIX>.trec made with configs/<CONFIG>.yaml "
+                         "(default: dedup:dedup and dedup_end:dedup_end)")
+    ap.add_argument("--tag", default="", help="suffix for the output CSV names")
+    args = ap.parse_args(argv)
+    BASE = args.base
+    variants = [tuple(v.split(":", 1)) for v in (args.variant or ["dedup:dedup", "dedup_end:dedup_end"])]
     summary, domains, gold_rows = [], [], []
     for split in ("train", "dev"):
         base_run = read_run(REPO_ROOT / "runs" / split / f"{BASE}.trec")
@@ -39,8 +49,8 @@ def main() -> None:
         qrels = {}
         for d in DOMAINS:
             qrels.update(load_qrels(d, split))
-        for v in VARIANTS:
-            cfg = yaml.safe_load((REPO_ROOT / "configs" / f"{v}.yaml").read_text())
+        for v, cfg_name in variants:
+            cfg = yaml.safe_load((REPO_ROOT / "configs" / f"{cfg_name}.yaml").read_text())
             new_run = read_run(REPO_ROOT / "runs" / split / f"{BASE}+{v}.trec")
             pq = per_query(new_run, split)
             assert [r["qid"] for r in pq] == [r["qid"] for r in base_pq]
@@ -98,8 +108,9 @@ def main() -> None:
                                 "n_better": int((b[m] > a[m]).sum()),
                                 "n_worse": int((b[m] < a[m]).sum())})
 
-    for name, rows in (("analysis_dedup.csv", summary), ("analysis_dedup_domains.csv", domains),
-                       ("analysis_dedup_gold.csv", gold_rows)):
+    t = args.tag
+    for name, rows in ((f"analysis_dedup{t}.csv", summary), (f"analysis_dedup{t}_domains.csv", domains),
+                       (f"analysis_dedup{t}_gold.csv", gold_rows)):
         with open(OUT / name, "w", newline="") as f:
             w = csv.DictWriter(f, fieldnames=list(rows[0]))
             w.writeheader()

@@ -1,4 +1,5 @@
-"""End-to-end system from one config: first stage -> cross-encoder -> interpolation -> temporal.
+"""End-to-end system from one config: first stage -> cross-encoder -> interpolation -> temporal
+-> near-duplicate demotion.
 
     python -m reteco.pipeline --config configs/final.yaml               train + dev runs
     python -m reteco.pipeline --config configs/final.yaml --ablation    + leave-one-out ablation on dev
@@ -11,6 +12,7 @@ Stages (every stage's output is recomputed on each call):
   4. rerank     cross-encoder on the top `depth` of 3
   5. interp     a * norm(fusion score) + (1 - a) * norm(cross-encoder logit)
   6. temporal   temporal-fit rescorer (reteco.temporal) on the top 100 of 5
+  7. dedup      near-duplicate demotion (reteco.analysis_tools.dedup) of the top 100 of 6
 
 Only expensive, input-keyed caches are reused, and each is rebuilt when
 missing: sparse term-count indexes (cache/sparse/tf/), document embeddings
@@ -51,6 +53,7 @@ ABLATIONS = {
     "no_temporal": ("temporal rescorer", lambda c: c["components"].update(temporal=False)),
     "no_query_clean": ("query cleaning for the cross-encoder (raw HTML query)",
                        lambda c: c["rerank"].update(query_clean=[])),
+    "no_dedup": ("near-duplicate demotion", lambda c: c["components"].update(dedup=False)),
 }
 
 
@@ -157,6 +160,23 @@ def temporal_stage(cfg: dict, run: dict, split: str, timer: Timer, workers: int 
     return out
 
 
+def dedup_stage(cfg: dict, run: dict, split: str, timer: Timer, depth: int = 100):
+    from .analysis_tools.dedup import apply, profile
+    from .analysis_tools.errors import fetch_docs
+
+    dcfg = load_yaml(cfg["dedup"]["config"])
+    # Rank by the scores as they are written to disk (rounded), so the result is identical
+    # to running the rescorer on the written run file.
+    run = {q: dict(_ordered(docs, depth)) for q, docs in run.items()}
+    # Document texts are document-side data (like an index): read them before timing.
+    texts = fetch_docs({d for docs in run.values() for d in docs})
+    t0 = time.perf_counter()
+    out, _ = apply(profile(run, texts=texts), dcfg["threshold"], dcfg.get("skip", 1),
+                   dcfg.get("depth", depth))
+    timer.add(f"dedup_{split}", time.perf_counter() - t0)
+    return out
+
+
 # ----------------------------------------------------------- pipeline --
 def run_pipeline(cfg: dict, splits, domains, workers: int = 8, shared: dict | None = None):
     """Returns {split: run} and the stage timer. `shared` caches first-stage outputs between
@@ -203,6 +223,8 @@ def run_pipeline(cfg: dict, splits, domains, workers: int = 8, shared: dict | No
             run = {q: dict(docs[:100]) for q, docs in cands.items()}
         if comp.get("temporal", True):
             run = temporal_stage(cfg, run, split, timer, workers)
+        if comp.get("dedup", True) and cfg.get("dedup"):
+            run = dedup_stage(cfg, run, split, timer)
         runs[split] = run
     return runs, timer
 
@@ -228,6 +250,8 @@ def describe(cfg: dict) -> str:
             parts.append(f"interp a={cfg['interpolate']['a']} {cfg['interpolate']['norm']}")
     if c.get("temporal", True):
         parts.append(f"temporal {Path(cfg['temporal']['config']).stem}")
+    if c.get("dedup", True) and cfg.get("dedup"):
+        parts.append(f"dedup {Path(cfg['dedup']['config']).stem}")
     return " -> ".join(parts)
 
 
