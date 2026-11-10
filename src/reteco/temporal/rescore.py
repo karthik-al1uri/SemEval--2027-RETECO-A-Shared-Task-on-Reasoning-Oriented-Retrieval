@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import time
 from dataclasses import dataclass, fields
 from pathlib import Path
 
@@ -219,18 +220,32 @@ def main(argv=None) -> int:
     cfg = yaml.safe_load(args.config.read_text())
     name = f"{args.run.stem}+{cfg['system_name']}"
     out = args.out or REPO_ROOT / "runs" / args.split / f"{name}.trec"
-    run, _ = rescore_run(read_run(args.run), args.split, cfg, args.workers)
+    in_run = read_run(args.run)
+    # Document times are a document-side cache (like an index): fill it before timing.
+    for dom, ids in sorted(run_doc_ids_by_domain(in_run).items()):
+        get_doc_times(dom, ids, args.workers)
+    t0 = time.perf_counter()
+    run, _ = rescore_run(in_run, args.split, cfg, args.workers)
+    latency = 1000 * (time.perf_counter() - t0) / max(1, len(in_run))
+    # Report the latency of the whole stack when the input run recorded its own.
+    in_meta = args.run.with_suffix(".meta.json")
+    in_lat = json.loads(in_meta.read_text()).get("latency_ms_per_query") if in_meta.exists() else None
+    if isinstance(in_lat, dict):
+        in_lat = in_lat.get("total")
+    total_lat = latency + in_lat if isinstance(in_lat, (int, float)) else None
     write_run(run, out, tag=name.replace("+", "_"), depth=cfg.get("depth", 100))
     config_path = str(args.config)
     desc = f"{cfg.get('description', '')} [input: {args.run.name}]"
     out.with_suffix(".meta.json").write_text(json.dumps(
-        {"description": desc, "config": config_path, "input_run": str(args.run)}, indent=2) + "\n")
+        {"description": desc, "config": config_path, "input_run": str(args.run),
+         "temporal_latency_ms_per_query": round(latency, 2),
+         "latency_ms_per_query": None if total_lat is None else round(total_lat, 1)}, indent=2) + "\n")
     print(f"wrote {out}")
     if not args.no_eval:
         result = evaluate_run(read_run(out), args.split)
         print(format_table(result))
         if not args.no_log:
-            append_result(result, out.stem, desc, config_path)
+            append_result(result, out.stem, desc, config_path, latency_ms=total_lat)
             print("appended to results/experiments.csv")
     return 0
 

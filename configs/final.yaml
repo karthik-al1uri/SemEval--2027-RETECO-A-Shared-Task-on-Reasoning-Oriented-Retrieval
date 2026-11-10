@@ -1,0 +1,38 @@
+# Final Sub-track 1a system. Every setting below was selected on TRAIN; see docs/RERANK.md.
+#   python -m reteco.pipeline --config configs/final.yaml              -> runs/{train,dev}/final.trec
+#   python -m reteco.pipeline --config configs/final.yaml --ablation   -> + results/ablation.csv (dev)
+system_name: final
+seed: 13
+
+components:          # the ablation switches each of these off in turn
+  sparse: true
+  dense: true
+  rerank: true
+  interpolate: true
+  temporal: true
+
+sparse:
+  config: configs/sparse_best.yaml      # BM25, per-domain k1/b, query cleaning (docs/SPARSE.md)
+dense:
+  config: configs/dense_best.yaml       # bge-small-en-v1.5, first 512 tokens (docs/DENSE.md)
+fusion:                                 # = hybrid_best (configs/dense_hybrid_best.yaml)
+  k: 20
+  w_dense: 0.5
+  depth: 1000
+
+rerank:                                 # = configs/rerank_minilm.yaml
+  model: cross-encoder/ms-marco-MiniLM-L-6-v2
+  dtype: float16
+  max_length: 512
+  max_query_tokens: 256
+  doc_chars: 4000
+  batch_size: 32
+  query_clean: [code, html, urls, signature]
+  depth: 200
+
+interpolate:                            # tuned on train (cache/rerank/interp/rerank_minilm_grid_train.csv)
+  a: 0.55
+  norm: zscore
+
+temporal:
+  config: configs/rerank_temporal_fit_present.yaml   # re-tuned on the reranked train run

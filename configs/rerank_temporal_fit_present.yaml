@@ -1,0 +1,23 @@
+# Tuned on train by `python -m reteco.temporal.tune`.
+system_name: rerank_temporal_fit_present
+description: 'temporal-fit + query ''nowadays/currently/today'' mapped to 2022-2026;
+  tuned on train: tau=25 w=(1,0,0) center=0 max_width=None norm=minmax b=0.1'
+depth: 100
+seed: 13
+norm: minmax
+a: 1.0
+b: 0.1
+query_present: true
+fit:
+  tau: 25.0
+  w_doc: 1
+  w_q: 0
+  w_best: 0
+  center: 0.0
+  drop_kinds: []
+  max_width: null
+tuned_on:
+  split: train
+  input_run: runs/train/rerank_minilm_interp.trec
+  train_macro_ndcg@10: 0.2976
+  train_baseline: 0.2941

@@ -4,5 +4,7 @@ scipy
 nltk
 PyYAML
 pytrec_eval-terrier
+dateparser
+scikit-learn
 pytest
 -e .

@@ -59,3 +59,12 @@ runs/*/hybrid_*
 !runs/*/dense_best.meta.json
 !runs/*/hybrid_best.trec
 !runs/*/hybrid_best.meta.json
+
+# Second-stage variants and ablation runs: keep only the final system's runs
+# (regenerate with python -m reteco.rerank.run / python -m reteco.pipeline)
+runs/*/rerank_*
+runs/*/final_*
+runs/*/*+rerank_temporal_*
+
+# Python 3.13 environment for torch (see README)
+.venv-dense/
