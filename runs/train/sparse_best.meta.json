@@ -1,0 +1,19 @@
+{
+  "description": "Best sparse system (= sparse_qclean_tuned): BM25, raw corpus, full query cleaning, per-domain (k1, b) tuned on train",
+  "config": "configs/sparse_best.yaml",
+  "domains": [
+    "bitcoin",
+    "cardano",
+    "economics",
+    "genealogy",
+    "history",
+    "hsm",
+    "iota",
+    "law",
+    "monero",
+    "politics",
+    "quant",
+    "travel",
+    "workplace"
+  ]
+}

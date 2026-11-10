@@ -40,3 +40,9 @@ cache/
 # Python tooling
 *.egg-info/
 .pytest_cache/
+
+# Sparse variant runs: regenerate with python -m reteco.sparse.run --config configs/<name>.yaml
+runs/*/sparse_*.trec
+runs/*/sparse_*.meta.json
+!runs/*/sparse_best.trec
+!runs/*/sparse_best.meta.json
