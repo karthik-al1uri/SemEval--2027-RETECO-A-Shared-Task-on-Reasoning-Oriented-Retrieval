@@ -27,7 +27,7 @@ from .runs import read_run
 METRICS = {"ndcg_cut.10", "recall.100"}
 RESULTS_CSV = REPO_ROOT / "results" / "experiments.csv"
 CSV_FIELDS = (["date", "system_name", "split", "n_domains", "macro_ndcg@10", "macro_recall@100"]
-              + DOMAINS + ["description", "config"])
+              + DOMAINS + ["description", "config", "latency_ms_per_query"])
 
 
 def score_domain(run: dict[str, dict[str, float]], qrels: dict[str, dict[str, int]]) -> dict:
@@ -64,7 +64,9 @@ def evaluate_run(run: dict[str, dict[str, float]], split: str, domains=None, roo
 
 
 def append_result(result: dict, system_name: str, description: str, config: str,
-                  path: Path | None = None) -> Path:
+                  path: Path | None = None, latency_ms: float | None = None) -> Path:
+    """Append one row to the results CSV. `latency_ms` is the measured per-query
+    latency of the system's online stages (blank when not measured)."""
     path = Path(path) if path is not None else RESULTS_CSV
     path.parent.mkdir(parents=True, exist_ok=True)
     new = not path.exists()
@@ -77,6 +79,7 @@ def append_result(result: dict, system_name: str, description: str, config: str,
         "macro_recall@100": f"{result['macro_recall@100']:.4f}",
         "description": description,
         "config": config,
+        "latency_ms_per_query": "" if latency_ms is None else f"{latency_ms:.1f}",
     }
     for d in DOMAINS:
         r = result["domains"].get(d)
