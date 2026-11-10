@@ -40,3 +40,8 @@ cache/
 # Python tooling
 *.egg-info/
 .pytest_cache/
+
+# Temporal reranker variants: keep only the selected system's runs
+runs/*/bm25+temporal_*
+!runs/*/bm25+temporal_fit_present.trec
+!runs/*/bm25+temporal_fit_present.meta.json

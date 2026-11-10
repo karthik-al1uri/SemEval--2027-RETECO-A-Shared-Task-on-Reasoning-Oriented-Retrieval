@@ -1,0 +1,27 @@
+# Tuned on train by `python -m reteco.temporal.tune`.
+system_name: temporal_fit_years
+description: 'ablation: temporal-fit using only explicit dates/years/ranges/decades/centuries
+  (no eras, no relative); tuned on train: tau=10 w=(1,0,0) center=0.5 max_width=500
+  norm=zscore b=5'
+depth: 100
+seed: 13
+norm: zscore
+a: 1.0
+b: 5.0
+query_present: false
+fit:
+  tau: 10.0
+  w_doc: 1
+  w_q: 0
+  w_best: 0
+  center: 0.5
+  drop_kinds:
+  - era
+  - relative
+  - present
+  max_width: 500
+tuned_on:
+  split: train
+  input_run: runs/train/bm25.trec
+  train_macro_ndcg@10: 0.1144
+  train_baseline: 0.1076
