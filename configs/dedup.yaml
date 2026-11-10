@@ -1,0 +1,13 @@
+# Tuned on train by `python -m reteco.analysis_tools.dedup --tune`.
+system_name: dedup
+description: near-duplicate demotion (jaccard>=0.9, word 5-gram shingles; duplicates
+  moved below the next non-duplicate); tuned on train
+threshold: 0.9
+skip: 1
+depth: 100
+seed: 13
+tuned_on:
+  split: train
+  input_run: runs/train/hybrid_best.trec
+  train_macro_ndcg@10: 0.2816
+  train_baseline: 0.2804

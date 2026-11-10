@@ -1,0 +1,5 @@
+split,variant,threshold,skip,base_macro,macro,delta,ci_low,ci_high,p_randomization,base_macro_no_iota,macro_no_iota,delta_no_iota,p_no_iota,micro_delta,n_better,n_worse,n_same,recall@100_delta,demoted,demoted_from_top10,demoted_gold,demoted_gold_from_top10,demoted_gold_partner_gold
+train,dedup,0.9,1,0.2804,0.2816,+0.0012,+0.0005,+0.0020,0.0001,0.2709,0.2723,+0.0013,0.0001,+0.0025,101,11,1099,+0.0000,11495,1031,60,13,1
+train,dedup_end,0.85,0,0.2804,0.2860,+0.0056,+0.0028,+0.0085,0.0002,0.2709,0.2770,+0.0060,0.0001,+0.0104,238,14,959,+0.0000,12944,1140,62,14,1
+dev,dedup,0.9,1,0.3189,0.3228,+0.0039,+0.0007,+0.0078,0.0113,0.2907,0.2927,+0.0020,0.0251,+0.0040,50,6,463,+0.0000,4927,433,21,9,3
+dev,dedup_end,0.85,0,0.3189,0.3279,+0.0090,+0.0023,+0.0165,0.0089,0.2907,0.2970,+0.0063,0.0192,+0.0101,97,8,414,+0.0000,5502,470,24,9,3
