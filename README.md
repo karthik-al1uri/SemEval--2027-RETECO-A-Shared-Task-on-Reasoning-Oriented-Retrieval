@@ -35,10 +35,12 @@ pip install -r requirements.txt
 Dense retrieval (`src/reteco/dense/`) also needs `requirements-dense.txt` (torch, sentence-transformers, faiss-cpu) and Python 3.13, since torch and faiss wheels were not reliable on Python 3.14:
 
 ```
-python3.13 -m venv .venv
-source .venv/bin/activate
+python3.13 -m venv .venv-dense
+source .venv-dense/bin/activate
 pip install -r requirements.txt -r requirements-dense.txt
 ```
+
+The rerankers and the end-to-end pipeline (`src/reteco/rerank/`, `src/reteco/pipeline.py`) also run in this environment.
 
 ## Layout
 
@@ -48,6 +50,11 @@ src/reteco/runs.py       read/write TREC run files
 src/reteco/evaluate.py   pytrec_eval scorer + CLI, logs to results/experiments.csv
 src/reteco/analysis.py   Lucene EnglishAnalyzer approximation (no JDK)
 src/reteco/bm25.py       BM25 baseline
+src/reteco/sparse/       tuned BM25, RM3, corpus and query cleaning
+src/reteco/dense/        bi-encoder retrieval and rank fusion
+src/reteco/temporal/     time extraction and temporal-fit rescoring
+src/reteco/rerank/       cross-encoder reranking and score interpolation
+src/reteco/pipeline.py   end-to-end final system and ablation
 configs/                 one YAML per system
 runs/<split>/            TREC run files (top 100 per query)
 results/experiments.csv  one row per scored run
@@ -68,6 +75,15 @@ It reproduces the official baseline: Lucene English analysis (StandardTokenizer,
 | --- | ---: | ---: |
 | Official BM25 (v1.1) | 0.1075 | 0.1147 |
 | This repo | 0.1076 | 0.1148 |
+
+## Final system
+
+```
+python -m reteco.pipeline --config configs/final.yaml              # runs/{train,dev}/final.trec
+python -m reteco.pipeline --config configs/final.yaml --ablation   # + results/ablation.csv (dev)
+```
+
+Tuned BM25 + bge-small dense retrieval fused with RRF, a MiniLM cross-encoder on the top 200 interpolated with the fusion score, then the temporal-fit rescorer. Write-ups: `docs/SPARSE.md`, `docs/DENSE.md`, `docs/TEMPORAL.md`, `docs/RERANK.md`.
 
 ## Evaluation
 
