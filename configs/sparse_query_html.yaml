@@ -1,0 +1,50 @@
+system_name: sparse_query_html
+description: 'per-domain BM25 (params of sparse_bm25_domain), queries: HTML tags/attributes
+  stripped, entities unescaped'
+corpus: raw
+query_clean:
+- html
+k1: 3.0
+b: 0.8
+depth: 100
+seed: 13
+per_domain:
+  bitcoin:
+    k1: 6.0
+    b: 0.9
+  cardano:
+    k1: 3.0
+    b: 0.4
+  economics:
+    k1: 12.0
+    b: 0.7
+  genealogy:
+    k1: 6.0
+    b: 0.6
+  history:
+    k1: 6.0
+    b: 0.8
+  hsm:
+    k1: 12.0
+    b: 0.3
+  iota:
+    k1: 3.0
+    b: 0.8
+  law:
+    k1: 8.0
+    b: 1.0
+  monero:
+    k1: 8.0
+    b: 1.0
+  politics:
+    k1: 8.0
+    b: 0.3
+  quant:
+    k1: 8.0
+    b: 1.0
+  travel:
+    k1: 8.0
+    b: 1.0
+  workplace:
+    k1: 3.0
+    b: 0.7

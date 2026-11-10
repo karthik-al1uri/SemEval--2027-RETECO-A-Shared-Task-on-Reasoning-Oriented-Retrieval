@@ -1,0 +1,9 @@
+system_name: sparse_bm25_global
+description: BM25, one global (k1, b) tuned on train (macro nDCG@10), raw corpus and
+  queries
+corpus: raw
+query_clean: []
+k1: 3.0
+b: 0.8
+depth: 100
+seed: 13
