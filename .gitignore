@@ -30,3 +30,13 @@ data/**/documents.jsonl
 
 # Local scratch file
 a.py
+
+# Official starter kit clone (cross-checks only)
+external/
+
+# Indexes, embeddings, LLM outputs
+cache/
+
+# Python tooling
+*.egg-info/
+.pytest_cache/
