@@ -51,3 +51,11 @@ runs/*/sparse_*.meta.json
 runs/*/bm25+temporal_*
 !runs/*/bm25+temporal_fit_present.trec
 !runs/*/bm25+temporal_fit_present.meta.json
+
+# Dense/hybrid variant runs: keep only the selected systems' runs
+runs/*/dense_*
+runs/*/hybrid_*
+!runs/*/dense_best.trec
+!runs/*/dense_best.meta.json
+!runs/*/hybrid_best.trec
+!runs/*/hybrid_best.meta.json

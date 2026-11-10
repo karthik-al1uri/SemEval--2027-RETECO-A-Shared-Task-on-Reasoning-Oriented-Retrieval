@@ -32,6 +32,14 @@ pip install -r requirements.txt
 
 `requirements.txt` also installs this repo as the `reteco` package (`src/reteco/`).
 
+Dense retrieval (`src/reteco/dense/`) also needs `requirements-dense.txt` (torch, sentence-transformers, faiss-cpu) and Python 3.13, since torch and faiss wheels were not reliable on Python 3.14:
+
+```
+python3.13 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt -r requirements-dense.txt
+```
+
 ## Layout
 
 ```

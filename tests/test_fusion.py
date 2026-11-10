@@ -36,16 +36,20 @@ def test_zero_weight_reproduces_the_other_list():
     assert list(rrf([sparse, dense], [1.0, 0.0], K)["q"]) == ["a", "b", "c"]
 
 
-def test_weight_scale_does_not_change_ranking():
-    # The callers pass [1 - w_dense, w_dense]; any positive rescaling of the weights
-    # scales every score by the same factor, so normalising them changes nothing.
+def test_weights_normalise():
     sparse = {"q": {"a": 1, "b": 2, "c": 3, "d": 4}}
     dense = {"q": {"d": 1, "c": 2, "e": 3}}
     norm = rrf([sparse, dense], [0.25, 0.75], K)["q"]
     raw = rrf([sparse, dense], [1.0, 3.0], K)["q"]
     assert list(raw) == list(norm)
-    for d in norm:
-        assert raw[d] == pytest.approx(4 * norm[d])
+    assert raw == pytest.approx(norm)
+    assert norm["e"] == pytest.approx(0.75 / (K + 3))
+
+
+@pytest.mark.parametrize("weights", [[0.0, 0.0], [1.0, -0.5]])
+def test_invalid_weights_rejected(weights):
+    with pytest.raises(ValueError):
+        rrf([{"q": {"a": 1}}, {"q": {"a": 1}}], weights, K)
 
 
 def test_tie_order_is_stable(tmp_path):

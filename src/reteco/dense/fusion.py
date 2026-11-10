@@ -67,6 +67,10 @@ def ranks(run: dict[str, dict[str, float]]) -> dict[str, dict[str, int]]:
 
 def rrf(rank_lists: list[dict[str, dict[str, int]]], weights: list[float], k: float,
         depth: int = 100) -> dict[str, dict[str, float]]:
+    total = sum(weights)
+    if total <= 0 or any(w < 0 for w in weights):
+        raise ValueError(f"weights must be non-negative with a positive sum, got {weights}")
+    weights = [w / total for w in weights]
     out = {}
     qids = set().union(*rank_lists)
     for q in qids:

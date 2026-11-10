@@ -1,0 +1,5 @@
+# Dense retrieval (src/reteco/dense/). Needs Python 3.13; install on top of requirements.txt:
+#   pip install -r requirements.txt -r requirements-dense.txt
+torch==2.15.0
+sentence-transformers==6.2.0
+faiss-cpu==1.15.1
