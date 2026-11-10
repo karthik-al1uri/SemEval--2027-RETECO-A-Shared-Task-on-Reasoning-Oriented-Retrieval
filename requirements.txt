@@ -1,1 +1,8 @@
 huggingface_hub
+numpy
+scipy
+PyStemmer
+PyYAML
+pytrec_eval-terrier
+pytest
+-e .
