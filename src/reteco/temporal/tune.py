@@ -4,7 +4,9 @@
     python -m reteco.temporal.tune --run runs/train/bm25.trec
 
 Each named variant has its own search space; the best setting on train is
-written to configs/temporal_<variant>.yaml. Dev is never touched here.
+written to configs/<prefix><variant>.yaml (prefix default "temporal_"; use e.g.
+--prefix rerank_temporal_ when re-tuning on another run so the BM25 configs
+are kept). Dev is never touched here.
 """
 from __future__ import annotations
 
@@ -125,13 +127,14 @@ class Tuner:
         return best
 
 
-def write_config(name: str, desc: str, space: dict, best: dict) -> Path:
+def write_config(name: str, desc: str, space: dict, best: dict, prefix: str = "temporal_",
+                 input_run: str = "runs/train/bm25.trec") -> Path:
     p = best["params"] or {"tau": 10.0, "w_doc": 1, "w_q": 1, "w_best": 0, "center": 0.0,
                            "max_width": None, "norm": "minmax", "b": 0.0}
     tuned = (f"tuned on train: tau={p['tau']:g} w=({p['w_doc']},{p['w_q']},{p['w_best']}) "
              f"center={p['center']:g} max_width={p['max_width']} norm={p['norm']} b={p['b']:g}")
     cfg = {
-        "system_name": f"temporal_{name}",
+        "system_name": f"{prefix}{name}",
         "description": f"{desc}; {tuned}",
         "depth": 100,
         "seed": 13,
@@ -142,13 +145,13 @@ def write_config(name: str, desc: str, space: dict, best: dict) -> Path:
         "fit": {"tau": p["tau"], "w_doc": p["w_doc"], "w_q": p["w_q"], "w_best": p["w_best"],
                 "center": p["center"], "drop_kinds": list(space.get("drop_kinds", ())),
                 "max_width": p["max_width"]},
-        "tuned_on": {"split": "train", "input_run": "runs/train/bm25.trec",
+        "tuned_on": {"split": "train", "input_run": input_run,
                      "train_macro_ndcg@10": round(best["macro"], 4),
                      "train_baseline": round(best["baseline"], 4)},
     }
     if space.get("gate"):
         cfg["gate"] = dict(space["gate"])
-    path = REPO_ROOT / "configs" / f"temporal_{name}.yaml"
+    path = REPO_ROOT / "configs" / f"{prefix}{name}.yaml"
     path.write_text("# Tuned on train by `python -m reteco.temporal.tune`.\n"
                     + yaml.safe_dump(cfg, sort_keys=False))
     return path
@@ -160,6 +163,7 @@ def main(argv=None) -> int:
     ap.add_argument("--variants", nargs="+", default=list(VARIANTS), choices=list(VARIANTS))
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--reuse", action="store_true", help="rewrite configs from cached search results")
+    ap.add_argument("--prefix", default="temporal_", help="config file / system name prefix")
     args = ap.parse_args(argv)
     tuner = None if args.reuse else Tuner(args.run, "train", args.workers)
     out_dir = CACHE_DIR / "tune"
@@ -169,7 +173,7 @@ def main(argv=None) -> int:
         t0 = time.time()
         cached = out_dir / f"{args.run.stem}_{name}.json"
         best = json.loads(cached.read_text()) if args.reuse else tuner.search(space)
-        path = write_config(name, desc, space, best)
+        path = write_config(name, desc, space, best, args.prefix, str(args.run))
         (out_dir / f"{args.run.stem}_{name}.json").write_text(json.dumps(best, indent=2, default=str))
         print(f"{name:<16} train macro {best['macro']:.4f} (baseline {best['baseline']:.4f}) "
               f"params {best['params']}  [{best['evaluated']} settings, {time.time() - t0:.0f}s] -> {path.name}",
