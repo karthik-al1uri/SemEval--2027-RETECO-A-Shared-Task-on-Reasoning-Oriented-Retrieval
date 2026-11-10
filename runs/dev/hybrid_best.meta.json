@@ -1,0 +1,23 @@
+{
+  "description": "Best hybrid (= hybrid_sparse_tuned): weighted RRF of sparse_best (depth 1000) + dense_best (depth 1000); RRF k=20 w_dense=0.5 w_sparse=0.5",
+  "config": "configs/dense_hybrid_best.yaml",
+  "domains": [
+    "bitcoin",
+    "cardano",
+    "economics",
+    "genealogy",
+    "history",
+    "hsm",
+    "iota",
+    "law",
+    "monero",
+    "politics",
+    "quant",
+    "travel",
+    "workplace"
+  ],
+  "sparse": "sparse_best",
+  "dense": "dense_best",
+  "k": 20,
+  "w_dense": 0.5
+}

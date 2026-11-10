@@ -1,0 +1,11 @@
+# Reference hybrid: textbook RRF (k=60, equal weights) of BM25 and dense_best, depth-1000 inputs. Untuned.
+system_name: hybrid_rrf60
+description: "RRF of BM25 (cache/bm25, depth 1000) + dense_best (depth 1000), untuned"
+sparse: bm25
+dense: dense_best
+domains: all
+tune: false
+k: 60
+w_dense: 0.5
+depth: 100
+seed: 13

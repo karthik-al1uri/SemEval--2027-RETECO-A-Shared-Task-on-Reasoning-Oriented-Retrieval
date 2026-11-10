@@ -1,0 +1,15 @@
+# Best dense system (= dense_bge_small; query instruction chosen over dense_bge_small_noinst on train).
+system_name: dense_best
+description: "Best dense (= dense_bge_small): bge-small-en-v1.5 fp16, first 512 doc tokens, bge query instruction, HTML-stripped query (512 tok), FAISS IndexFlatIP"
+model: BAAI/bge-small-en-v1.5
+dtype: float16
+domains: all
+doc_mode: first
+doc_max_tokens: 512
+query_prefix: "Represent this sentence for searching relevant passages: "
+query_max_tokens: 512
+batch_size: 64
+shard_size: 8192
+depth: 100
+candidate_depth: 1000
+seed: 13

@@ -1,0 +1,12 @@
+# Tuned hybrid: weighted RRF of sparse_best (tuned BM25, sparse agent) and the best dense run; tuned on train.
+system_name: hybrid_sparse_tuned
+description: "Weighted RRF of sparse_best (tuned BM25 from the sparse agent, depth 1000) + dense_best (depth 1000)"
+sparse: sparse_best
+dense: dense_best
+domains: all
+tune: true
+grid:
+  k: [1, 2, 5, 10, 20, 30, 60, 100, 200]
+  w_dense: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+depth: 100
+seed: 13

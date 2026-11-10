@@ -1,0 +1,16 @@
+# Passage variant (small domains only): 256-token windows every 192 tokens, doc score = max over passages.
+system_name: dense_bge_small_maxp
+description: "bge-small-en-v1.5 fp16, MaxP over 256-token passages (stride 192), bge query instruction, small domains only"
+model: BAAI/bge-small-en-v1.5
+dtype: float16
+domains: small
+doc_mode: maxp
+passage_tokens: 256
+passage_stride: 192
+query_prefix: "Represent this sentence for searching relevant passages: "
+query_max_tokens: 512
+batch_size: 64
+shard_size: 8192
+depth: 100
+candidate_depth: 1000
+seed: 13

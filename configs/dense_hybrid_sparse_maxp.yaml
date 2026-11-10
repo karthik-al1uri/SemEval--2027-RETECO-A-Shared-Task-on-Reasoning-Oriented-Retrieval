@@ -1,0 +1,11 @@
+# Small-domain check: hybrid_best's frozen setting (k=20, w_dense=0.5, tuned on 13-domain train) with dense_bge_small_maxp as the dense input.
+system_name: hybrid_sparse_maxp
+description: "Weighted RRF of sparse_best (depth 1000) + dense_bge_small_maxp (depth 1000), hybrid_best setting, small domains only"
+sparse: sparse_best
+dense: dense_bge_small_maxp
+domains: [iota, quant, law, workplace, cardano]
+tune: false
+k: 20
+w_dense: 0.5
+depth: 100
+seed: 13
