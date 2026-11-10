@@ -1,0 +1,24 @@
+# Tuned on train by `python -m reteco.temporal.tune`.
+system_name: temporal_boost
+description: 'temporal-fit boost only (center=0): time-matching docs move up, others
+  unchanged; tuned on train: tau=10 w=(1,0,0) center=0 max_width=None norm=minmax
+  b=0.75'
+depth: 100
+seed: 13
+norm: minmax
+a: 1.0
+b: 0.75
+query_present: false
+fit:
+  tau: 10.0
+  w_doc: 1
+  w_q: 0
+  w_best: 0
+  center: 0.0
+  drop_kinds: []
+  max_width: null
+tuned_on:
+  split: train
+  input_run: runs/train/bm25.trec
+  train_macro_ndcg@10: 0.113
+  train_baseline: 0.1076

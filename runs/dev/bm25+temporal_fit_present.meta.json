@@ -1,0 +1,5 @@
+{
+  "description": "temporal-fit + query 'nowadays/currently/today' mapped to 2022-2026; tuned on train: tau=25 w=(1,0,0) center=1 max_width=500 norm=zscore b=5 [input: bm25.trec]",
+  "config": "configs/temporal_fit_present.yaml",
+  "input_run": "runs/dev/bm25.trec"
+}

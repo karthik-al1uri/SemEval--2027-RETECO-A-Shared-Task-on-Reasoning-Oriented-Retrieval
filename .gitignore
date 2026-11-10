@@ -46,3 +46,8 @@ runs/*/sparse_*.trec
 runs/*/sparse_*.meta.json
 !runs/*/sparse_best.trec
 !runs/*/sparse_best.meta.json
+
+# Temporal reranker variants: keep only the selected system's runs
+runs/*/bm25+temporal_*
+!runs/*/bm25+temporal_fit_present.trec
+!runs/*/bm25+temporal_fit_present.meta.json

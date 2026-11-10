@@ -1,0 +1,26 @@
+# Tuned on train by `python -m reteco.temporal.tune`.
+system_name: temporal_fit_gated
+description: 'temporal-fit with b scaled by the guidance-trained calendar-anchor classifier
+  probability; tuned on train: tau=100 w=(1,0,0) center=1 max_width=500 norm=minmax
+  b=1.5'
+depth: 100
+seed: 13
+norm: minmax
+a: 1.0
+b: 1.5
+query_present: false
+fit:
+  tau: 100.0
+  w_doc: 1
+  w_q: 0
+  w_best: 0
+  center: 1.0
+  drop_kinds: []
+  max_width: 500
+tuned_on:
+  split: train
+  input_run: runs/train/bm25.trec
+  train_macro_ndcg@10: 0.1155
+  train_baseline: 0.1076
+gate:
+  C: 3.0

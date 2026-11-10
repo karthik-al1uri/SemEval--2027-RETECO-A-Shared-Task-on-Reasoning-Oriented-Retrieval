@@ -1,0 +1,24 @@
+# Tuned on train by `python -m reteco.temporal.tune`.
+system_name: temporal_fit
+description: 'temporal-fit, center tuned (center=1 means penalty only: wrong-time
+  docs drop, no-time docs neutral); tuned on train: tau=100 w=(1,0,0) center=1 max_width=500
+  norm=minmax b=1.5'
+depth: 100
+seed: 13
+norm: minmax
+a: 1.0
+b: 1.5
+query_present: false
+fit:
+  tau: 100.0
+  w_doc: 1
+  w_q: 0
+  w_best: 0
+  center: 1.0
+  drop_kinds: []
+  max_width: 500
+tuned_on:
+  split: train
+  input_run: runs/train/bm25.trec
+  train_macro_ndcg@10: 0.1155
+  train_baseline: 0.1076
