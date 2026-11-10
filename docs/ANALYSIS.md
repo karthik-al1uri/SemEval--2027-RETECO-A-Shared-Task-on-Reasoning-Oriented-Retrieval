@@ -1,6 +1,6 @@
 # Analysis of the existing systems (Sub-track 1a)
 
-Post-hoc analysis of five existing runs on **dev**: `bm25`, `bm25+temporal_fit_present`, `sparse_best`, `dense_best`, `hybrid_best`. No new retrieval system was built and no run was changed. Code is in `src/reteco/analysis_tools/` and `scripts/analysis_*.py`, outputs are in `results/analysis_*.csv`, figures are in `paper/figures/`, and the paper draft is in `paper/`.
+Post-hoc analysis of five existing runs on **dev**: `bm25`, `bm25+temporal_fit_present`, `sparse_best`, `dense_best`, `hybrid_best`. Sections 1–6 build no new retrieval system and change no run. Section 7 adds one post-processing step, near-duplicate demotion, tuned on train. Code is in `src/reteco/analysis_tools/` and `scripts/analysis_*.py`, outputs are in `results/analysis_*.csv`, figures are in `paper/figures/`, and the paper draft is in `paper/`.
 
 The per-query scorer reproduces every logged macro score exactly (dev nDCG@10 / R@100: bm25 0.1148 / 0.4045, temporal 0.1304 / 0.4045, sparse 0.2541 / 0.6531, dense 0.2765 / 0.6259, hybrid 0.3189 / 0.7158).
 
@@ -13,6 +13,7 @@ The per-query scorer reproduces every logged macro score exactly (dev nDCG@10 / 
 - **Significance (dev, macro, Holm-corrected).** Every consecutive step is significant except sparse → dense (+0.022, p = 0.45; the order of the two flips between train and dev). Hybrid beats both of its inputs on nDCG@10 and Recall@100 (p ≤ 0.001). BM25 → BM25+temporal is significant (+0.016, p = 0.02), but only +0.007 without iota.
 - **Errors.** Among 25 dev queries where hybrid scores 0, the most common named cause is vocabulary mismatch (8). Next are long, noisy queries (4) and ambiguous queries (2). A wrong time period is the primary cause only once (secondary 3 times). The largest group (9, "other") is mostly near-misses: on-topic non-gold documents, often near-duplicates of each other, fill the top 10 while a gold document sits at ranks 11–50.
 - **Near-duplicates are common in the top 10.** 9.7% of hybrid's dev top-10 slots repeat a higher-ranked document (word 5-gram Jaccard ≥ 0.8), in 56% of queries; in history it is 13.6%. v1.1 removed only exact duplicates.
+- **Demoting near-duplicates helps a little** (§7). Moving each near-duplicate below the next non-duplicate (Jaccard ≥ 0.9, tuned on train) gives **+0.0012 train / +0.0039 dev** (dev p = 0.011; **+0.0020 without iota**). A stronger variant, which moves duplicates to the end of the top 100, gives +0.0056 train / +0.0090 dev (+0.0063 without iota). 60 of 11,495 documents demoted on train were gold. In 59 of those, the higher-ranked copy is not gold, and 38 of those pairs differ only in case or punctuation.
 
 ## 1. Query temporal types
 
@@ -157,7 +158,7 @@ Observations:
 | Dense | 7.1% | 11.3% | 61% |
 | Hybrid | 5.7% | 9.7% | 56% |
 
-Better systems retrieve more near-duplicates, because the duplicated texts are on-topic. In hybrid's top 10, history has 13.6%, bitcoin 12.7% and travel 11.3%. Collapsing near-duplicates would free top-10 slots. This is untested, would be a system change, and is left for the system agents.
+Better systems retrieve more near-duplicates, because the duplicated texts are on-topic. In hybrid's top 10, history has 13.6%, bitcoin 12.7% and travel 11.3%. Collapsing near-duplicates would free top-10 slots; §7 tests this.
 
 ## 4. Significance tests
 
@@ -206,6 +207,66 @@ Colours are slots 1–5 of a categorical palette checked for colour-vision-defic
 - **Reranker hooks:** red `\TODO` markers in the abstract, introduction, §4.6, results, figure captions, type analysis, error analysis, limitations and conclusion. `make_tables.py` adds any 13-domain `experiments.csv` row named `rerank*` to the main table automatically; until then the table shows a TODO row.
 - Not compiled: there is no LaTeX installation on this machine. I checked brace and environment balance, that every `\ref` has a `\label`, that every `\cite` key exists in the .bib, and that the figure files exist.
 
+## 7. Near-duplicate demotion
+
+**Method** (`src/reteco/analysis_tools/dedup.py`, CPU only). Within each query's ranked list (trec_eval order), a document is a near-duplicate when it repeats a **higher-ranked** document of the same list:
+
+- *strict*: identical after lowercasing and dropping everything but `[a-z0-9]`, so case, punctuation and whitespace are ignored;
+- or *Jaccard*: word 5-gram (shingle) Jaccard ≥ threshold. This is computed exactly, as a sparse shingle-incidence product per query; MinHash is unnecessary for 100-document lists.
+
+Near-duplicates are **demoted, not deleted**. Each one moves below the next `skip` non-duplicates; `skip = 1` is the specified "below the next non-duplicate", and `skip = 0` means the end of the list. Output scores are rank-based (`depth − rank + 1`), so the written order is the new ranking. The rescorer reads any TREC run (`--run`), so it can be stacked on the reranker output:
+
+```bash
+python -m reteco.analysis_tools.dedup --run runs/dev/<reranked>.trec --split dev --config configs/dedup.yaml
+```
+
+Document features are recomputed on every call (about 40 s for the train top 100, 20 s for dev), since `cache/` is read-only for this agent.
+
+**Tuning (train only).** `--tune` scores thresholds {strict, 1.0, 0.95, 0.9, 0.85, 0.8, 0.7, 0.6, 0.5} at skip ∈ {1, 3, 0} on `runs/train/hybrid_best.trec`. The threshold is selected by train macro nDCG@10, with ties within 10⁻⁴ going to the stricter threshold. Full grid: `results/analysis_dedup_grid_train.csv`.
+
+| Train nDCG@10 Δ vs 0.2804 | strict | ≥1.0 | ≥0.95 | ≥0.9 | ≥0.85 | ≥0.8 | ≥0.7 | ≥0.6 | ≥0.5 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| skip 1 (below next) | +0.0007 | +0.0007 | +0.0009 | **+0.0012** | +0.0013 | +0.0012 | +0.0011 | +0.0009 | +0.0009 |
+| skip 3 | +0.0019 | +0.0019 | +0.0025 | +0.0031 | +0.0033 | +0.0033 | +0.0031 | +0.0030 | +0.0029 |
+| skip 0 (to end) | +0.0025 | +0.0025 | +0.0040 | +0.0051 | **+0.0056** | +0.0055 | +0.0046 | +0.0037 | +0.0029 |
+| demoted docs (train) | 7,441 | 7,445 | 9,935 | 11,495 | 12,944 | 14,115 | 15,733 | 16,845 | 17,863 |
+| of which gold | 38 | 38 | 53 | 60 | 62 | 70 | 90 | 121 | 160 |
+
+The surface is flat between 0.8 and 0.95. Below 0.8, more gold documents are demoted for no gain. How far a duplicate moves matters more than the threshold: one step down rarely changes nDCG@10, while moving to the end frees the slot for a new document.
+
+**Logged systems** (`results/experiments.csv`; configs `configs/dedup.yaml`, `configs/dedup_end.yaml`):
+
+- **`hybrid_best+dedup`**: the requested behaviour (skip 1), Jaccard ≥ 0.9 (0.9 and 0.85 tie within 10⁻⁴ on train; the stricter one wins).
+- **`hybrid_best+dedup_end`**: an extra variant, skip 0, Jaccard ≥ 0.85, also selected on train. It is logged separately because the train grid shows the demotion depth is what matters.
+
+Results (`results/analysis_dedup.csv`; CI = domain-stratified bootstrap, p = paired randomization test, 10k each, not Holm-corrected; R@100 unchanged by construction):
+
+| System | Split | nDCG@10 | Δ | 95% CI | p | Δ w/o iota | p w/o iota | Queries better / worse |
+| --- | --- | ---: | ---: | --- | ---: | ---: | ---: | --- |
+| hybrid_best | train | 0.2804 | | | | | | |
+| hybrid_best+dedup | train | 0.2816 | +0.0012 | [+0.0005, +0.0020] | < 0.001 | +0.0013 | < 0.001 | 101 / 11 |
+| hybrid_best+dedup_end | train | 0.2860 | +0.0056 | [+0.0028, +0.0085] | < 0.001 | +0.0060 | < 0.001 | 238 / 14 |
+| hybrid_best | dev | 0.3189 | | | | | | |
+| hybrid_best+dedup | dev | 0.3228 | **+0.0039** | [+0.0007, +0.0078] | 0.011 | **+0.0020** | 0.025 | 50 / 6 |
+| hybrid_best+dedup_end | dev | 0.3279 | **+0.0090** | [+0.0023, +0.0165] | 0.009 | **+0.0063** | 0.019 | 97 / 8 |
+
+- **Iota inflates the dev gain.** On dev, iota alone gains +0.027 (skip 1) and +0.041 (to end) on 3 queries. That is half of the skip-1 dev macro gain, and without iota dev is close to train. Losses on dev are concentrated in cardano (−0.001 / −0.016) and monero (−0.006). History, the largest domain, gains on both splits (+0.004 / +0.017 train, +0.006 / +0.014 dev). Per-domain deltas: `results/analysis_dedup_domains.csv`.
+- **Small, but almost never harmful.** On train, 101 queries improve and 11 get worse (skip 1); for the to-end variant, 238 and 14.
+
+**Were demoted documents gold?** `results/analysis_dedup_gold.csv` lists every case.
+
+| | Train, skip 1 | Train, to end | Dev, skip 1 | Dev, to end |
+| --- | ---: | ---: | ---: | ---: |
+| documents demoted | 11,495 | 12,944 | 4,927 | 5,502 |
+| … from the top 10 | 1,031 | 1,140 | 433 | 470 |
+| demoted documents that are gold | **60** (0.5%) | 62 | 21 | 24 |
+| … of which originally in the top 10 | 13 | 14 | 9 | 9 |
+| … whose higher-ranked partner is also gold | 1 | 1 | 3 | 3 |
+
+On train, 60 demoted documents are gold, 44 of them in history. In all but one, the higher-ranked document they repeat is **not** gold. In 38 of the 60 the two texts are identical up to case and punctuation, for example `history/4beb1d63_110328` (gold, rank 5) and `history/74d364aa_351743` (not gold, rank 2). Gold labels are thus attached to one copy and not to its punctuation variant. A ranker cannot tell which copy is judged, so these demotions are unavoidable for any near-duplicate handling. Demotion only moves them down, and with skip 1 by a single position.
+
+**Not done.** The order within a duplicate group is not changed (the top copy always wins), and duplicates are only detected inside each top-100 list. Deeper candidate lists (depth 1000) would let the to-end variant pull new documents into the top 100, but that needs the fusion code and is left to the system agents.
+
 ## Reproduce
 
 ```bash
@@ -217,6 +278,14 @@ python scripts/analysis_errors.py --dossier /tmp/error_dossier.md   # sample + s
 python scripts/analysis_neardup.py          # ~1 min, streams the corpora
 python scripts/analysis_data_stats.py
 /opt/homebrew/bin/python3 scripts/make_figures.py   # any Python with matplotlib
+python -m reteco.analysis_tools.dedup --tune --skip 1 --run runs/train/hybrid_best.trec \
+    --config configs/dedup.yaml --grid-out results/analysis_dedup_grid_train.csv
+python -m reteco.analysis_tools.dedup --tune --skip 0 --run runs/train/hybrid_best.trec \
+    --config configs/dedup_end.yaml
+for c in dedup dedup_end; do for s in train dev; do
+  python -m reteco.analysis_tools.dedup --run runs/$s/hybrid_best.trec --split $s --config configs/$c.yaml
+done; done                                   # writes runs, appends to experiments.csv
+python scripts/analysis_dedup.py             # gains, significance, gold audit
 python paper/make_tables.py
 python -m pytest tests/test_analysis_tools.py
 ```
@@ -237,7 +306,13 @@ python -m pytest tests/test_analysis_tools.py
 12. **Near-duplicate measurement** uses two thresholds (strict and 5-gram Jaccard ≥ 0.8) on top-10 lists. The threshold was not tuned; the qualitative result (10% of slots, rising with system quality) holds under both.
 13. **Data path.** All runs use `RETECO_DATA=data/data/track1_tempo` as instructed. The depth-1000 candidate lists for the error signals are read from `cache/dense/candidates/` (read-only; nothing in `cache/` was written).
 14. **Figures run outside the project venv.** The venv has no matplotlib, and I did not install packages into a venv shared with the running GPU job. `make_figures.py` needs only the standard library and matplotlib and was run with Homebrew's Python 3.14 (matplotlib 3.10.8).
-15. **No rows appended to `results/experiments.csv`.** No new run was produced or scored, and analysis results do not fit its schema (one row per run). They live in `results/analysis_*.csv` and `results/data_stats.csv`.
+15. **No rows appended to `results/experiments.csv` for §1–6.** Those sections produce no run, and analysis results do not fit its one-row-per-run schema; they live in `results/analysis_*.csv` and `results/data_stats.csv`. §7 does produce runs, which are logged (decision 21).
 16. **Paper data table from a new CSV.** `scripts/analysis_data_stats.py` writes `results/data_stats.csv` so the data table is generated like every other table. Its numbers match `docs/DATA.md`.
 17. **ACL style files vendored** into `paper/`, unchanged, so the draft builds without fetching anything. The bibliography only contains entries I am confident of; the RETECO task paper, TEMPO and the reranker are left as TODOs rather than guessed.
-18. **New test file** `tests/test_analysis_tools.py` (10 tests: macro weighting, both tests, Holm, sampler, rank order, type mapping and rules, per-query scorer on the tiny fixture). No existing file was modified.
+18. **New test file** `tests/test_analysis_tools.py` (14 tests: macro weighting, both tests, Holm, sampler, rank order, type mapping and rules, per-query scorer on the tiny fixture, and for §7 demotion order, the strict key, exact Jaccard and profile/apply). No existing file was modified.
+19. **Near-duplicate threshold selection.** Train macro nDCG@10; ties within 10⁻⁴ go to the stricter threshold (fewer demotions, fewer gold demoted). For skip 1, this picks 0.9 over 0.85 (0.2816 vs 0.2817). The strict test is always on, so a Jaccard threshold only adds duplicates.
+20. **Extra variant logged.** The specified behaviour (below the next non-duplicate) is `hybrid_best+dedup`. The train grid showed that the demotion depth matters more than the threshold, so the to-end variant, selected on train in the same way, is logged as a separate row, `hybrid_best+dedup_end`. It does not replace the requested system, and neither was chosen by looking at dev.
+21. **Run files for §7 are not committed.** `runs/*/hybrid_best+dedup*.trec` fall under the existing `.gitignore` rule that keeps only the selected systems' runs, and I did not change `.gitignore` or force-add them. They are on disk and regenerate in about a minute.
+22. **Exact Jaccard instead of MinHash.** With 100 documents per list, exact Jaccard over 5-gram shingle hashes (64-bit, per-process string hashing; collisions negligible) is fast enough (40 s for all train queries, mostly reading the corpora) and has no estimation noise near a 0.9 threshold.
+23. **Gold audit on both splits.** Train is the requested check. Dev counts are reported as description only and were computed after both configs were frozen.
+24. **Bibliography.** TEMPO is cited as given. The RETECO entry is a `@misc` for the task website with the five organisers, year 2027, and the note "Task paper forthcoming". Its title, "SemEval-2027 Task 1: RETECO, a Shared Task on Reasoning-Oriented Retrieval", is my wording, taken from the repo README, until the task paper fixes it. The reranker citation remains a TODO.

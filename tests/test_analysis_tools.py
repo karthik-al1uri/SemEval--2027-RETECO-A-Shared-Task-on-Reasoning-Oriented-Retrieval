@@ -72,3 +72,41 @@ def test_per_query_matches_macro(tiny_data):
     rows = per_query(run, "dev", domains=["iota", "quant"], root=tiny_data)
     assert [r["ndcg@10"] for r in rows] == [1.0, 0.0]
     assert macro(rows, "ndcg@10") == 0.5
+
+
+# ---- near-duplicate demotion
+from reteco.analysis_tools.dedup import (apply, demote, is_dup, jaccard_matrix, profile,
+                                         shingle_hashes, strict_key)
+
+
+def test_demote_moves_below_next_non_duplicate():
+    docs = ["a", "b", "c", "d", "e"]
+    dup = np.array([False, True, True, False, False])
+    assert demote(docs, dup, skip=1) == ["a", "d", "b", "c", "e"]
+    assert demote(docs, dup, skip=2) == ["a", "d", "e", "b", "c"]
+    assert demote(docs, dup, skip=0) == ["a", "d", "e", "b", "c"]
+    # trailing duplicates stay at the end, nothing is dropped
+    assert demote(["a", "b"], np.array([False, True])) == ["a", "b"]
+
+
+def test_strict_key_ignores_case_punctuation_space():
+    assert strict_key("The consumer's offer.") == strict_key("the consumer s  offer")
+    assert strict_key("offer 1") != strict_key("offer 2")
+
+
+def test_jaccard_matrix_exact():
+    v = {}
+    a = shingle_hashes("one two three four five six", v)     # 2 shingles
+    b = shingle_hashes("one two three four five seven", v)   # shares 1 of 3
+    J = jaccard_matrix([a, a, b])
+    assert J[0, 1] == 1.0 and abs(J[0, 2] - 1 / 3) < 1e-9
+
+
+def test_profile_and_apply(tiny_data):
+    run = {"q1": {"iota/d1": 3.0, "iota/d2": 2.0, "iota/d3": 1.0}}
+    p = profile(run, root=tiny_data)["q1"]
+    assert p["docs"] == ["iota/d1", "iota/d2", "iota/d3"] and not p["strict"].any()
+    new, demoted = apply({"q1": {**p, "strict": np.array([False, True, False])}}, None)
+    assert sorted(new["q1"], key=new["q1"].get, reverse=True) == ["iota/d1", "iota/d3", "iota/d2"]
+    assert demoted == {"q1": ["iota/d2"]}
+    assert not is_dup(p, 0.99).any()
