@@ -1,0 +1,12 @@
+# Best hybrid (= hybrid_sparse_tuned with its train-tuned setting frozen): weighted RRF of
+# sparse_best and dense_best. Chosen over hybrid_bm25_tuned on train macro nDCG@10 (0.2804 vs 0.2504).
+system_name: hybrid_best
+description: "Best hybrid (= hybrid_sparse_tuned): weighted RRF of sparse_best (depth 1000) + dense_best (depth 1000)"
+sparse: sparse_best
+dense: dense_best
+domains: all
+tune: false
+k: 20
+w_dense: 0.5
+depth: 100
+seed: 13

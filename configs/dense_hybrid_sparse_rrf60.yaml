@@ -1,0 +1,11 @@
+# Reference hybrid: textbook RRF (k=60, equal weights) of sparse_best and dense_best. Untuned.
+system_name: hybrid_sparse_rrf60
+description: "RRF of sparse_best (depth 1000) + dense_best (depth 1000), untuned"
+sparse: sparse_best
+dense: dense_best
+domains: all
+tune: false
+k: 60
+w_dense: 0.5
+depth: 100
+seed: 13
