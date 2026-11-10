@@ -1,7 +1,7 @@
 huggingface_hub
 numpy
 scipy
-PyStemmer
+nltk
 PyYAML
 pytrec_eval-terrier
 pytest

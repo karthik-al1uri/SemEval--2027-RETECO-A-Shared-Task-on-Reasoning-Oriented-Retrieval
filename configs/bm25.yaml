@@ -1,0 +1,7 @@
+# BM25 baseline matching the official RETECO 1a baseline.
+system_name: bm25
+description: "BM25 k1=0.9 b=0.4, Lucene EnglishAnalyzer approximation, gensim LuceneBM25Model weighting (query weighted too)"
+k1: 0.9
+b: 0.4
+depth: 100
+seed: 13

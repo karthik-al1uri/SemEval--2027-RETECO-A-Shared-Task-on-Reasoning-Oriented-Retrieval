@@ -1,0 +1,19 @@
+{
+  "description": "BM25 k1=0.9 b=0.4, Lucene EnglishAnalyzer approximation, gensim LuceneBM25Model weighting (query weighted too)",
+  "config": "configs/bm25.yaml",
+  "domains": [
+    "bitcoin",
+    "cardano",
+    "economics",
+    "genealogy",
+    "history",
+    "hsm",
+    "iota",
+    "law",
+    "monero",
+    "politics",
+    "quant",
+    "travel",
+    "workplace"
+  ]
+}

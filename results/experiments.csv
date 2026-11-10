@@ -1,0 +1,3 @@
+date,system_name,split,n_domains,macro_ndcg@10,macro_recall@100,bitcoin,cardano,economics,genealogy,history,hsm,iota,law,monero,politics,quant,travel,workplace,description,config
+2026-11-09,bm25,train,13,0.1076,0.3365,0.0856,0.1848,0.0382,0.1243,0.0659,0.1735,0.1563,0.0946,0.0382,0.2810,0.0255,0.0504,0.0798,"BM25 k1=0.9 b=0.4, Lucene EnglishAnalyzer approximation, gensim LuceneBM25Model weighting (query weighted too)",configs/bm25.yaml
+2026-11-09,bm25,dev,13,0.1148,0.4045,0.0384,0.1027,0.0467,0.1949,0.0870,0.2489,0.3309,0.0574,0.0320,0.2625,0.0237,0.0442,0.0230,"BM25 k1=0.9 b=0.4, Lucene EnglishAnalyzer approximation, gensim LuceneBM25Model weighting (query weighted too)",configs/bm25.yaml
