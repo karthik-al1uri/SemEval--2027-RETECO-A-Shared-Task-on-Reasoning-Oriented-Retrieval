@@ -197,16 +197,19 @@ python -m reteco.temporal.tune --run runs/train/rerank_minilm_interp.trec --pref
 for v in boost fit fit_years fit_present; do for s in train dev; do
   python -m reteco.temporal.rescore --run runs/$s/rerank_minilm_interp.trec --split $s --config configs/rerank_temporal_$v.yaml
 done; done
-python -m reteco.analysis_tools.dedup --tune --skip 1 --run runs/train/final.trec \
-    --config configs/final_dedup.yaml --grid-out results/analysis_dedup_grid_final_train.csv
-python -m reteco.analysis_tools.dedup --tune --skip 0 --run runs/train/final.trec \
-    --config configs/final_dedup_end.yaml                                       # selected
+# near-duplicate demotion (section 7) on the final system before demotion; the base is the
+# temporal run above, since runs/{train,dev}/final.trec already include demotion
+B=rerank_minilm_interp+rerank_temporal_fit_present
+python -m reteco.analysis_tools.dedup --tune --skip 0 --run runs/train/$B.trec \
+    --config /tmp/final_dedup_end.yaml --grid-out results/analysis_dedup_grid_final_train.csv
+                        # grid only; the committed configs/final_dedup*.yaml are not touched
 for s in train dev; do
-  python -m reteco.analysis_tools.dedup --run runs/$s/final.trec --split $s \
-    --config configs/final_dedup_end.yaml --out runs/$s/final+dedup.trec
-done                    # (run on final.trec from before the dedup stage was added to final.yaml)
-python scripts/analysis_dedup.py --base final --variant dedup:final_dedup_end --tag _final
-python -m reteco.pipeline --config configs/final.yaml --ablation
+  python -m reteco.analysis_tools.dedup --run runs/$s/$B.trec --split $s \
+    --config configs/final_dedup_end.yaml --out runs/$s/$B+dedup.trec --no-log
+done
+python scripts/analysis_dedup.py --base $B --variant dedup:final_dedup_end --tag _final
+python -m reteco.pipeline --config configs/final.yaml             # final system: runs/{train,dev}/final.trec
+python -m reteco.pipeline --config configs/final.yaml --ablation-only   # results/ablation.csv (dev)
 python -m pytest
 ```
 

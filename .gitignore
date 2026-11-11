@@ -69,12 +69,3 @@ runs/*/*+rerank_temporal_*
 
 # Python 3.13 environment for torch (see README)
 .venv-dense/
-
-# LaTeX build files and the Overleaf upload archive (rebuild: see paper/README.md)
-paper/*.aux
-paper/*.log
-paper/*.bbl
-paper/*.blg
-paper/*.out
-paper/main.pdf
-paper.zip

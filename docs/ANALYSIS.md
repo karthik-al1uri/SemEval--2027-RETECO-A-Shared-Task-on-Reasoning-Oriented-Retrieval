@@ -1,6 +1,6 @@
 # Analysis of the existing systems (Sub-track 1a)
 
-Post-hoc analysis of five existing runs on **dev**: `bm25`, `bm25+temporal_fit_present`, `sparse_best`, `dense_best`, `hybrid_best`. Sections 1–6 build no new retrieval system and change no run. Section 7 adds one post-processing step, near-duplicate demotion, tuned on train. Section 8 applies it to the final system (cross-encoder pipeline, `docs/RERANK.md`), where it was adopted; the breakdowns, significance tests and figures were then re-run with `final` as a sixth system. Code is in `src/reteco/analysis_tools/` and `scripts/analysis_*.py`, outputs are in `results/analysis_*.csv`, figures are in `paper/figures/`, and the paper draft is in `paper/`.
+Post-hoc analysis of five existing runs on **dev**: `bm25`, `bm25+temporal_fit_present`, `sparse_best`, `dense_best`, `hybrid_best`. Sections 1–4 build no new retrieval system and change no run. Section 7 adds one post-processing step, near-duplicate demotion, tuned on train. Section 8 applies it to the final system (cross-encoder pipeline, `docs/RERANK.md`), where it was adopted; the breakdowns and significance tests were then re-run with `final` as a sixth system. Code is in `src/reteco/analysis_tools/` and `scripts/analysis_*.py`, and outputs are in `results/analysis_*.csv`.
 
 The per-query scorer reproduces every logged macro score exactly (dev nDCG@10 / R@100: bm25 0.1148 / 0.4045, temporal 0.1304 / 0.4045, sparse 0.2541 / 0.6531, dense 0.2765 / 0.6259, hybrid 0.3189 / 0.7158).
 
@@ -105,7 +105,7 @@ Interpretation: types whose answers hinge on named entities, exact dates or the 
 
 ### By domain
 
-`results/analysis_per_domain.csv`, figure `paper/figures/per_domain.pdf`, paper Table `tab:per-domain`.
+`results/analysis_per_domain.csv`.
 
 | Domain | n | BM25 | +temp. | Sparse | Dense | Hybrid |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -123,7 +123,7 @@ Interpretation: types whose answers hinge on named entities, exact dates or the 
 | travel | 30 | 0.044 | 0.053 | 0.163 | 0.250 | **0.256** |
 | workplace | 11 | 0.023 | 0.024 | 0.240 | 0.346 | **0.355** |
 
-nDCG@10 only; per-domain Recall@100 for every system is in the CSV and in the paper table. Hybrid is best, or within 0.004 of the best, in 12 of 13 domains. The exception is iota (3 queries), where dense alone is better.
+nDCG@10 only; per-domain Recall@100 for every system is in the CSV. Hybrid is best, or within 0.004 of the best, in 12 of 13 domains. The exception is iota (3 queries), where dense alone is better.
 
 ## 3. Error analysis
 
@@ -191,25 +191,7 @@ Recall@100, dev: sparse → dense −0.027 (p = 1.00); dense → hybrid +0.090, 
 
 **Reading.** Sparse vs. dense is a tie: the dev ordering (dense ahead) is the opposite of train (sparse ahead, 0.2435 vs. 0.2261), and the CI spans ±0.05. The temporal gain is real but small, and half of it is iota.
 
-## 5. Figures
-
-`scripts/make_figures.py` writes PDF and PNG files to `paper/figures/`. It reads only `results/*.csv`.
-
-- `per_domain`: dev nDCG@10 per domain (with dev query counts) and the macro, for all five systems.
-- `per_type`: nDCG@10 per type; top panel dev with predicted types, bottom panel train with guidance types.
-- `progression`: macro nDCG@10 and Recall@100 along bm25 → +temporal → sparse → dense → hybrid, train and dev, in two panels (no dual axis).
-
-Colours are slots 1–5 of a categorical palette checked for colour-vision-deficiency separation (worst adjacent ΔE 9.1). Three of the five fall below 3:1 contrast on white, so every plotted value is also in a paper table.
-
-## 6. Paper skeleton
-
-`paper/main.tex` (ACL style; `acl.sty` and `acl_natbib.bst` copied unchanged from acl-org/acl-style-files), `paper/references.bib`, `paper/README.md`.
-
-- Sections: abstract placeholder, introduction, task, data, system (BM25 tuning, query cleaning, dense, fusion, temporal re-scoring, reranker placeholder), results, analysis, limitations, conclusion.
-- The limitations section includes the temporal-extractor bug fixed after viewing dev, iota's 3 dev queries and the other small dev domains, approximate types, single-annotator error analysis, and repeated dev reporting.
-- **Every table is generated** by `paper/make_tables.py` from `results/*.csv` into `paper/tables/*.tex`. Numbers quoted in the prose are macros in `paper/tables/numbers.tex`, generated the same way.
-- **Reranker hooks:** red `\TODO` markers in the abstract, introduction, §4.6, results, figure captions, type analysis, error analysis, limitations and conclusion. `make_tables.py` adds any 13-domain `experiments.csv` row named `rerank*` to the main table automatically; until then the table shows a TODO row.
-- Not compiled: there is no LaTeX installation on this machine. I checked brace and environment balance, that every `\ref` has a `\label`, that every `\cite` key exists in the .bib, and that the figure files exist.
+Sections 5 and 6 (figures and a paper draft) were removed. The remaining sections keep their numbers so that existing references to §7 and §8 stay valid.
 
 ## 7. Near-duplicate demotion
 
@@ -275,7 +257,7 @@ On train, 60 demoted documents are gold, 44 of them in history. In all but one, 
 
 ## 8. Near-duplicate demotion on the final system
 
-The final system of `docs/RERANK.md` (hybrid_best → MiniLM cross-encoder, interpolated → temporal) still has near-duplicates in its top 10: 10.5% of dev top-10 slots (shingle test, §3), in 59% of queries, slightly more than hybrid (9.7%). Both §7 variants were re-tuned on its **train** run, `runs/train/final.trec` (before demotion; 0.2976), with the §7 grid and tie rule. Full grid: `results/analysis_dedup_grid_final_train.csv`.
+The final system of `docs/RERANK.md` (hybrid_best → MiniLM cross-encoder, interpolated → temporal) still has near-duplicates in its top 10: 10.5% of dev top-10 slots (shingle test, §3), in 59% of queries, slightly more than hybrid (9.7%). Both §7 variants were re-tuned on its **train** run before demotion (0.2976; at the time this was `runs/train/final.trec`; the grid below regenerates identically from `runs/train/rerank_minilm_interp+rerank_temporal_fit_present.trec`, see Reproduce), with the §7 grid and tie rule. Full grid: `results/analysis_dedup_grid_final_train.csv`.
 
 | Train nDCG@10 Δ vs 0.2976 | strict | ≥1.0 | ≥0.95 | ≥0.9 | ≥0.85 | ≥0.8 | ≥0.7 | ≥0.6 | ≥0.5 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -289,7 +271,7 @@ Selected: skip 1 → Jaccard ≥ 0.8 (0.3001; 0.6 is higher by less than 10⁻�
 
 **Adopted: `dedup_end`** (`configs/final_dedup_end.yaml`), the variant with the higher train nDCG@10, under the rule fixed beforehand (adopt only if it improves the final system on train). It is now the last stage of `configs/final.yaml` and `reteco.pipeline`; `runs/{train,dev}/final.trec` were regenerated and are identical to `final+dedup`.
 
-`results/analysis_dedup_final.csv` (`scripts/analysis_dedup.py --base final --variant dedup:final_dedup_end --tag _final`; CI and p as in §7):
+`results/analysis_dedup_final.csv` (`scripts/analysis_dedup.py` with the pre-dedup run as the base, see Reproduce; CI and p as in §7):
 
 | System | Split | nDCG@10 | Δ | 95% CI | p | Δ w/o iota | p w/o iota | Queries better / worse |
 | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | --- |
@@ -306,15 +288,17 @@ Selected: skip 1 → Jaccard ≥ 0.8 (0.3001; 0.6 is higher by less than 10⁻�
 
 ## Reproduce
 
+Needs the reranker and temporal runs from `docs/RERANK.md` section 8 (Reproduce); they are gitignored.
+
 ```bash
 export RETECO_DATA=data/data/track1_tempo PYTHONPATH="$PWD/src"
+python -m reteco.pipeline --config configs/final.yaml   # final system: runs/{train,dev}/final.trec
 python scripts/analysis_query_types.py      # ~40 s; types + CV
 python scripts/analysis_breakdown.py        # per-query / per-type / per-domain / deltas
 python scripts/analysis_significance.py
 python scripts/analysis_errors.py --dossier /tmp/error_dossier.md   # sample + signals
 python scripts/analysis_neardup.py          # ~1 min, streams the corpora
 python scripts/analysis_data_stats.py
-/opt/homebrew/bin/python3 scripts/make_figures.py   # any Python with matplotlib
 python -m reteco.analysis_tools.dedup --tune --skip 1 --run runs/train/hybrid_best.trec \
     --config configs/dedup.yaml --grid-out results/analysis_dedup_grid_train.csv
 python -m reteco.analysis_tools.dedup --tune --skip 0 --run runs/train/hybrid_best.trec \
@@ -323,11 +307,16 @@ for c in dedup dedup_end; do for s in train dev; do
   python -m reteco.analysis_tools.dedup --run runs/$s/hybrid_best.trec --split $s --config configs/$c.yaml
 done; done                                   # writes runs, appends to experiments.csv
 python scripts/analysis_dedup.py             # gains, significance, gold audit
-# §8: on the final system (before demotion), see docs/RERANK.md section 8 (Reproduce) for the full commands
-python -m reteco.analysis_tools.dedup --tune --skip 0 --run runs/train/final.trec \
-    --config configs/final_dedup_end.yaml
-python scripts/analysis_dedup.py --base final --variant dedup:final_dedup_end --tag _final
-python paper/make_tables.py
+# §8: on the final system before demotion (runs/{train,dev}/final.trec already include it)
+B=rerank_minilm_interp+rerank_temporal_fit_present
+python -m reteco.analysis_tools.dedup --tune --skip 0 --run runs/train/$B.trec \
+    --config /tmp/final_dedup_end.yaml --grid-out results/analysis_dedup_grid_final_train.csv
+                                             # grid only; the committed configs/final_dedup*.yaml are not touched
+for s in train dev; do
+  python -m reteco.analysis_tools.dedup --run runs/$s/$B.trec --split $s \
+    --config configs/final_dedup_end.yaml --out runs/$s/$B+dedup.trec --no-log
+done
+python scripts/analysis_dedup.py --base $B --variant dedup:final_dedup_end --tag _final
 python -m pytest tests/test_analysis_tools.py
 ```
 
@@ -339,21 +328,18 @@ python -m pytest tests/test_analysis_tools.py
 4. **Class-balanced weights kept.** An unweighted model is about 2 points more accurate (0.457–0.477) but predicts change_over_time for only 4–6 of 1,211 train queries, which would leave that dev group nearly empty. Balanced weights keep all seven groups populated, at the cost of lower precision for the rare classes (no_time precision 0.18).
 5. **Per-type scores are query means (micro), not domain macros**, since many type × domain cells hold 0–3 queries. Per-domain scores and the macro row follow the official definition.
 6. **Every type result is shown on train with guidance labels too**, because dev types are only ~45% accurate. A finding is called consistent only if it has the same sign on both.
-7. **Progression order** is bm25 → bm25+temporal → sparse_best → dense_best → hybrid_best. This follows the order of construction and the paper's narrative (temporal re-scoring is applied to BM25), and dev macro scores happen to increase along it. The pair "bm25+temporal → sparse_best" is consecutive in the chart but not a real build step, so three more pairs (bm25 → sparse, bm25 → dense, sparse → hybrid) are also tested. Holm correction covers all seven pairs per metric.
+7. **Progression order** is bm25 → bm25+temporal → sparse_best → dense_best → hybrid_best. This follows the order of construction (temporal re-scoring is applied to BM25), and dev macro scores happen to increase along it. The pair "bm25+temporal → sparse_best" is consecutive in this order but not a real build step, so three more pairs (bm25 → sparse, bm25 → dense, sparse → hybrid) are also tested. Holm correction covers all seven pairs per metric.
 8. **Both tests on the official macro statistic**, with domain-stratified bootstrap. Query-level (micro) differences are only used inside the per-type tables.
 9. **Error-analysis pool = nDCG@10 < 0.05**, which on dev equals the 176 zero-score queries. The 25 were stratified by domain with seed 13, not picked by hand, so the categories describe typical failures rather than striking ones.
 10. **"Other" was split** into near-miss, fusion loss and long gold document in a separate column, because near-misses are the largest group and the requested categories have no slot for them. The categories, and which example represents each, are my judgment as a single annotator. The dossiers quote dev gold text, so they are written outside the repo (`--dossier` is required) and are not committed.
-11. **Dev gold documents were read** for the error analysis, as the task requires. No run, config or parameter was changed afterwards. The near-duplicate finding is reported as a suggestion only.
+11. **Dev gold documents were read** for the error analysis, as the task requires. Near-duplicate demotion (§7, §8) was added after this error analysis, motivated by the observation that near-duplicates fill many dev top-10 slots (§3). Its variant and threshold were selected on train only.
 12. **Near-duplicate measurement** uses two thresholds (strict and 5-gram Jaccard ≥ 0.8) on top-10 lists. The threshold was not tuned; the qualitative result (10% of slots, rising with system quality) holds under both.
 13. **Data path.** All runs use `RETECO_DATA=data/data/track1_tempo` as instructed. The depth-1000 candidate lists for the error signals are read from `cache/dense/candidates/` (read-only; nothing in `cache/` was written).
-14. **Figures run outside the project venv.** The venv has no matplotlib, and I did not install packages into a venv shared with the running GPU job. `make_figures.py` needs only the standard library and matplotlib and was run with Homebrew's Python 3.14 (matplotlib 3.10.8).
-15. **No rows appended to `results/experiments.csv` for §1–6.** Those sections produce no run, and analysis results do not fit its one-row-per-run schema; they live in `results/analysis_*.csv` and `results/data_stats.csv`. §7 does produce runs, which are logged (decision 21).
-16. **Paper data table from a new CSV.** `scripts/analysis_data_stats.py` writes `results/data_stats.csv` so the data table is generated like every other table. Its numbers match `docs/DATA.md`.
-17. **ACL style files vendored** into `paper/`, unchanged, so the draft builds without fetching anything. The bibliography only contains entries I am confident of; the RETECO task paper, TEMPO and the reranker are left as TODOs rather than guessed.
-18. **New test file** `tests/test_analysis_tools.py` (14 tests: macro weighting, both tests, Holm, sampler, rank order, type mapping and rules, per-query scorer on the tiny fixture, and for §7 demotion order, the strict key, exact Jaccard and profile/apply). No existing file was modified.
-19. **Near-duplicate threshold selection.** Train macro nDCG@10; ties within 10⁻⁴ go to the stricter threshold (fewer demotions, fewer gold demoted). For skip 1, this picks 0.9 over 0.85 (0.2816 vs 0.2817). The strict test is always on, so a Jaccard threshold only adds duplicates.
-20. **Extra variant logged.** The specified behaviour (below the next non-duplicate) is `hybrid_best+dedup`. The train grid showed that the demotion depth matters more than the threshold, so the to-end variant, selected on train in the same way, is logged as a separate row, `hybrid_best+dedup_end`. It does not replace the requested system, and neither was chosen by looking at dev.
-21. **Run files for §7 are not committed.** `runs/*/hybrid_best+dedup*.trec` fall under the existing `.gitignore` rule that keeps only the selected systems' runs, and I did not change `.gitignore` or force-add them. They are on disk and regenerate in about a minute.
-22. **Exact Jaccard instead of MinHash.** With 100 documents per list, exact Jaccard over 5-gram shingle hashes (64-bit, per-process string hashing; collisions negligible) is fast enough (40 s for all train queries, mostly reading the corpora) and has no estimation noise near a 0.9 threshold.
-23. **Gold audit on both splits.** Train is the requested check. Dev counts are reported as description only and were computed after both configs were frozen.
-24. **Bibliography.** TEMPO is cited as given. The RETECO entry is a `@misc` for the task website with the five organisers, year 2027, and the note "Task paper forthcoming". Its title, "SemEval-2027 Task 1: RETECO, a Shared Task on Reasoning-Oriented Retrieval", is my wording, taken from the repo README, until the task paper fixes it. The reranker citation remains a TODO.
+14. **No rows appended to `results/experiments.csv` for §1–4.** Those sections produce no run, and analysis results do not fit its one-row-per-run schema; they live in `results/analysis_*.csv` and `results/data_stats.csv`. §7 does produce runs, which are logged (decision 19).
+15. **Data statistics as a CSV.** `scripts/analysis_data_stats.py` writes `results/data_stats.csv`, so the per-domain data statistics are generated like every other result. Its numbers match `docs/DATA.md`.
+16. **New test file** `tests/test_analysis_tools.py` (14 tests: macro weighting, both tests, Holm, sampler, rank order, type mapping and rules, per-query scorer on the tiny fixture, and for §7 demotion order, the strict key, exact Jaccard and profile/apply). No existing file was modified.
+17. **Near-duplicate threshold selection.** Train macro nDCG@10; ties within 10⁻⁴ go to the stricter threshold (fewer demotions, fewer gold demoted). For skip 1, this picks 0.9 over 0.85 (0.2816 vs 0.2817). The strict test is always on, so a Jaccard threshold only adds duplicates.
+18. **Extra variant logged.** The specified behaviour (below the next non-duplicate) is `hybrid_best+dedup`. The train grid showed that the demotion depth matters more than the threshold, so the to-end variant, selected on train in the same way, is logged as a separate row, `hybrid_best+dedup_end`. It does not replace the requested system, and neither was chosen by looking at dev.
+19. **Run files for §7 are not committed.** `runs/*/hybrid_best+dedup*.trec` fall under the existing `.gitignore` rule that keeps only the selected systems' runs, and I did not change `.gitignore` or force-add them. They are on disk and regenerate in about a minute.
+20. **Exact Jaccard instead of MinHash.** With 100 documents per list, exact Jaccard over 5-gram shingle hashes (64-bit, per-process string hashing; collisions negligible) is fast enough (40 s for all train queries, mostly reading the corpora) and has no estimation noise near a 0.9 threshold.
+21. **Gold audit on both splits.** Train is the requested check. Dev counts are reported as description only and were computed after both configs were frozen.
