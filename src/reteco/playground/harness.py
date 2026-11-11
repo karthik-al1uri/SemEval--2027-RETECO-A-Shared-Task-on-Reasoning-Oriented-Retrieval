@@ -93,9 +93,9 @@ def run_config(cfg: dict, name: str, split: str = "train", write: bool = True, v
     run = runs[split]
     lat = latency(timer, split, len(run))
     if qids is not None:
-        # the first stage ran (or was cached) for every query of the split: rescale its time
+        # the first stage and fusion ran for every query of the split: rescale their time
         n_all = len(next(iter(v[0][split] for k, v in shared.items() if isinstance(k, tuple))))
-        for st in ("sparse", "dense"):
+        for st in ("sparse", "dense", "fusion"):
             if st in lat:
                 lat[st] = round(lat[st] * len(run) / n_all, 1)
         lat["total"] = round(sum(v for k, v in lat.items() if k != "total"), 1)
@@ -119,9 +119,17 @@ def main(argv=None) -> int:
     ap.add_argument("--config", required=True)
     ap.add_argument("--name", required=True)
     ap.add_argument("--parts", nargs="+", default=["tune", "holdout"], choices=["tune", "holdout"])
+    ap.add_argument("--qset", choices=["tune_train", "tune_val"], default=None,
+                    help="run and score only this sub-part of tune instead of --parts")
     args = ap.parse_args(argv)
     cfg = load_yaml(args.config)
     cfg["_path"] = args.config
+    if args.qset:
+        from .common import fmt, score_set, subsplit_tune
+        qs = dict(zip(("tune_train", "tune_val"), subsplit_tune()))[args.qset]
+        out = run_config(cfg, args.name, parts=(), qids=qs, write=False, verbose=False)
+        print(fmt(score_set(out["run"], qs, args.qset)))
+        return 0
     run_config(cfg, args.name, parts=args.parts)
     return 0
 
