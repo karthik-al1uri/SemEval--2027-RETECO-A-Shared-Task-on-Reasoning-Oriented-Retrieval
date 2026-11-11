@@ -102,6 +102,12 @@ def dense_stage(cfg: dict, domains, splits, depth: int, timer: Timer):
 
     dcfg = load_yaml(cfg["dense"]["config"])
     model = load_model(dcfg["model"], dcfg.get("dtype", "float16"))
+    # optional separately fine-tuned query encoder (documents keep the cached embeddings)
+    qmodel = model
+    if dcfg.get("query_model"):
+        local = REPO_ROOT / dcfg["query_model"]
+        qmodel = load_model(str(local) if local.is_dir() else dcfg["query_model"],
+                            dcfg.get("dtype", "float16"))
     out = {s: {} for s in splits}
     for domain in domains:
         if not is_encoded(dcfg, domain):
@@ -111,7 +117,7 @@ def dense_stage(cfg: dict, domains, splits, depth: int, timer: Timer):
         for split in splits:
             qs = load_queries(domain, split)
             t0 = time.perf_counter()
-            q = encode_queries(model, [x.query for x in qs], dcfg)
+            q = encode_queries(qmodel, [x.query for x in qs], dcfg)
             if dcfg["doc_mode"] == "maxp":
                 res = search_maxp(emb, doc_ids, doc_index, q, depth)
             else:
