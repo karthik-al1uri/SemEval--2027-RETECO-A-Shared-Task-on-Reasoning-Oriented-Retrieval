@@ -93,6 +93,8 @@ def main(argv=None) -> int:
     ap.add_argument("--base-model", default=None, help="model to start from (default: rerank.model)")
     ap.add_argument("--max-query-tokens", type=int, default=None, help="override rerank.max_query_tokens")
     ap.add_argument("--doc-chars", type=int, default=None, help="override rerank.doc_chars")
+    ap.add_argument("--train-on", default="tune_train", choices=["tune_train", "tune"],
+                    help="tune = all tune queries (no tune-internal validation left)")
     args = ap.parse_args(argv)
 
     import torch
@@ -111,6 +113,8 @@ def main(argv=None) -> int:
     if args.doc_chars:
         rcfg["doc_chars"] = args.doc_chars
     tune_train, tune_val = subsplit_tune()
+    if args.train_on == "tune":  # E20: all of tune, hyperparameters fixed in advance
+        tune_train = tune_train | tune_val
     ex, docs = build_examples(cfg, tune_train, args.neg_depth, args.dup_jaccard, args.domains)
 
     from ..rerank.cross_encoder import device

@@ -42,6 +42,8 @@ def main(argv=None) -> int:
     ap.add_argument("--lr", type=float, default=1e-5)
     ap.add_argument("--tau", type=float, default=0.02)
     ap.add_argument("--batch", type=int, default=8)
+    ap.add_argument("--train-on", default="tune_train", choices=["tune_train", "tune"],
+                    help="tune = all tune queries (no tune-internal validation left)")
     args = ap.parse_args(argv)
 
     import torch
@@ -52,6 +54,8 @@ def main(argv=None) -> int:
     cfg = load_yaml(args.config)
     dcfg = load_yaml(cfg["dense"]["config"])
     tune_train, tune_val = subsplit_tune()
+    if args.train_on == "tune":  # E20: all of tune, hyperparameters fixed in advance
+        tune_train = tune_train | tune_val
     ex, _ = build_examples(cfg, tune_train, 200, 0.6)
 
     # frozen doc vectors for every example doc

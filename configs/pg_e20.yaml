@@ -1,0 +1,39 @@
+# Playground E20: E3 with both fine-tuned models retrained on ALL tune queries, hyperparameters fixed from E3/E8.
+# Rebuild the CE: python -m reteco.playground.finetune_ce --config configs/final.yaml --name minilm_ft_q128_all --epochs 2 --n-neg 7 --groups-per-step 4 --max-query-tokens 128 --train-on tune (epoch1; epoch 2 is not needed)
+system_name: pg_e20
+seed: 13
+components:
+  sparse: true
+  dense: true
+  rerank: true
+  interpolate: true
+  temporal: true
+  dedup: true
+sparse:
+  config: configs/sparse_best.yaml
+dense:
+  config: configs/pg_e20_dense.yaml
+fusion:
+  k: 10
+  w_dense: 0.4
+  depth: 1000
+rerank:
+  model: cache/playground/ce/minilm_ft_q128_all/epoch1
+  dtype: float16
+  max_length: 512
+  max_query_tokens: 128
+  doc_chars: 4000
+  batch_size: 32
+  query_clean:
+  - code
+  - html
+  - urls
+  - signature
+  depth: 200
+interpolate:
+  a: 0.35
+  norm: zscore
+temporal:
+  config: configs/rerank_temporal_fit_present.yaml
+dedup:
+  config: configs/final_dedup_end.yaml
