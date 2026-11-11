@@ -1,0 +1,2 @@
+id,date,experiment,hypothesis,change,tune_ndcg@10,holdout_ndcg@10,delta_vs_champion,holdout_no_iota,latency_ms_per_query,champion_latency_ms,time_spent_min,decision,reason,config
+E0,2026-11-10,baseline: final system,-,"configs/final.yaml unchanged (settings tuned on all of train, incl. holdout)",0.2957,0.3155,+0.0000,0.2805,1100.4,1100.4,15,CHAMPION,starting point,configs/final.yaml

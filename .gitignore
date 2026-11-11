@@ -69,3 +69,6 @@ runs/*/*+rerank_temporal_*
 
 # Python 3.13 environment for torch (see README)
 .venv-dense/
+
+# Playground runs (train split, scored on tune/holdout)
+runs/*/pg_*
