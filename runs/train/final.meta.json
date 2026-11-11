@@ -1,0 +1,29 @@
+{
+  "description": "sparse+dense RRF k=10 w_dense=0.4 -> epoch1 top 200 (clean query) -> interp a=0.35 zscore -> temporal rerank_temporal_fit_present -> dedup final_dedup_end",
+  "config": "configs/final.yaml",
+  "domains": [
+    "bitcoin",
+    "cardano",
+    "economics",
+    "genealogy",
+    "history",
+    "hsm",
+    "iota",
+    "law",
+    "monero",
+    "politics",
+    "quant",
+    "travel",
+    "workplace"
+  ],
+  "latency_ms_per_query": {
+    "sparse": 4.3,
+    "dense": 10.0,
+    "fusion": 2.0,
+    "rerank": 1104.7,
+    "interp": 0.1,
+    "temporal": 1.9,
+    "dedup": 19.1,
+    "total": 1142.1
+  }
+}

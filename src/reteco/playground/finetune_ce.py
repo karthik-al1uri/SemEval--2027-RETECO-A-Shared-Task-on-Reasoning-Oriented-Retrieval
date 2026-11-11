@@ -80,7 +80,7 @@ def build_examples(cfg: dict, qids: set[str], depth: int, dup_jaccard: float, do
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m reteco.playground.finetune_ce")
-    ap.add_argument("--config", default="configs/final.yaml")
+    ap.add_argument("--config", default="configs/final_v1.yaml")
     ap.add_argument("--name", required=True)
     ap.add_argument("--epochs", type=int, default=2)
     ap.add_argument("--lr", type=float, default=2e-5)
@@ -90,6 +90,8 @@ def main(argv=None) -> int:
     ap.add_argument("--dup-jaccard", type=float, default=0.6)
     ap.add_argument("--domains", nargs="+", default=None)
     ap.add_argument("--max-steps", type=int, default=0, help="smoke test: stop after this many steps")
+    ap.add_argument("--stop-after-epoch", type=int, default=0,
+                    help="stop once this epoch is saved (the LR schedule still spans --epochs)")
     ap.add_argument("--base-model", default=None, help="model to start from (default: rerank.model)")
     ap.add_argument("--max-query-tokens", type=int, default=None, help="override rerank.max_query_tokens")
     ap.add_argument("--doc-chars", type=int, default=None, help="override rerank.doc_chars")
@@ -189,6 +191,8 @@ def main(argv=None) -> int:
         tok.save_pretrained(ck)
         print(f"saved {ck} (epoch mean loss {np.mean(losses):.4f})", flush=True)
         if args.max_steps and step >= args.max_steps:
+            break
+        if args.stop_after_epoch and epoch >= args.stop_after_epoch:
             break
     return 0
 

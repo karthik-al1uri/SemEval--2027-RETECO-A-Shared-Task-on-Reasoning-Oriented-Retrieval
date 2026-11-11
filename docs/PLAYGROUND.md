@@ -1,15 +1,17 @@
 # Playground: autonomous improvement loop on the final system
 
+> **Merged into `main` on 2026-11-11.** The champion below is now the final system, `configs/final.yaml` (runs `runs/{train,dev}/final.trec`). The system the loop started from was renamed `final_v1` (`configs/final_v1.yaml`, `runs/{train,dev}/final_v1.trec`); the rest of this page uses the names from the loop, where "original `final`" means `final_v1` and `playground_final` means the new `final`. Build the two fine-tuned models first with `scripts/build_finetuned_models.sh`.
+
 ## Summary
 
-An autonomous loop on branch `playground` tried **15 changes** to the final system (`configs/final.yaml`). It tuned only on a fixed 80% "tune" part of TRAIN, judged only on the 20% "holdout" part, and kept a change only if holdout nDCG@10 rose by ≥ 0.003 at ≤ 2× latency. **5 were kept and 10 rejected.** The loop stopped after 4.5 h: every backlog item was done, and the last two ideas were tried after three rejections in a row.
+An autonomous loop on branch `playground` tried **15 changes** to the final system (then `configs/final.yaml`, now `configs/final_v1.yaml`). It tuned only on a fixed 80% "tune" part of TRAIN, judged only on the 20% "holdout" part, and kept a change only if holdout nDCG@10 rose by ≥ 0.003 at ≤ 2× latency. **5 were kept and 10 rejected.** The loop stopped after 4.5 h: every backlog item was done, and the last two ideas were tried after three rejections in a row.
 
-**Final champion: `configs/playground_final.yaml`** (= `configs/pg_e20.yaml`). Tuned BM25 + bge-small, now with a **fine-tuned query encoder** (frozen document vectors) → RRF (k 10, w_dense 0.4) → **MiniLM cross-encoder fine-tuned on train qrels with hard negatives, on 128-token queries**, top 200 → interpolation (a 0.35, z-score) → the unchanged temporal and near-duplicate stages. Same latency as before: ~1110 ms per query, 96% of it the cross-encoder.
+**Final champion: `playground_final`** (= `configs/pg_e20.yaml`; now `configs/final.yaml`). Tuned BM25 + bge-small, now with a **fine-tuned query encoder** (frozen document vectors) → RRF (k 10, w_dense 0.4) → **MiniLM cross-encoder fine-tuned on train qrels with hard negatives, on 128-token queries**, top 200 → interpolation (a 0.35, z-score) → the unchanged temporal and near-duplicate stages. Same latency as before: ~1110 ms per query, 96% of it the cross-encoder.
 
 | | holdout nDCG@10 | dev nDCG@10 | dev w/o iota | dev R@100 | ms/query |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| original `final` | 0.3155 | 0.3403 | 0.3105 | 0.7436 | 1101 |
-| **`playground_final`** | **0.3671** | **0.3679** | **0.3457** | 0.7397 | 1110 |
+| original `final` (now `final_v1`) | 0.3155 | 0.3403 | 0.3105 | 0.7436 | 1101 |
+| **`playground_final`** (now `final`) | **0.3671** | **0.3679** | **0.3457** | 0.7397 | 1110 |
 | Δ | +0.0516 | **+0.0276** | +0.0353 | −0.0039 | |
 
 **The one dev comparison** (scored once at the end; nothing was changed afterwards): +0.0276 macro nDCG@10, 95% CI [+0.010, +0.046] (domain-stratified paired bootstrap, 10k). 226 dev queries improve, 123 get worse, 170 are unchanged. It is better in 9 of 13 domains: history +0.076 (240 queries), genealogy +0.076, workplace +0.100, quant +0.079, hsm +0.050. It is worse in law −0.062 (11 queries), iota −0.064 (3 queries), politics −0.020 and bitcoin −0.019. The original system was re-run through the pipeline and reproduces its logged 0.3403 exactly.
@@ -28,13 +30,13 @@ An autonomous loop on branch `playground` tried **15 changes** to the final syst
 - **E5 is probably noise.** Its holdout gain comes entirely from iota's 2 holdout queries; without iota it is negative, and E19 later found the opposite fusion setting on tune_val, which lost on holdout. It was kept because the rule was fixed in advance (decision 11).
 - **Rejected:** per-domain interpolation weight (E2), three-way RRF (E4), rerank depth 300 (E12), re-tuned temporal/dedup (E9), query shortening (E7), a cross-encoder ensemble (E14), fusion re-tuned again (E19), e5-small-v2 as a third retriever (E6, which cannot be encoded within the 2 h cap) and 64-token queries (E16). Every "re-tune a few weights" idea was rejected: with 194–243 queries those tweaks sit inside the noise, and the big temporal grid (E9) overfit outright.
 - **Holdout overstated the gain**: +0.052 on holdout vs +0.028 on dev. That is expected after picking the 5 best of 15 tries on the same 243 queries, and iota's 2 holdout queries swing the macro by up to ±0.015 by themselves (E5, E14).
-- **Caveat for reuse:** the champion needs two fine-tuned models that live in the gitignored `cache/playground/` (~90 MB each); `configs/pg_e20.yaml` and `configs/pg_e20_dense.yaml` give the exact commands to rebuild them (about 25 minutes on the M4).
+- **Caveat for reuse:** the champion needs two fine-tuned models that live in the gitignored `cache/playground/` (~90 MB each); `scripts/build_finetuned_models.sh` rebuilds both (the exact commands are also at the top of `configs/pg_e20.yaml` and `configs/pg_e20_dense.yaml`). A test rebuild changed holdout nDCG@10 by −0.0004 (see Rebuild check), which is the expected run-to-run variation.
 
 ## Setup
 
 - Branch `playground` from `main` (bd11165). `main` is never modified, nothing is pushed.
 - **Split** (`configs/playground_split.json`, `python -m reteco.playground.common --make-split`): TRAIN only, stratified per domain, seed 13. Holdout = max(2, round(0.2 n)) queries per domain, the rest is tune: **968 tune / 243 holdout**. Dev is not used during the loop.
-- **Champion** = `configs/final.yaml`. Its holdout score is the baseline.
+- **Champion** = `configs/final.yaml` (now `configs/final_v1.yaml`). Its holdout score is the baseline.
 - **Harness** (`python -m reteco.playground.harness --config <yaml> --name <run>`): runs the full pipeline (`reteco.pipeline.run_pipeline`) on train and scores macro nDCG@10 over the 13 domains on the tune and holdout queries separately. First-stage lists are cached under `cache/playground/first/`.
 - **Keep rule**: holdout nDCG@10 ≥ champion + 0.003 and latency ≤ 2 × champion. Parameters tuned on tune only; holdout only judges.
 - Log: `results/playground.csv` (one row per experiment) and the table below.
@@ -45,7 +47,7 @@ In run order. "tune" is the tune part, or tune_val (194 queries) where a model t
 
 | id | experiment | tune | holdout | Δ holdout | holdout w/o iota | ms/query | min | decision |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| E0 | baseline: `configs/final.yaml` | 0.2957 | 0.3155 | | 0.2805 | 1100 | 15 | champion |
+| E0 | baseline: `configs/final.yaml` (now `final_v1.yaml`) | 0.2957 | 0.3155 | | 0.2805 | 1100 | 15 | champion |
 | E1 | fine-tuned MiniLM cross-encoder | 0.3306 (tv; was 0.2852) | **0.3392** | **+0.0237** | 0.3188 | 1113 | 46 | **KEPT** |
 | E2 | per-domain interpolation weight | CV 0.2961 vs 0.2949 | 0.3349 | −0.0043 | 0.3142 | 1112 | 20 | rejected |
 | E4 | three-way RRF instead of interpolation | 0.3333 (tv) | 0.3406 | +0.0014 | 0.3189 | 1111 | 25 | rejected |
@@ -82,22 +84,37 @@ Total time in experiments: about 4.5 h (20:59–01:30), plus the dev runs.
 
 ```
 source .venv-dense/bin/activate && export PYTHONPATH="$PWD/src"
-python -m reteco.playground.harness --config configs/final.yaml --name pg_champion0      # E0 on tune + holdout
-# E20 models (about 25 min on an M4; the CE job can be stopped once epoch1 is saved)
-python -m reteco.playground.finetune_ce --config configs/final.yaml --name minilm_ft_q128_all \
+python -m reteco.playground.harness --config configs/final_v1.yaml --name pg_champion0      # E0 on tune + holdout
+# E20 models (= scripts/build_finetuned_models.sh; about 25 min on an M4)
+python -m reteco.playground.finetune_ce --config configs/final_v1.yaml --name minilm_ft_q128_all \
     --epochs 2 --n-neg 7 --groups-per-step 4 --max-query-tokens 128 --train-on tune
 python -m reteco.playground.finetune_qenc --name bge_q_all --epochs 2 --train-on tune
 python -m reteco.playground.harness --config configs/pg_e20.yaml --name pg_e20 --parts holdout
 python -m reteco.playground.compare runs/train/pg_e3.trec runs/train/pg_e20.trec          # paired holdout comparison
-python -m reteco.pipeline --config configs/playground_final.yaml --splits dev            # the dev run (done once)
+python -m reteco.pipeline --config configs/final.yaml --splits dev                       # the dev run (done once, as playground_final)
 ```
 
 The models of the intermediate champions (E1, E3, E8) are rebuilt with the commands at the top of their configs. Scripts for every experiment, kept or rejected, are in `src/reteco/playground/`.
 
+## Rebuild check (after the merge)
+
+`scripts/build_finetuned_models.sh` was run once from scratch (31 min on the M4) to test whether the champion's models can be rebuilt. The canonical models were backed up first and restored afterwards. The rebuilt copies were scored under a separate path (`cache/playground/rebuild/`), because the cross-encoder score cache is keyed by model path. Holdout only; dev was not scored with the rebuilt models.
+
+| | max abs weight diff vs canonical | holdout nDCG@10 | w/o iota |
+| --- | ---: | ---: | ---: |
+| canonical models (logged `playground_final` / `final`) | | 0.3671 | 0.3365 |
+| rebuilt with the script | CE 3.4e-5, query encoder 7.7e-6 | 0.3667 | 0.3360 |
+| Δ | | −0.0004, 95% CI [−0.0011, 0.0000] | −0.0004 |
+
+- **The rebuild is not bit-identical.** MPS training is not deterministic even with a fixed seed. The query encoder's per-epoch tune_val scores matched the original log to four decimals.
+- **The rebuild nearly matches.** 240 of 243 holdout queries score the same. The other three move slightly (1 better, 2 worse), a net loss in history (−0.002) and workplace (−0.003).
+- **Expected run-to-run variation is therefore about ±0.001 nDCG@10.** That is a tenth of the +0.003 keep threshold and far below the measured gains.
+- **The canonical models remain the reference.** With them restored, `configs/final.yaml` reproduces dev 0.3679, and `runs/dev/final.trec` is byte-identical to the logged run.
+
 ## Decisions made
 
 1. **At least 2 holdout queries per domain.** With round(0.2 n), iota (7 train queries) would have had one holdout query, which alone moves the macro by up to 1/13. It has 2 (so 2/7 instead of 1/7); every other domain is exactly round(0.2 n).
-2. **The champion was tuned on all of train, including holdout.** Its holdout score (0.3155) is therefore slightly optimistic, while every challenger is tuned on tune only. This biases the loop toward rejecting. I did not re-tune the champion on tune, because the brief defines the champion as `configs/final.yaml` as it is.
+2. **The champion was tuned on all of train, including holdout.** Its holdout score (0.3155) is therefore slightly optimistic, while every challenger is tuned on tune only. This biases the loop toward rejecting. I did not re-tune the champion on tune, because the brief defines the champion as `configs/final.yaml` (now `final_v1.yaml`) as it is.
 3. **Holdout without iota is reported next to the macro** as a diagnostic (iota has 2 holdout queries, and the champion scores 0.735 on them). Decisions use the macro, as the rule says.
 4. **Order: E1 (fine-tuned cross-encoder) first.** It has the largest expected gain, and it changes the cross-encoder scores that E2–E5 build on. E2 and E4 were run once on the original cross-encoder while E1 was training (CPU only, cached scores); they are re-run on top of the champion when the champion changes.
 5. **Playground runs are not written to `results/experiments.csv`.** They are scored on parts of train, which that file has no column for; they go to `results/playground.csv`. Only the two dev runs at the end are logged there. Playground run files (`runs/train/pg_*`) are gitignored.
