@@ -1,0 +1,42 @@
+# Final playground champion (= configs/pg_e20.yaml). Selected on the tune/holdout split of TRAIN only
+# (docs/PLAYGROUND.md); dev was scored once at the end and not used for any choice.
+# Needs the two fine-tuned models in cache/playground/ (rebuild commands in configs/pg_e20.yaml and
+# configs/pg_e20_dense.yaml).
+#   python -m reteco.pipeline --config configs/playground_final.yaml --splits dev
+system_name: playground_final
+seed: 13
+components:
+  sparse: true
+  dense: true
+  rerank: true
+  interpolate: true
+  temporal: true
+  dedup: true
+sparse:
+  config: configs/sparse_best.yaml
+dense:
+  config: configs/pg_e20_dense.yaml
+fusion:
+  k: 10
+  w_dense: 0.4
+  depth: 1000
+rerank:
+  model: cache/playground/ce/minilm_ft_q128_all/epoch1
+  dtype: float16
+  max_length: 512
+  max_query_tokens: 128
+  doc_chars: 4000
+  batch_size: 32
+  query_clean:
+  - code
+  - html
+  - urls
+  - signature
+  depth: 200
+interpolate:
+  a: 0.35
+  norm: zscore
+temporal:
+  config: configs/rerank_temporal_fit_present.yaml
+dedup:
+  config: configs/final_dedup_end.yaml
