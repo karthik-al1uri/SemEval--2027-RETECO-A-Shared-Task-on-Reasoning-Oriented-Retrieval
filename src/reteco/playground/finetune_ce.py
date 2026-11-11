@@ -90,6 +90,9 @@ def main(argv=None) -> int:
     ap.add_argument("--dup-jaccard", type=float, default=0.6)
     ap.add_argument("--domains", nargs="+", default=None)
     ap.add_argument("--max-steps", type=int, default=0, help="smoke test: stop after this many steps")
+    ap.add_argument("--base-model", default=None, help="model to start from (default: rerank.model)")
+    ap.add_argument("--max-query-tokens", type=int, default=None, help="override rerank.max_query_tokens")
+    ap.add_argument("--doc-chars", type=int, default=None, help="override rerank.doc_chars")
     args = ap.parse_args(argv)
 
     import torch
@@ -100,7 +103,13 @@ def main(argv=None) -> int:
     np.random.seed(seed)
     torch.manual_seed(seed)
     cfg = load_yaml(args.config)
-    rcfg = cfg["rerank"]
+    rcfg = dict(cfg["rerank"])
+    if args.base_model:
+        rcfg["model"] = args.base_model
+    if args.max_query_tokens:
+        rcfg["max_query_tokens"] = args.max_query_tokens
+    if args.doc_chars:
+        rcfg["doc_chars"] = args.doc_chars
     tune_train, tune_val = subsplit_tune()
     ex, docs = build_examples(cfg, tune_train, args.neg_depth, args.dup_jaccard, args.domains)
 
