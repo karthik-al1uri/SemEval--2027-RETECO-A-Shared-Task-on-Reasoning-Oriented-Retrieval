@@ -9,7 +9,7 @@ Cross-encoder reranking of `hybrid_best`, score interpolation with the first sta
 | `hybrid_best` (input) | 0.2804 | 0.3189 | 0.2907 | 0.7158 | |
 | + MiniLM cross-encoder top 200, score only | 0.2163 | 0.2598 | 0.2322 | 0.7032 | 1053 |
 | + interpolation with the first stage (`rerank_minilm_interp`) | 0.2941 | 0.3316 | 0.3044 | 0.7436 | 1053 |
-| + temporal re-tuned on top | 0.2976 | 0.3303 | 0.3030 | 0.7436 | 1074 (whole pipeline) |
+| + temporal re-tuned on top | 0.2976 | 0.3303 | 0.3030 | 0.7436 | 1055 (whole pipeline) |
 | + near-duplicate demotion, re-tuned on top = **`final`** | **0.3025** | **0.3403** | 0.3105 | 0.7436 | 1100 (whole pipeline) |
 
 - **Final system: +0.0221 train, +0.0214 dev over `hybrid_best`** (dev 95% CI [+0.0088, +0.0346], Holm-corrected p = 0.006; domain-stratified bootstrap and paired randomization test, 10k each, `results/analysis_significance.csv`). Without iota the dev gain is +0.0198.

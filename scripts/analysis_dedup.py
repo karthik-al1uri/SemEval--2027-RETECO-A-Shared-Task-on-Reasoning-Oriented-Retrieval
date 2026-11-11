@@ -1,8 +1,14 @@
 """Evaluate near-duplicate demotion on a base run: gains, significance, gold demotions.
 
     PYTHONPATH=src RETECO_DATA=data/data/track1_tempo python scripts/analysis_dedup.py
-    # the same on the final system (runs/<split>/final+dedup.trec, configs/final_dedup_end.yaml)
-    python scripts/analysis_dedup.py --base final --variant dedup:final_dedup_end --tag _final
+    # the same on the final system. The base is the final run before demotion
+    # (runs/<split>/final.trec already includes it); that run is gitignored, see docs/RERANK.md.
+    B=rerank_minilm_interp+rerank_temporal_fit_present
+    for s in train dev; do
+        python -m reteco.analysis_tools.dedup --run runs/$s/$B.trec --split $s \
+            --config configs/final_dedup_end.yaml --out runs/$s/$B+dedup.trec --no-log
+    done
+    python scripts/analysis_dedup.py --base $B --variant dedup:final_dedup_end --tag _final
 
 Needs the runs written by `python -m reteco.analysis_tools.dedup` (by default with
 configs/dedup.yaml and configs/dedup_end.yaml on hybrid_best). Qrels are read only to score runs and to audit which

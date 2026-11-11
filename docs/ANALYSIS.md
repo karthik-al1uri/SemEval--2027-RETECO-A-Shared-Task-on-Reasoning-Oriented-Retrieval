@@ -213,6 +213,8 @@ Colours are slots 1–5 of a categorical palette checked for colour-vision-defic
 
 ## 7. Near-duplicate demotion
 
+Near-duplicate demotion was motivated by an observation on dev top-10 lists (§3: near-duplicates fill many of hybrid's dev top-10 slots), although its variant and threshold were selected on train only.
+
 **Method** (`src/reteco/analysis_tools/dedup.py`, CPU only). Within each query's ranked list (trec_eval order), a document is a near-duplicate when it repeats a **higher-ranked** document of the same list:
 
 - *strict*: identical after lowercasing and dropping everything but `[a-z0-9]`, so case, punctuation and whitespace are ignored;
