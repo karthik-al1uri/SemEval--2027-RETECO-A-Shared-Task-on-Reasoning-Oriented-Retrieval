@@ -19,7 +19,7 @@ import time
 from ..data import DOMAINS, REPO_ROOT
 from ..pipeline import Timer, latency, load_yaml, run_pipeline
 from ..runs import write_run
-from .common import fmt, score_part
+from .common import fmt, part_qids, score_part
 
 CACHE = REPO_ROOT / "cache" / "playground"
 
@@ -27,9 +27,30 @@ CACHE = REPO_ROOT / "cache" / "playground"
 def _first_key(cfg: dict, stage: str) -> str:
     sub = load_yaml(cfg[stage]["config"])
     extra = cfg.get(stage + "_extra", {})
-    spec = json.dumps({"cfg": sub, "extra": extra, "depth": cfg["fusion"].get("depth", 1000)},
+    spec = {"cfg": sub, "extra": extra, "depth": cfg["fusion"].get("depth", 1000)}
+    if cfg.get("query_shorten"):
+        spec["query_shorten"] = cfg["query_shorten"]
+    spec = json.dumps(spec,
                       sort_keys=True, default=str)
     return f"{stage}_{hashlib.sha1(spec.encode()).hexdigest()[:10]}"
+
+
+def train_candidates(cfg: dict, depth: int | None = None) -> dict:
+    """Fusion candidate lists for every train query (first stage from the cache)."""
+    from ..pipeline import dense_stage, fusion_stage, sparse_stage
+    cfg.setdefault("components", {})
+    shared = preload_shared(cfg)
+    first = {}
+    for stage, fn in (("sparse", sparse_stage), ("dense", dense_stage)):
+        key = (stage, tuple(DOMAINS))
+        if key not in shared:
+            t = Timer()
+            args = (cfg, DOMAINS, ["train"], cfg["fusion"].get("depth", 1000), t)
+            shared[key] = (fn(*args), t)
+        first[stage] = shared[key][0]["train"]
+    save_shared(cfg, shared)
+    cands = fusion_stage(cfg, first["sparse"], first["dense"], cfg["fusion"].get("depth", 1000))
+    return {q: v[:depth] for q, v in cands.items()} if depth else cands
 
 
 def preload_shared(cfg: dict, split: str = "train") -> dict:
@@ -58,26 +79,38 @@ def save_shared(cfg: dict, shared: dict, split: str = "train") -> None:
                 pickle.dump(({split: runs_[split]}, t.stages), open(p, "wb"))
 
 
-def run_config(cfg: dict, name: str, split: str = "train", write: bool = True, verbose: bool = True):
+def run_config(cfg: dict, name: str, split: str = "train", write: bool = True, verbose: bool = True,
+               parts=("tune", "holdout"), qids: set[str] | None = None):
+    """Run `cfg` on `split`. On train, only the queries of `parts` are run and scored
+    (or exactly `qids`, when given)."""
     cfg.setdefault("components", {})
     shared = preload_shared(cfg, split)
     t0 = time.time()
-    runs, timer = run_pipeline(cfg, [split], DOMAINS, 8, shared)
+    if split == "train" and qids is None and set(parts) != {"tune", "holdout"}:
+        qids = set().union(*(part_qids(p) for p in parts))
+    runs, timer = run_pipeline(cfg, [split], DOMAINS, 8, shared, qids=qids)
     save_shared(cfg, shared, split)
     run = runs[split]
     lat = latency(timer, split, len(run))
+    if qids is not None:
+        # the first stage ran (or was cached) for every query of the split: rescale its time
+        n_all = len(next(iter(v[0][split] for k, v in shared.items() if isinstance(k, tuple))))
+        for st in ("sparse", "dense"):
+            if st in lat:
+                lat[st] = round(lat[st] * len(run) / n_all, 1)
+        lat["total"] = round(sum(v for k, v in lat.items() if k != "total"), 1)
     if write:
         path = write_run(run, REPO_ROOT / "runs" / split / f"{name}.trec", tag=name, depth=100)
         path.with_suffix(".meta.json").write_text(json.dumps(
             {"config": cfg.get("_path", ""), "latency_ms_per_query": lat}, indent=2) + "\n")
     out = {"latency": lat, "seconds": time.time() - t0, "run": run}
     if split == "train":
-        out["tune"] = score_part(run, "tune")
-        out["holdout"] = score_part(run, "holdout")
-        if verbose:
-            print(fmt(out["tune"]))
-            print(fmt(out["holdout"]))
-            print(f"latency ms/query {lat}  ({out['seconds']:.0f}s)")
+        for p in parts:
+            out[p] = score_part(run, p)
+            if verbose:
+                print(fmt(out[p]))
+    if verbose:
+        print(f"latency ms/query {lat}  ({out['seconds']:.0f}s)")
     return out
 
 
@@ -85,10 +118,11 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m reteco.playground.harness")
     ap.add_argument("--config", required=True)
     ap.add_argument("--name", required=True)
+    ap.add_argument("--parts", nargs="+", default=["tune", "holdout"], choices=["tune", "holdout"])
     args = ap.parse_args(argv)
     cfg = load_yaml(args.config)
     cfg["_path"] = args.config
-    run_config(cfg, args.name)
+    run_config(cfg, args.name, parts=args.parts)
     return 0
 
 

@@ -29,7 +29,7 @@ from pathlib import Path
 
 import numpy as np
 
-from ..data import data_dir, load_queries
+from ..data import REPO_ROOT, data_dir, load_queries
 from ..sparse.clean import clean_query
 from . import CACHE_DIR
 
@@ -79,9 +79,12 @@ class CrossEncoder:
         self.torch = torch
         self.cfg = cfg
         self.device = device()
-        self.tok = AutoTokenizer.from_pretrained(cfg["model"])
+        # a relative path to a local (e.g. fine-tuned) model is resolved against the repo root
+        local = REPO_ROOT / cfg["model"]
+        src = str(local) if local.is_dir() else cfg["model"]
+        self.tok = AutoTokenizer.from_pretrained(src)
         self.model = AutoModelForSequenceClassification.from_pretrained(
-            cfg["model"], dtype=getattr(torch, cfg.get("dtype", "float16"))).to(self.device).eval()
+            src, dtype=getattr(torch, cfg.get("dtype", "float16"))).to(self.device).eval()
         self.max_length = cfg.get("max_length", 512)
         self.batch_size = cfg.get("batch_size", 32)
         self._warm = False

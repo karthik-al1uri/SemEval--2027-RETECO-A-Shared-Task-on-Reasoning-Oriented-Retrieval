@@ -178,9 +178,11 @@ def dedup_stage(cfg: dict, run: dict, split: str, timer: Timer, depth: int = 100
 
 
 # ----------------------------------------------------------- pipeline --
-def run_pipeline(cfg: dict, splits, domains, workers: int = 8, shared: dict | None = None):
+def run_pipeline(cfg: dict, splits, domains, workers: int = 8, shared: dict | None = None,
+                 qids: set[str] | None = None):
     """Returns {split: run} and the stage timer. `shared` caches first-stage outputs between
-    ablation variants (they do not depend on the later stages)."""
+    ablation variants (they do not depend on the later stages). `qids` restricts every stage
+    after fusion to these queries (used by the playground to score one part of train)."""
     from .rerank.interpolate import combine
 
     comp = cfg["components"]
@@ -208,6 +210,8 @@ def run_pipeline(cfg: dict, splits, domains, workers: int = 8, shared: dict | No
     for split in splits:
         t0 = time.perf_counter()
         cands = fusion_stage(cfg, sparse and sparse[split], dense and dense[split], depth1)
+        if qids is not None:
+            cands = {q: v for q, v in cands.items() if q in qids}
         timer.add(f"fusion_{split}", time.perf_counter() - t0)
         if comp.get("rerank", True):
             scores, encoder = rerank_stage(cfg, cands, split, timer, encoder)

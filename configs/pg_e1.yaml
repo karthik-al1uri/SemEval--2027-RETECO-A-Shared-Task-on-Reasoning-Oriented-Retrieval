@@ -1,0 +1,41 @@
+# Playground E1: MiniLM cross-encoder fine-tuned on tune_train (80% of the tune part) with
+# hard negatives from the hybrid top 200; epoch and (a, norm) chosen on tune_val.
+# Rebuild the model: python -m reteco.playground.finetune_ce --name minilm_ft --epochs 2 --n-neg 7 --groups-per-step 4
+# (epoch1 is used).
+system_name: pg_e1
+seed: 13
+components:
+  sparse: true
+  dense: true
+  rerank: true
+  interpolate: true
+  temporal: true
+  dedup: true
+sparse:
+  config: configs/sparse_best.yaml
+dense:
+  config: configs/dense_best.yaml
+fusion:
+  k: 20
+  w_dense: 0.5
+  depth: 1000
+rerank:
+  model: cache/playground/ce/minilm_ft/epoch1
+  dtype: float16
+  max_length: 512
+  max_query_tokens: 256
+  doc_chars: 4000
+  batch_size: 32
+  query_clean:
+  - code
+  - html
+  - urls
+  - signature
+  depth: 200
+interpolate:
+  a: 0.4
+  norm: zscore
+temporal:
+  config: configs/rerank_temporal_fit_present.yaml
+dedup:
+  config: configs/final_dedup_end.yaml

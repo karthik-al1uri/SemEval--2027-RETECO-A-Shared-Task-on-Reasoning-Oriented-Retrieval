@@ -54,6 +54,19 @@ def part_qids(part: str, domains=None) -> set[str]:
     return {q for d in (domains or DOMAINS) for q in sp[d][part]}
 
 
+def subsplit_tune(frac: float = 0.2, seed: int = 13) -> tuple[set[str], set[str]]:
+    """Split the tune part again, per domain (for models trained on tune that need a
+    tune-internal validation set): returns (tune_train, tune_val)."""
+    rng = random.Random(seed)
+    tr, va = set(), set()
+    for d in DOMAINS:
+        q = sorted(load_split()["domains"][d]["tune"])
+        v = set(rng.sample(q, max(1, int(round(frac * len(q))))))
+        va |= v
+        tr |= set(q) - v
+    return tr, va
+
+
 def part_of(qid: str) -> str:
     for d, v in load_split()["domains"].items():
         if qid in v["tune"]:
@@ -70,15 +83,19 @@ def _qrels(domain: str) -> dict:
 
 def score_part(run: dict, part: str, domains=None) -> dict:
     """Macro nDCG@10 over `domains` restricted to the queries of one split part."""
+    return score_set(run, part_qids(part, domains), part, domains)
+
+
+def score_set(run: dict, keep: set[str], label: str, domains=None) -> dict:
+    """Macro nDCG@10 over `domains` restricted to the query ids in `keep`."""
     domains = list(domains or DOMAINS)
-    keep = part_qids(part, domains)
     per = {}
     for d in domains:
         qrels = {q: r for q, r in _qrels(d).items() if q in keep}
         per[d] = score_domain(run, qrels)
     macro = float(np.mean([r["ndcg@10"] for r in per.values()]))
     no_iota = float(np.mean([r["ndcg@10"] for d, r in per.items() if d != "iota"]))
-    return {"part": part, "macro": macro, "no_iota": no_iota,
+    return {"part": label, "macro": macro, "no_iota": no_iota,
             "recall@100": float(np.mean([r["recall@100"] for r in per.values()])),
             "domains": {d: r["ndcg@10"] for d, r in per.items()}}
 
