@@ -1,5 +1,5 @@
 # Playground E20: E3 with both fine-tuned models retrained on ALL tune queries, hyperparameters fixed from E3/E8.
-# Rebuild the CE: python -m reteco.playground.finetune_ce --config configs/final.yaml --name minilm_ft_q128_all --epochs 2 --n-neg 7 --groups-per-step 4 --max-query-tokens 128 --train-on tune (epoch1; epoch 2 is not needed)
+# Rebuild the CE: python -m reteco.playground.finetune_ce --config configs/final_v1.yaml --name minilm_ft_q128_all --epochs 2 --n-neg 7 --groups-per-step 4 --max-query-tokens 128 --train-on tune (epoch1; epoch 2 is not needed)
 system_name: pg_e20
 seed: 13
 components:

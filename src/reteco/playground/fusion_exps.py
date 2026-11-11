@@ -178,7 +178,7 @@ def tune_rrf3(cfg, qids, depth):
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m reteco.playground.fusion_exps")
     ap.add_argument("exp", choices=["per_domain", "rrf3"])
-    ap.add_argument("--config", default="configs/final.yaml")
+    ap.add_argument("--config", default="configs/final_v1.yaml")
     ap.add_argument("--tune-on", default="tune", choices=["tune", "tune_val"])
     ap.add_argument("--out", required=True)
     args = ap.parse_args(argv)

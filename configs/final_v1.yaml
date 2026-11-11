@@ -1,8 +1,9 @@
-# Final Sub-track 1a system. Every setting below was selected on TRAIN; see docs/RERANK.md
-# and, for the last stage (near-duplicate demotion), docs/ANALYSIS.md section 8.
-#   python -m reteco.pipeline --config configs/final.yaml              -> runs/{train,dev}/final.trec
-#   python -m reteco.pipeline --config configs/final.yaml --ablation   -> + results/ablation.csv (dev)
-system_name: final
+# First final Sub-track 1a system (final_v1), replaced as `final` by the playground champion
+# (configs/final.yaml, docs/PLAYGROUND.md). Every setting below was selected on TRAIN; see
+# docs/RERANK.md and, for the last stage (near-duplicate demotion), docs/ANALYSIS.md section 8.
+#   python -m reteco.pipeline --config configs/final_v1.yaml              -> runs/{train,dev}/final_v1.trec
+#   python -m reteco.pipeline --config configs/final_v1.yaml --ablation   -> + results/ablation.csv (dev)
+system_name: final_v1
 seed: 13
 
 components:          # the ablation switches each of these off in turn
@@ -39,5 +40,5 @@ interpolate:                            # tuned on train (cache/rerank/interp/re
 temporal:
   config: configs/rerank_temporal_fit_present.yaml   # re-tuned on the reranked train run
 
-dedup:                                  # near-duplicate demotion, tuned on runs/train/final.trec
-  config: configs/final_dedup_end.yaml  # (before dedup); jaccard >= 0.85, duplicates to the end
+dedup:                                  # near-duplicate demotion, tuned on the train run of this
+  config: configs/final_dedup_end.yaml  # system before dedup; jaccard >= 0.85, duplicates to the end

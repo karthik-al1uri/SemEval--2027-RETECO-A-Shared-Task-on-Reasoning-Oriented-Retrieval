@@ -1,6 +1,6 @@
 {
   "description": "sparse+dense RRF k=20 w_dense=0.5 -> ms-marco-MiniLM-L-6-v2 top 200 (clean query) -> interp a=0.55 zscore -> temporal rerank_temporal_fit_present -> dedup final_dedup_end",
-  "config": "configs/final.yaml",
+  "config": "configs/final_v1.yaml",
   "domains": [
     "bitcoin",
     "cardano",

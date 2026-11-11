@@ -1,6 +1,6 @@
 """Run a pipeline config on TRAIN and score it on the tune and holdout parts.
 
-    python -m reteco.playground.harness --config configs/final.yaml --name pg_champion
+    python -m reteco.playground.harness --config configs/final_v1.yaml --name pg_champion
 
 Writes runs/train/<name>.trec (+ .meta.json); does not touch results/experiments.csv
 (playground rows go to results/playground.csv via reteco.playground.log). First-stage

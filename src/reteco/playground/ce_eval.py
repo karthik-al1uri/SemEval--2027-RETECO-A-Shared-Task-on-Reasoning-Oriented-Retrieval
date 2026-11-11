@@ -3,7 +3,7 @@
     python -m reteco.playground.ce_eval --model cache/playground/ce/minilm_ft/epoch1 --tune-on tune_val
 
 `--tune-on` is a train part (tune) or tune_val (the 20% of tune that a model trained on
-tune_train has not seen). The interpolation weight is chosen like configs/final.yaml's
+tune_train has not seen). The interpolation weight is chosen like configs/final_v1.yaml's
 (macro nDCG@10 of the interpolated run, grid a in {0, .05, ..., 1} x {minmax, zscore},
 ties to the smaller a), but on that set only. The full chain (interp -> temporal ->
 dedup) is then scored on the tuning set and, with --holdout, on holdout.
@@ -49,7 +49,7 @@ def tune_interp(cfg: dict, qids: set[str], label: str, verbose: bool = True):
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m reteco.playground.ce_eval")
-    ap.add_argument("--config", default="configs/final.yaml")
+    ap.add_argument("--config", default="configs/final_v1.yaml")
     ap.add_argument("--model", default=None, help="override rerank.model")
     ap.add_argument("--set", nargs="*", default=[], help="rerank overrides key=json_value")
     ap.add_argument("--tune-on", default="tune", choices=["tune", "tune_val", "tune_train"])

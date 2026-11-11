@@ -1,5 +1,5 @@
 # Playground E3: E8 with the cross-encoder fine-tuned on 128-token queries (more room for the document).
-# Rebuild: python -m reteco.playground.finetune_ce --config configs/final.yaml --name minilm_ft_q128 --epochs 2 --n-neg 7 --groups-per-step 4 --max-query-tokens 128 (epoch1 is used).
+# Rebuild: python -m reteco.playground.finetune_ce --config configs/final_v1.yaml --name minilm_ft_q128 --epochs 2 --n-neg 7 --groups-per-step 4 --max-query-tokens 128 (epoch1 is used).
 system_name: pg_e3
 seed: 13
 components:

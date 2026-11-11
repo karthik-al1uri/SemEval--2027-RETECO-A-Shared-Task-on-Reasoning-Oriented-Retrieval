@@ -2,7 +2,7 @@
 
     PYTHONPATH=src RETECO_DATA=data/data/track1_tempo python scripts/analysis_dedup.py
     # the same on the final system. The base is the final run before demotion
-    # (runs/<split>/final.trec already includes it); that run is gitignored, see docs/RERANK.md.
+    # (runs/<split>/final_v1.trec already includes it); that run is gitignored, see docs/RERANK.md.
     B=rerank_minilm_interp+rerank_temporal_fit_present
     for s in train dev; do
         python -m reteco.analysis_tools.dedup --run runs/$s/$B.trec --split $s \

@@ -65,6 +65,8 @@ runs/*/hybrid_*
 runs/*/rerank_*
 runs/*/final_*
 runs/*/final+*
+!runs/*/final_v1.trec
+!runs/*/final_v1.meta.json
 runs/*/*+rerank_temporal_*
 
 # Python 3.13 environment for torch (see README)

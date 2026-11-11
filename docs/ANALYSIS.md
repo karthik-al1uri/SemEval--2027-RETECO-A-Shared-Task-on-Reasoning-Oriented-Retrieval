@@ -1,5 +1,7 @@
 # Analysis of the existing systems (Sub-track 1a)
 
+> **Naming.** The "final system" in this document is now called `final_v1` (`configs/final_v1.yaml`, `runs/{train,dev}/final_v1.trec`). Since 2026-11-11 `final` is the playground champion with fine-tuned models (`configs/final.yaml`, `docs/PLAYGROUND.md`). Rows logged before the rename keep their original names in `results/experiments.csv`.
+
 Post-hoc analysis of five existing runs on **dev**: `bm25`, `bm25+temporal_fit_present`, `sparse_best`, `dense_best`, `hybrid_best`. Sections 1–4 build no new retrieval system and change no run. Section 7 adds one post-processing step, near-duplicate demotion, tuned on train. Section 8 applies it to the final system (cross-encoder pipeline, `docs/RERANK.md`), where it was adopted; the breakdowns and significance tests were then re-run with `final` as a sixth system. Code is in `src/reteco/analysis_tools/` and `scripts/analysis_*.py`, and outputs are in `results/analysis_*.csv`.
 
 The per-query scorer reproduces every logged macro score exactly (dev nDCG@10 / R@100: bm25 0.1148 / 0.4045, temporal 0.1304 / 0.4045, sparse 0.2541 / 0.6531, dense 0.2765 / 0.6259, hybrid 0.3189 / 0.7158).
@@ -269,7 +271,7 @@ The final system of `docs/RERANK.md` (hybrid_best → MiniLM cross-encoder, inte
 
 Selected: skip 1 → Jaccard ≥ 0.8 (0.3001; 0.6 is higher by less than 10⁻⁴, so the stricter threshold wins), skip 0 → Jaccard ≥ 0.85 (0.3025; 0.8 is higher by less than 10⁻⁴). The pattern is the same as on hybrid_best: moving duplicates to the end matters more than the threshold, and the gain on the reranked run is about as large as on hybrid (+0.0049 vs +0.0056 on train), so the cross-encoder does not remove the redundancy.
 
-**Adopted: `dedup_end`** (`configs/final_dedup_end.yaml`), the variant with the higher train nDCG@10, under the rule fixed beforehand (adopt only if it improves the final system on train). It is now the last stage of `configs/final.yaml` and `reteco.pipeline`; `runs/{train,dev}/final.trec` were regenerated and are identical to `final+dedup`.
+**Adopted: `dedup_end`** (`configs/final_dedup_end.yaml`), the variant with the higher train nDCG@10, under the rule fixed beforehand (adopt only if it improves the final system on train). It is now the last stage of `configs/final_v1.yaml` and `reteco.pipeline`; `runs/{train,dev}/final_v1.trec` were regenerated and are identical to `final+dedup`.
 
 `results/analysis_dedup_final.csv` (`scripts/analysis_dedup.py` with the pre-dedup run as the base, see Reproduce; CI and p as in §7):
 
@@ -292,7 +294,7 @@ Needs the reranker and temporal runs from `docs/RERANK.md` section 8 (Reproduce)
 
 ```bash
 export RETECO_DATA=data/data/track1_tempo PYTHONPATH="$PWD/src"
-python -m reteco.pipeline --config configs/final.yaml   # final system: runs/{train,dev}/final.trec
+python -m reteco.pipeline --config configs/final_v1.yaml   # final system: runs/{train,dev}/final_v1.trec
 python scripts/analysis_query_types.py      # ~40 s; types + CV
 python scripts/analysis_breakdown.py        # per-query / per-type / per-domain / deltas
 python scripts/analysis_significance.py
@@ -307,7 +309,7 @@ for c in dedup dedup_end; do for s in train dev; do
   python -m reteco.analysis_tools.dedup --run runs/$s/hybrid_best.trec --split $s --config configs/$c.yaml
 done; done                                   # writes runs, appends to experiments.csv
 python scripts/analysis_dedup.py             # gains, significance, gold audit
-# §8: on the final system before demotion (runs/{train,dev}/final.trec already include it)
+# §8: on the final system before demotion (runs/{train,dev}/final_v1.trec already include it)
 B=rerank_minilm_interp+rerank_temporal_fit_present
 python -m reteco.analysis_tools.dedup --tune --skip 0 --run runs/train/$B.trec \
     --config /tmp/final_dedup_end.yaml --grid-out results/analysis_dedup_grid_final_train.csv

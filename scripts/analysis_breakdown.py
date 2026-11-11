@@ -37,7 +37,7 @@ DELTA_PAIRS = [
     ("dense_best", "sparse_best"),
     ("hybrid_best", "sparse_best"),
     ("hybrid_best", "dense_best"),
-    ("final", "hybrid_best"),
+    ("final_v1", "hybrid_best"),
 ]
 SCORED = SYSTEMS + STAGES      # per-query scores; tables and "best system" use SYSTEMS only
 

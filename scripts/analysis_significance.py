@@ -33,7 +33,7 @@ PAIRS = [(SYSTEMS[i], SYSTEMS[i + 1], "consecutive") for i in range(len(SYSTEMS)
     ("sparse_best", "hybrid_best", "extra"),
     ("hybrid_best", STAGES[0], "stage"),
     (STAGES[0], STAGES[1], "stage"),
-    (STAGES[1], "final", "stage"),
+    (STAGES[1], "final_v1", "stage"),
 ]
 
 
