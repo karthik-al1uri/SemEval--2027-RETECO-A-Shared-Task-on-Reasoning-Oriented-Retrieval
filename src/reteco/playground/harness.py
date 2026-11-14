@@ -94,8 +94,9 @@ def run_config(cfg: dict, name: str, split: str = "train", write: bool = True, v
     lat = latency(timer, split, len(run))
     if qids is not None:
         # the first stage and fusion ran for every query of the split: rescale their time
-        n_all = len(next(iter(v[0][split] for k, v in shared.items() if isinstance(k, tuple))))
-        for st in ("sparse", "dense", "fusion"):
+        n_all = len(next(iter(v[0][split] for k, v in shared.items()
+                              if isinstance(k, tuple) and k[0] in ("sparse", "dense"))))
+        for st in ("sparse", "dense", "fusion", "rewrite", "llm"):
             if st in lat:
                 lat[st] = round(lat[st] * len(run) / n_all, 1)
         lat["total"] = round(sum(v for k, v in lat.items() if k != "total"), 1)

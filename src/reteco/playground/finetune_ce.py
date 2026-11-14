@@ -86,6 +86,9 @@ def main(argv=None) -> int:
     ap.add_argument("--lr", type=float, default=2e-5)
     ap.add_argument("--n-neg", type=int, default=15)
     ap.add_argument("--groups-per-step", type=int, default=2)
+    ap.add_argument("--micro-groups", type=int, default=0,
+                    help="gradient accumulation: forward this many groups at a time (0 = all of a step); "
+                         "the update is identical to one step over --groups-per-step groups")
     ap.add_argument("--neg-depth", type=int, default=200)
     ap.add_argument("--dup-jaccard", type=float, default=0.6)
     ap.add_argument("--domains", nargs="+", default=None)
@@ -166,14 +169,21 @@ def main(argv=None) -> int:
         losses = []
         for i in range(0, len(groups), args.groups_per_step):
             chunk = groups[i:i + args.groups_per_step]
-            qs = [q for q, ds in chunk for _ in ds]
-            ds = [docs[d][:dchars] for _, dl in chunk for d in dl]
-            enc = tok(qs, ds, padding=True, truncation="only_second",
-                      max_length=rcfg.get("max_length", 512), return_tensors="pt").to(dev)
-            logits = model(**enc).logits[:, 0].view(len(chunk), -1)
-            loss = torch.nn.functional.cross_entropy(logits, torch.zeros(len(chunk), dtype=torch.long,
-                                                                        device=dev))
-            loss.backward()
+            mg = args.micro_groups or len(chunk)
+            step_loss = 0.0
+            for j in range(0, len(chunk), mg):
+                sub = chunk[j:j + mg]
+                qs = [q for q, ds in sub for _ in ds]
+                ds = [docs[d][:dchars] for _, dl in sub for d in dl]
+                enc = tok(qs, ds, padding=True, truncation="only_second",
+                          max_length=rcfg.get("max_length", 512), return_tensors="pt").to(dev)
+                logits = model(**enc).logits[:, 0].view(len(sub), -1)
+                # mean over the step's groups, as without accumulation
+                loss = torch.nn.functional.cross_entropy(
+                    logits, torch.zeros(len(sub), dtype=torch.long, device=dev), reduction="sum") / len(chunk)
+                loss.backward()
+                step_loss += loss.item()
+            loss = torch.tensor(step_loss)
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             opt.step()
             sched.step()

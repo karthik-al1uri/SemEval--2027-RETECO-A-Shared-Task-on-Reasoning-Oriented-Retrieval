@@ -140,13 +140,99 @@ def dense_stage(cfg: dict, domains, splits, depth: int, timer: Timer):
     return out
 
 
-def fusion_stage(cfg: dict, sparse: dict | None, dense: dict | None, depth: int):
-    """qid -> [(docid, first-stage score)] in run order."""
+def rewrite_stage(cfg: dict, domains, splits, depth: int, timer: Timer, workers: int = 8):
+    """Extra first-stage lists from cached local-LLM query rewrites (playground round 2, R2-E4).
+
+    cfg["rewrite"] = {"model": <generator>, "lists": [{"mode": query|hyde, "stage": sparse|dense,
+    "w": <RRF weight>, "encoder": query|doc}, ...]}. A sparse list runs the rewrite through the
+    sparse config's BM25 (per-domain k1/b); a dense list encodes it with the dense config's query
+    encoder ("query", with the query prefix) or its document encoder ("doc", no prefix: HyDE).
+    Returns {split: [(run, w), ...]}; the generation time of the rewrites counts as latency."""
+    from .data import Query
+    from .playground.llm_rewrite import load_rewrites
+
+    rw = cfg["rewrite"]
+    specs = rw["lists"]
+    texts = {(s["mode"], split): load_rewrites(rw["model"], s["mode"], split, domains, seconds=True)
+             for s in specs for split in splits}
+    for split in splits:
+        for mode in {s["mode"] for s in specs}:
+            timer.add(f"llm_{split}", sum(sec for _, sec in texts[(mode, split)].values()))
+    out = {s: [None] * len(specs) for s in splits}
+    for i, s in enumerate(specs):
+        for split in splits:
+            out[split][i] = ({}, s["w"])
+
+    def rewritten(domain, split, mode):
+        qs = load_queries(domain, split)
+        miss = [q.id for q in qs if q.id not in texts[(mode, split)]]
+        if miss:
+            raise KeyError(f"{len(miss)} {mode} rewrites missing for {domain}/{split}, e.g. {miss[0]}")
+        return [Query(q.id, texts[(mode, split)][q.id][0]) for q in qs]
+
+    sp = [(i, s) for i, s in enumerate(specs) if s["stage"] == "sparse"]
+    if sp:
+        from .sparse.index import TFIndex
+        from .sparse.retrieve import search, tokenize_queries
+        from .sparse.run import domain_params
+        scfg = load_yaml(cfg["sparse"]["config"])
+        for domain in domains:
+            index = TFIndex.get(domain, scfg.get("corpus", "raw"), workers)
+            k1, b = domain_params(scfg, domain)
+            weights = index.bm25(k1, b)
+            for split in splits:
+                for i, s in sp:
+                    qs = rewritten(domain, split, s["mode"])
+                    t0 = time.perf_counter()
+                    ranked = search(index, tokenize_queries(qs), k1, b, depth, None, weights=weights)
+                    timer.add(f"rewrite_{split}", time.perf_counter() - t0)
+                    for q, r in zip(qs, ranked):
+                        out[split][i][0][q.id] = dict(r)
+            del index, weights
+    dn = [(i, s) for i, s in enumerate(specs) if s["stage"] == "dense"]
+    if dn:
+        from .dense.encode import encode, encode_queries, load_domain, load_model
+        from .dense.retrieve import search_first
+        dcfg = load_yaml(cfg["dense"]["config"])
+        model = load_model(dcfg["model"], dcfg.get("dtype", "float16"))
+        qmodel = model
+        if dcfg.get("query_model"):
+            local = REPO_ROOT / dcfg["query_model"]
+            qmodel = load_model(str(local) if local.is_dir() else dcfg["query_model"],
+                                dcfg.get("dtype", "float16"))
+        for domain in domains:
+            emb, doc_ids, _, _ = load_domain(dcfg, domain)
+            for split in splits:
+                for i, s in dn:
+                    qs = rewritten(domain, split, s["mode"])
+                    t0 = time.perf_counter()
+                    if s.get("encoder", "query") == "query":
+                        q = encode_queries(qmodel, [x.query for x in qs], dcfg)
+                    else:
+                        model.max_seq_length = dcfg.get("doc_max_tokens", 512)
+                        q = encode(model, [x.query for x in qs], dcfg["batch_size"])
+                    res = search_first(emb, doc_ids, q, depth)
+                    timer.add(f"rewrite_{split}", time.perf_counter() - t0)
+                    for x, r in zip(qs, res):
+                        out[split][i][0][x.id] = r
+            del emb
+    print(f"rewrite lists done ({len(specs)} lists)", flush=True)
+    return out
+
+
+def fusion_stage(cfg: dict, sparse: dict | None, dense: dict | None, depth: int,
+                 extra: list | None = None):
+    """qid -> [(docid, first-stage score)] in run order. `extra` = [(run, w), ...] are further
+    lists fused by the same weighted RRF (weights relative to w_sparse + w_dense = 1)."""
     from .dense.fusion import ranks, rrf
 
     if sparse is not None and dense is not None:
         f = cfg["fusion"]
-        fused = rrf([ranks(sparse), ranks(dense)], [1 - f["w_dense"], f["w_dense"]], f["k"], depth)
+        lists, ws = [ranks(sparse), ranks(dense)], [1 - f["w_dense"], f["w_dense"]]
+        for run, w in extra or []:
+            lists.append(ranks(run))
+            ws.append(w)
+        fused = rrf(lists, ws, f["k"], depth)
     else:
         fused = sparse if sparse is not None else dense
     return {q: _ordered(docs, depth) for q, docs in fused.items()}
@@ -220,11 +306,25 @@ def run_pipeline(cfg: dict, splits, domains, workers: int = 8, shared: dict | No
         for s in splits:
             timer.add(f"{stage}_{s}", t.stages.get(f"{stage}_{s}", 0.0))
     sparse, dense = first["sparse"], first["dense"]
+    extra = None
+    if cfg.get("rewrite"):
+        key = ("rewrite", json.dumps(cfg["rewrite"], sort_keys=True), cfg["sparse"]["config"],
+               cfg["dense"]["config"], tuple(domains))
+        runs_, t = shared.get(key, ({}, Timer()))
+        todo = [s for s in splits if s not in runs_]
+        if todo:
+            runs_.update(rewrite_stage(cfg, domains, todo, depth1, t, workers))
+            shared[key] = (runs_, t)
+        extra = runs_
+        for s in splits:
+            for st in ("llm", "rewrite"):
+                timer.add(f"{st}_{s}", t.stages.get(f"{st}_{s}", 0.0))
 
     runs, encoder = {}, shared.get("encoder")
     for split in splits:
         t0 = time.perf_counter()
-        cands = fusion_stage(cfg, sparse and sparse[split], dense and dense[split], depth1)
+        cands = fusion_stage(cfg, sparse and sparse[split], dense and dense[split], depth1,
+                             extra and extra[split])
         if qids is not None:
             cands = {q: v for q, v in cands.items() if q in qids}
         timer.add(f"fusion_{split}", time.perf_counter() - t0)
