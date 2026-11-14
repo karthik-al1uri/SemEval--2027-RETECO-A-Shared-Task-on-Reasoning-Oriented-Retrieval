@@ -111,6 +111,31 @@ The models of the intermediate champions (E1, E3, E8) are rebuilt with the comma
 - **Expected run-to-run variation is therefore about ±0.001 nDCG@10.** That is a tenth of the +0.003 keep threshold and far below the measured gains.
 - **The canonical models remain the reference.** With them restored, `configs/final.yaml` reproduces dev 0.3679, and `runs/dev/final.trec` is byte-identical to the logged run.
 
+## Ablation of the final system (dev, `results/ablation_final.csv`)
+
+Leave-one-out ablation of `final` (= `playground_final`), run after the loop with `python -m reteco.pipeline --config configs/final.yaml --ablation-only`. Each row changes one thing and keeps every other setting fixed, as in the `final_v1` ablation (`docs/RERANK.md` section 6, now `results/ablation_final_v1.csv`). The two last rows swap a fine-tuned model back to the original one. Scored once on dev; **nothing was changed because of it**.
+
+| Removed | dev nDCG@10 | Δ vs final | Δ w/o iota | dev R@100 | ms/query | Δ in `final_v1` ablation |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| nothing (`final`) | 0.3679 | | (0.3457) | 0.7397 | 1115 | |
+| sparse retrieval (dense only) | 0.3046 | −0.0633 | −0.0658 | 0.6035 | 1103 | −0.0321 |
+| dense retrieval (sparse only) | 0.3502 | −0.0177 | −0.0160 | 0.7125 | 1113 | −0.0440 |
+| cross-encoder (fusion → temporal → dedup) | 0.3171 | −0.0508 | −0.0535 | 0.7102 | 68 | −0.0140 |
+| interpolation (cross-encoder score only) | 0.2651 | −0.1028 | −0.0837 | 0.7226 | 1111 | −0.0759 |
+| temporal rescorer | 0.3685 | +0.0005 | +0.0006 | 0.7397 | 1111 | +0.0003 |
+| query cleaning for the cross-encoder | 0.3617 | −0.0062 | −0.0067 | 0.7423 | 1153 | −0.0055 |
+| near-duplicate demotion | 0.3617 | −0.0063 | −0.0067 | 0.7397 | 1088 | −0.0100 |
+| cross-encoder fine-tuning (original ms-marco MiniLM, 128-token queries) | 0.3447 | −0.0232 | −0.0283 | 0.7424 | 1124 | |
+| query-encoder fine-tuning (original bge-small, `dense_best`) | 0.3727 | **+0.0048** | +0.0021 | 0.7612 | 1109 | |
+
+Paired comparisons with `final` for the two fine-tuning rows (domain-stratified bootstrap, 10k; randomization test):
+
+- **The fine-tuned cross-encoder holds up on dev.** Swapping in the original loses 0.0232, 95% CI [−0.038, −0.009], p = 0.004 (without iota, CI [−0.044, −0.012]); 216 dev queries get worse and 99 better. It is the one playground change confirmed on its own on dev.
+- **The fine-tuned query encoder does not.** The original bge-small query encoder scores +0.0048 *higher*, CI [−0.006, +0.016], p = 0.44 (without iota +0.0021, CI [−0.010, +0.014]); 151 queries better, 130 worse. The difference is within noise either way, but the holdout gains of E8 (+0.0060) and of its part in E20 do not carry over, and recall is lower with the fine-tuned encoder (R@100 0.7397 vs 0.7612). It stays in `final`: removing it now would be a choice made on dev.
+- **The fine-tuned cross-encoder shifted the weight of the stages.** The cross-encoder is now worth +0.051 (was +0.014 in `final_v1`), but its score alone is still far below the combination (interpolation −0.103). Sparse retrieval matters more (−0.063 vs −0.032) and dense less (−0.018 vs −0.044), in line with E5's lower dense weight in the fusion (w_dense 0.4, k 10).
+- **The other components behave as in `final_v1`.** Dedup (+0.006) and query cleaning (+0.006) help a little. Temporal is again the only component whose removal helps (+0.0005).
+- Each variant is logged in `results/experiments.csv` as `final_no_*` dated 2026-11-14. The `final_v1` ablation used the same names before the rename (dated 2026-11-10).
+
 ## Decisions made
 
 1. **At least 2 holdout queries per domain.** With round(0.2 n), iota (7 train queries) would have had one holdout query, which alone moves the macro by up to 1/13. It has 2 (so 2/7 instead of 1/7); every other domain is exactly round(0.2 n).
