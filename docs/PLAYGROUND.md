@@ -34,7 +34,7 @@ An autonomous loop on branch `playground` tried **15 changes** to the final syst
 
 ## Setup
 
-- Branch `playground` from `main` (bd11165). `main` is never modified, nothing is pushed.
+- Branch `playground` from `main` (bd11165). `main` is never modified, nothing is pushed. After the loop, the branch was merged into `main` and deleted; its commits are in `main`'s history (`ceb0f4f`..`5189fe6`).
 - **Split** (`configs/playground_split.json`, `python -m reteco.playground.common --make-split`): TRAIN only, stratified per domain, seed 13. Holdout = max(2, round(0.2 n)) queries per domain, the rest is tune: **968 tune / 243 holdout**. Dev is not used during the loop.
 - **Champion** = `configs/final.yaml` (now `configs/final_v1.yaml`). Its holdout score is the baseline.
 - **Harness** (`python -m reteco.playground.harness --config <yaml> --name <run>`): runs the full pipeline (`reteco.pipeline.run_pipeline`) on train and scores macro nDCG@10 over the 13 domains on the tune and holdout queries separately. First-stage lists are cached under `cache/playground/first/`.
