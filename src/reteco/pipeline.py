@@ -24,7 +24,9 @@ and 1-2 h of cross-encoder scoring on an M4).
 Writes runs/<split>/<system_name>.trec (+ .meta.json), scores each split and
 appends it to results/experiments.csv. --ablation turns each component off in
 turn, keeping every other setting fixed, scores the result on dev and writes
-results/ablation.csv (and logs each variant to results/experiments.csv).
+results/ablation_<system_name>.csv (and logs each variant to results/experiments.csv).
+Variants whose edit does not change the config (e.g. swapping in a model the system
+already uses) are skipped.
 """
 from __future__ import annotations
 
@@ -42,6 +44,9 @@ from .data import DOMAINS, REPO_ROOT, SPLITS, load_queries
 from .evaluate import append_result, evaluate_run, format_table
 from .runs import _ordered, write_run
 
+ORIGINAL_CE = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+ORIGINAL_DENSE = "configs/dense_best.yaml"
+
 ABLATIONS = {
     # name: (what is removed, config edit)
     "no_sparse": ("sparse retrieval (first stage = dense only)", lambda c: c["components"].update(sparse=False)),
@@ -54,6 +59,10 @@ ABLATIONS = {
     "no_query_clean": ("query cleaning for the cross-encoder (raw HTML query)",
                        lambda c: c["rerank"].update(query_clean=[])),
     "no_dedup": ("near-duplicate demotion", lambda c: c["components"].update(dedup=False)),
+    "no_ft_ce": ("cross-encoder fine-tuning (original ms-marco-MiniLM-L-6-v2, all else fixed)",
+                 lambda c: c["rerank"].update(model=ORIGINAL_CE)),
+    "no_ft_qenc": ("query-encoder fine-tuning (original bge-small = configs/dense_best.yaml)",
+                   lambda c: c["dense"].update(config=ORIGINAL_DENSE)),
 }
 
 
@@ -200,7 +209,7 @@ def run_pipeline(cfg: dict, splits, domains, workers: int = 8, shared: dict | No
         if not comp.get(stage, True):
             first[stage] = None
             continue
-        key = (stage, tuple(domains))
+        key = (stage, cfg[stage]["config"], tuple(domains))
         runs_, t = shared.get(key, ({}, Timer()))
         todo = [s for s in splits if s not in runs_]
         if todo:
@@ -291,7 +300,8 @@ def ablation(cfg: dict, config_path: str, domains, workers: int, log: bool,
     for name, (what, edit) in ABLATIONS.items():
         c = copy.deepcopy(cfg)
         edit(c)
-        variants.append((name, what, c))
+        if c != cfg:
+            variants.append((name, what, c))
     full = None
     for name, what, c in variants:
         print(f"\n=== ablation {name}: remove {what}", flush=True)
@@ -308,7 +318,7 @@ def ablation(cfg: dict, config_path: str, domains, workers: int, log: bool,
                      "macro_recall@100": f"{res['macro_recall@100']:.4f}",
                      **{d: f"{res['domains'][d]['ndcg@10']:.4f}" for d in domains},
                      "latency_ms_per_query": lat["total"], "system_name": sys_name})
-    path = REPO_ROOT / "results" / "ablation.csv"
+    path = REPO_ROOT / "results" / f"ablation_{cfg['system_name']}.csv"
     with open(path, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()

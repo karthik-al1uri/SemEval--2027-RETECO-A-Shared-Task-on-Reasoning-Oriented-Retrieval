@@ -80,7 +80,8 @@ def test_model_key_changes_with_query_cleaning():
 def test_ablations_each_change_one_thing():
     from reteco.pipeline import ABLATIONS
 
-    base = {"components": {}, "rerank": {"query_clean": ["html"]}}
+    base = {"components": {}, "rerank": {"query_clean": ["html"], "model": "ft_ce"},
+            "dense": {"config": "configs/ft_dense.yaml"}}
     seen = set()
     for name, (_, edit) in ABLATIONS.items():
         c = copy.deepcopy(base)
@@ -89,6 +90,17 @@ def test_ablations_each_change_one_thing():
         key = repr(c)
         assert key not in seen, name
         seen.add(key)
+
+
+def test_model_swap_ablations_are_noops_on_original_models():
+    # ablation() skips variants that leave the config unchanged (e.g. final_v1 has no fine-tuned models)
+    from reteco.pipeline import ABLATIONS, ORIGINAL_CE, ORIGINAL_DENSE
+
+    base = {"components": {}, "rerank": {"model": ORIGINAL_CE}, "dense": {"config": ORIGINAL_DENSE}}
+    for name in ("no_ft_ce", "no_ft_qenc"):
+        c = copy.deepcopy(base)
+        ABLATIONS[name][1](c)
+        assert c == base, name
 
 
 def test_latency_per_stage():

@@ -127,7 +127,7 @@ The brief made this optional and conditional on `ANTHROPIC_API_KEY` in `.env`. T
 
 ```
 python -m reteco.pipeline --config configs/final_v1.yaml              # runs/{train,dev}/final_v1.trec, logged
-python -m reteco.pipeline --config configs/final_v1.yaml --ablation   # + results/ablation.csv (dev)
+python -m reteco.pipeline --config configs/final_v1.yaml --ablation   # + results/ablation_final_v1.csv (dev)
 ```
 
 Stages, each recomputed on every call: sparse BM25 (`configs/sparse_best.yaml`, depth 1000) → dense bge-small (`configs/dense_best.yaml`, depth 1000) → RRF (k 20, w_dense 0.5) → MiniLM cross-encoder on the top 200 → interpolation (a 0.55, z-score) → temporal (`configs/rerank_temporal_fit_present.yaml`) → near-duplicate demotion (`configs/final_dedup_end.yaml`, section 7). Only input-keyed caches are reused, and each is rebuilt when missing: sparse term-count indexes, document embeddings, cross-encoder pair scores and document time extractions. From an empty `cache/` the same command rebuilds everything (about 2.4 h of embedding and 30 min of cross-encoder scoring on this machine, plus a few minutes of indexing).
@@ -142,7 +142,7 @@ Latency per query (dev, ms; first stage with indexes and embeddings in memory, o
 
 The sparse, dense, temporal and dedup stages are batched over all queries and divided by the number of queries; the cross-encoder is measured one query at a time. 96% of the time is the cross-encoder. Depth 50 would bring the total to about 310 ms at −0.003 train nDCG@10 (measured before the dedup stage was added).
 
-## 6. Ablation (dev, `results/ablation.csv`)
+## 6. Ablation (dev, `results/ablation_final_v1.csv`)
 
 Each row removes one component from `final` and keeps every other setting fixed (decision 10). Scored once on dev; nothing here was used for a choice.
 
@@ -166,7 +166,7 @@ The ablation was re-run after near-duplicate demotion became part of `final`, so
 - **Query cleaning for the cross-encoder is worth +0.006** (+0.009 without iota): feeding it the raw HTML post costs nDCG and recall.
 - **Temporal is the only component whose removal helps on dev**, now by only +0.0003 (+0.0002 without iota; it was +0.0013 before the dedup stage). It was kept because it was selected on train (decision 7).
 
-Per-domain dev scores for every variant are in `results/ablation.csv`; each variant is also a row in `results/experiments.csv` (`final_v1_no_*`, logged as `final_no_*` before the rename).
+Per-domain dev scores for every variant are in `results/ablation_final_v1.csv`; each variant is also a row in `results/experiments.csv` (`final_v1_no_*`, logged as `final_no_*` before the rename).
 
 ## 7. Near-duplicate demotion on the final system
 
@@ -211,7 +211,7 @@ for s in train dev; do
 done
 python scripts/analysis_dedup.py --base $B --variant dedup:final_dedup_end --tag _final
 python -m reteco.pipeline --config configs/final_v1.yaml             # final system: runs/{train,dev}/final_v1.trec
-python -m reteco.pipeline --config configs/final_v1.yaml --ablation-only   # results/ablation.csv (dev)
+python -m reteco.pipeline --config configs/final_v1.yaml --ablation-only   # results/ablation_final_v1.csv (dev)
 python -m pytest
 ```
 
@@ -235,4 +235,4 @@ Choices made without asking. Each is easy to revisit.
 12. **Run files.** Only `runs/{train,dev}/final_v1.trec` and their `.meta.json` are committed. Reranker, temporal and ablation variants are gitignored (`runs/*/rerank_*`, `runs/*/final_*`, `runs/*/*+rerank_temporal_*`), and every score is in the CSV.
 13. **A bug found by the smoke test and fixed before any full run**: the pipeline reused the loaded cross-encoder across ablation variants, and the encoder applied its own query-cleaning setting, so the first small-domain `no_query_clean` run silently used cleaned queries. Query handling now comes from each call's config, the encoder is only reused when model, precision and length match, the polluted cache was deleted, and `tests/test_rerank.py` has a regression test. No logged number was affected (`rerank.run` uses one config per process, and the smoke test was not logged).
 14. **No LLM reranking** (no API key; section 4).
-15. **Near-duplicate demotion adopted as the last stage** (section 7). Both variants were re-tuned on the final system's train output and the one with the higher train nDCG@10 (`dedup_end`, +0.0049) was adopted, with the adoption rule fixed before dev was scored. The `configs/dedup*.yaml` files tuned on `hybrid_best` are kept unchanged; the re-tuned ones are `configs/final_dedup*.yaml`. The ablation was re-run with dedup in the system, so `results/ablation.csv` has a `no_dedup` row and its other rows changed slightly. `final+dedup` run files are gitignored like the other variants (`runs/*/final+*`).
+15. **Near-duplicate demotion adopted as the last stage** (section 7). Both variants were re-tuned on the final system's train output and the one with the higher train nDCG@10 (`dedup_end`, +0.0049) was adopted, with the adoption rule fixed before dev was scored. The `configs/dedup*.yaml` files tuned on `hybrid_best` are kept unchanged; the re-tuned ones are `configs/final_dedup*.yaml`. The ablation was re-run with dedup in the system, so `results/ablation_final_v1.csv` has a `no_dedup` row and its other rows changed slightly. `final+dedup` run files are gitignored like the other variants (`runs/*/final+*`).

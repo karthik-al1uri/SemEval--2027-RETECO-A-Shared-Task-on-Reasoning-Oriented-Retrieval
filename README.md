@@ -63,7 +63,8 @@ scripts/               data statistics and analysis scripts, build_finetuned_mod
 runs/<split>/          TREC run files (top 100 per query); only selected systems are committed
 results/
   experiments.csv      one row per scored run (CRLF line endings)
-  ablation.csv         leave-one-out ablation of final_v1 (dev)
+  ablation_final.csv   leave-one-out ablation of final (dev)
+  ablation_final_v1.csv  leave-one-out ablation of final_v1 (dev)
   playground.csv       one row per playground experiment (tune/holdout of train)
   analysis_*.csv       breakdowns, significance tests, error analysis, near-duplicates
 docs/                  write-ups: DATA, SPARSE, DENSE, TEMPORAL, RERANK, ANALYSIS, PLAYGROUND
@@ -106,7 +107,7 @@ Macro over the 13 domains. Latency is per query on an Apple M4 (MPS); about 96% 
 
 - **`final` vs `final_v1` on dev: +0.0276** (95% CI [+0.010, +0.046], domain-stratified paired bootstrap), +0.0353 without iota (3 dev queries; 0.3457 vs 0.3105). 226 dev queries improve and 123 get worse, and 9 of 13 domains improve. On the train holdout the gain was +0.052 (0.3155 → 0.3671); holdout overstates it because the 5 kept changes were picked from 15 tries on the same queries.
 - † **Partly in-sample.** Both fine-tuned models of `final` were trained on the tune part of train (80% of its queries), so its train score is inflated and not comparable with the rows above. Its fair train-side estimate is the 20% holdout: 0.3671 (`final_v1`: 0.3155).
-- `final_v1`'s gain over `hybrid_best` on dev is +0.021 (95% CI [+0.009, +0.035]). Its leave-one-out ablation is in `results/ablation.csv`. The write-ups are `docs/SPARSE.md`, `docs/DENSE.md`, `docs/TEMPORAL.md`, `docs/RERANK.md`, `docs/ANALYSIS.md` and `docs/PLAYGROUND.md`.
+- `final_v1`'s gain over `hybrid_best` on dev is +0.021 (95% CI [+0.009, +0.035]). Its leave-one-out ablation is in `results/ablation_final_v1.csv` (`final`'s is in `results/ablation_final.csv`, summarised in `docs/PLAYGROUND.md`). The write-ups are `docs/SPARSE.md`, `docs/DENSE.md`, `docs/TEMPORAL.md`, `docs/RERANK.md`, `docs/ANALYSIS.md` and `docs/PLAYGROUND.md`.
 
 ### Reproduce
 
