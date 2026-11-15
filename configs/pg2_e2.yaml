@@ -1,0 +1,41 @@
+# Round-2 R2-E2: champion R2-E3 with the MiniLM-L-6 cross-encoder retrained with 15 hard negatives per group
+# instead of 7 (everything else = the round-1 E20 recipe). Rebuild:
+#   python -m reteco.playground.finetune_ce --config configs/final_v1.yaml --name minilm_ft_q128_all_neg15 --epochs 2 \
+#     --stop-after-epoch 1 --n-neg 15 --groups-per-step 4 --micro-groups 1 --max-query-tokens 128 --train-on tune
+system_name: pg2_e2
+seed: 13
+components:
+  sparse: true
+  dense: true
+  rerank: true
+  interpolate: true
+  temporal: true
+  dedup: true
+sparse:
+  config: configs/sparse_best.yaml
+dense:
+  config: configs/pg_e20_dense.yaml
+fusion:
+  k: 20
+  w_dense: 0.5
+  depth: 1000
+rerank:
+  model: cache/playground/ce/minilm_ft_q128_all_neg15/epoch1
+  dtype: float16
+  max_length: 512
+  max_query_tokens: 128
+  doc_chars: 4000
+  batch_size: 32
+  query_clean:
+  - code
+  - html
+  - urls
+  - signature
+  depth: 200
+interpolate:
+  a: 0.35
+  norm: zscore
+temporal:
+  config: configs/rerank_temporal_fit_present.yaml
+dedup:
+  config: configs/final_dedup_end.yaml

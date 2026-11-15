@@ -92,6 +92,7 @@ def main(argv=None) -> int:
     ap.add_argument("--resume-every", type=int, default=0,
                     help="save a resumable state (model, optimizer, scheduler, step) every N steps; a rerun "
                          "with the same arguments continues from it (groups are regenerated deterministically)")
+    ap.add_argument("--cache-every", type=int, default=50, help="release the MPS cache every N steps")
     ap.add_argument("--neg-depth", type=int, default=200)
     ap.add_argument("--dup-jaccard", type=float, default=0.6)
     ap.add_argument("--domains", nargs="+", default=None)
@@ -210,7 +211,7 @@ def main(argv=None) -> int:
             opt.zero_grad()
             losses.append(loss.item())
             step += 1
-            if dev == "mps" and step % 50 == 0:
+            if dev == "mps" and step % args.cache_every == 0:
                 torch.mps.empty_cache()  # variable input shapes grow the MPS cache (wired memory)
             if args.resume_every and step % args.resume_every == 0:
                 torch.save({"model": model.state_dict(), "opt": opt.state_dict(),
