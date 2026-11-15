@@ -92,6 +92,8 @@ def main(argv=None) -> int:
     ap.add_argument("--resume-every", type=int, default=0,
                     help="save a resumable state (model, optimizer, scheduler, step) every N steps; a rerun "
                          "with the same arguments continues from it (groups are regenerated deterministically)")
+    ap.add_argument("--query-rewrite", default=None,
+                    help="train on LLM rewrites instead of the posts, as '<model>:<mode>' (R2-E6b)")
     ap.add_argument("--cache-every", type=int, default=50, help="release the MPS cache every N steps")
     ap.add_argument("--neg-depth", type=int, default=200)
     ap.add_argument("--dup-jaccard", type=float, default=0.6)
@@ -139,6 +141,12 @@ def main(argv=None) -> int:
                   max_length=rcfg.get("max_query_tokens", 256))["input_ids"]
         return tok.decode(ids)
 
+    if args.query_rewrite:
+        from .llm_rewrite import load_rewrites
+        rw_model, rw_mode = args.query_rewrite.rsplit(":", 1)
+        rw = load_rewrites(rw_model, rw_mode, "train")
+        for e in ex:
+            e["query"] = rw[e["qid"]]
     for e in ex:
         e["q"] = prep_query(e["query"])
     dchars = rcfg.get("doc_chars", 4000)

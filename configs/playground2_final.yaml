@@ -1,0 +1,55 @@
+# Round-2 final system: the round-2 playground champion (= configs/pg2_e6a.yaml). Selected on the tune/holdout
+# split of TRAIN only (docs/PLAYGROUND.md, Round 2); dev scored once at the end, nothing changed afterwards.
+# Needs: the round-1 fine-tuned models (scripts/build_finetuned_models.sh) and local Qwen2.5-1.5B-Instruct
+# query rewrites for the split (python -m reteco.playground.llm_rewrite --mode query --splits train dev).
+system_name: playground2_final
+seed: 13
+components:
+  sparse: true
+  dense: true
+  rerank: true
+  interpolate: true
+  temporal: true
+  dedup: true
+sparse:
+  config: configs/sparse_best.yaml
+dense:
+  config: configs/pg_e20_dense.yaml
+fusion:
+  k: 20
+  w_dense: 0.5
+  depth: 1000
+rerank:
+  model: cache/playground/ce/minilm_ft_q128_all/epoch1
+  dtype: float16
+  max_length: 512
+  max_query_tokens: 128
+  doc_chars: 4000
+  batch_size: 32
+  query_clean:
+  - code
+  - html
+  - urls
+  - signature
+  depth: 200
+  rewrite_query:
+    model: Qwen/Qwen2.5-1.5B-Instruct
+    mode: query
+    w: 0.5
+interpolate:
+  a: 0.35
+  norm: zscore
+temporal:
+  config: configs/rerank_temporal_fit_present.yaml
+dedup:
+  config: configs/final_dedup_end.yaml
+rewrite:
+  model: Qwen/Qwen2.5-1.5B-Instruct
+  lists:
+  - mode: query
+    stage: sparse
+    w: 0.25
+  - mode: query
+    stage: dense
+    encoder: query
+    w: 0.25

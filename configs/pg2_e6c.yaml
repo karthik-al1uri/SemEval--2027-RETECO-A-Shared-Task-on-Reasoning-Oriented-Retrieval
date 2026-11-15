@@ -1,0 +1,60 @@
+# Round-2 R2-E6c: champion R2-E6a plus the HyDE lists of R2-E4 (BM25 and document-encoder search over the Qwen
+# hypothetical answer passage), each at weight 0.25 like the query-rewrite lists (fixed in advance).
+system_name: pg2_e6c
+seed: 13
+components:
+  sparse: true
+  dense: true
+  rerank: true
+  interpolate: true
+  temporal: true
+  dedup: true
+sparse:
+  config: configs/sparse_best.yaml
+dense:
+  config: configs/pg_e20_dense.yaml
+fusion:
+  k: 20
+  w_dense: 0.5
+  depth: 1000
+rerank:
+  model: cache/playground/ce/minilm_ft_q128_all/epoch1
+  dtype: float16
+  max_length: 512
+  max_query_tokens: 128
+  doc_chars: 4000
+  batch_size: 32
+  query_clean:
+  - code
+  - html
+  - urls
+  - signature
+  depth: 200
+  rewrite_query:
+    model: Qwen/Qwen2.5-1.5B-Instruct
+    mode: query
+    w: 0.5
+interpolate:
+  a: 0.35
+  norm: zscore
+temporal:
+  config: configs/rerank_temporal_fit_present.yaml
+dedup:
+  config: configs/final_dedup_end.yaml
+rewrite:
+  model: Qwen/Qwen2.5-1.5B-Instruct
+  lists:
+  - mode: query
+    stage: sparse
+    w: 0.25
+  - mode: query
+    stage: dense
+    encoder: query
+    w: 0.25
+  - mode: hyde
+    stage: sparse
+    w: 0.25
+  - mode: hyde
+    stage: dense
+    encoder: doc
+    w: 0.25

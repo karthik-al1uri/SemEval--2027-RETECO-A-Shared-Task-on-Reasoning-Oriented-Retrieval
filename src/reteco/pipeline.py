@@ -251,6 +251,8 @@ def rerank_stage(cfg: dict, cands: dict, split: str, timer: Timer, encoder=None)
         from .playground.llm_rewrite import load_rewrites
         texts = load_rewrites(rw["model"], rw["mode"], split)
         rcfg2 = dict(rcfg, query_source=f"{rw['model']}:{rw['mode']}")
+        if rw.get("ce_model"):  # a cross-encoder trained on the rewrites (R2-E6b)
+            rcfg2["model"] = rw["ce_model"]
         s2, secs2, encoder = score_candidates(cands, split, rcfg2, rcfg["depth"], encoder, query_texts=texts)
         timer.add(f"rerank2_{split}", float(sum(secs2.values())))
         w = rw.get("w", 0.5)

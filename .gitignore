@@ -74,3 +74,4 @@ runs/*/*+rerank_temporal_*
 
 # Playground runs (train split, scored on tune/holdout)
 runs/*/pg_*
+runs/*/pg2_*
