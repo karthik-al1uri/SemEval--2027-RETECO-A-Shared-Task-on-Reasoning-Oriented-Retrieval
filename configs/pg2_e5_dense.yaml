@@ -1,0 +1,16 @@
+# Round-2 R2-E5 dense config: the full bge-small bi-encoder fine-tuned on tune_train (both towers).
+# Rebuild: python -m reteco.playground.finetune_bienc --name bge_full --config configs/pg2_e3.yaml
+system_name: pg2_e5_dense
+description: bge-small with both towers fine-tuned on tune_train (round 2, R2-E5)
+model: cache/playground2/bienc/bge_full/epoch1
+dtype: float16
+domains: all
+doc_mode: first
+doc_max_tokens: 512
+query_prefix: 'Represent this sentence for searching relevant passages: '
+query_max_tokens: 512
+batch_size: 64
+shard_size: 8192
+depth: 100
+candidate_depth: 1000
+seed: 13

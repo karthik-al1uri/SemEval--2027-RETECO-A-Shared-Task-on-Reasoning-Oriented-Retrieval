@@ -53,8 +53,15 @@ def train(args) -> str:
     dcfg = load_yaml(cfg["dense"]["config"])
     tune_train, _ = subsplit_tune()
     ex, docs = build_examples(cfg, tune_train, 200, 0.6)
+    # training reads at most `doc_tokens` (256) tokens of a document: keep 4000 characters to save memory
+    docs = {d: t[:4000] for d, t in docs.items()}
+    import gc
+    gc.collect()
     dev = "mps" if torch.backends.mps.is_available() else "cpu"
     model = SentenceTransformer(dcfg["model"], device=dev)
+    # gradient checkpointing: same gradients, activations recomputed in the backward pass
+    # (a 4 x 8-document step otherwise holds ~8 GB of activations on a 16 GB machine)
+    model[0].auto_model.gradient_checkpointing_enable()
     prefix = dcfg.get("query_prefix", "")
     groups = [(prefix + clean_query(e["query"]), p, e["neg"]) for e in ex for p in e["pos"]]
     steps = math.ceil(len(groups) / args.queries_per_step) * args.epochs
@@ -106,6 +113,8 @@ def train(args) -> str:
             opt.zero_grad()
             losses.append(loss.item())
             step += 1
+            if dev == "mps" and step % 10 == 0:
+                torch.mps.empty_cache()
             if step % 50 == 0:
                 el = time.time() - t0
                 print(f"epoch {epoch} step {step}/{steps} loss {np.mean(losses[-50:]):.4f} "
