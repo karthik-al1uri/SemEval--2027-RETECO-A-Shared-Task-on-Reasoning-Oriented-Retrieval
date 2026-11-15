@@ -242,8 +242,29 @@ def rerank_stage(cfg: dict, cands: dict, split: str, timer: Timer, encoder=None)
     from .rerank.cross_encoder import score_candidates
 
     rcfg = dict(cfg["rerank"], seed=cfg.get("seed", 13))
+    rw = rcfg.pop("rewrite_query", None)
     scores, secs, encoder = score_candidates(cands, split, rcfg, rcfg["depth"], encoder)
     timer.add(f"rerank_{split}", float(sum(secs.values())))
+    if rw:
+        # second view (playground round 2, R2-E6): the same cross-encoder with the LLM-rewritten
+        # query; the two logits are z-scored per query and averaged with weight w on the original
+        from .playground.llm_rewrite import load_rewrites
+        texts = load_rewrites(rw["model"], rw["mode"], split)
+        rcfg2 = dict(rcfg, query_source=f"{rw['model']}:{rw['mode']}")
+        s2, secs2, encoder = score_candidates(cands, split, rcfg2, rcfg["depth"], encoder, query_texts=texts)
+        timer.add(f"rerank2_{split}", float(sum(secs2.values())))
+        w = rw.get("w", 0.5)
+
+        def z(d):
+            v = np.array(list(d.values()), dtype=float)
+            sd = v.std() or 1.0
+            return {k: (x - v.mean()) / sd for k, x in d.items()}
+
+        merged = {}
+        for q in scores:
+            a, b = z(scores[q]), z(s2[q])
+            merged[q] = {d: w * a[d] + (1 - w) * b[d] for d in a}
+        scores = merged
     return scores, encoder
 
 

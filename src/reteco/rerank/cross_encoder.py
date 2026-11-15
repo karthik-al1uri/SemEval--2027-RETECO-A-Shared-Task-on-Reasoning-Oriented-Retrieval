@@ -51,6 +51,8 @@ def model_key(cfg: dict) -> str:
             "max_query_tokens": cfg.get("max_query_tokens", 256),
             "doc_chars": cfg.get("doc_chars", 4000),
             "query_clean": list(cfg.get("query_clean") or [])}
+    if cfg.get("query_source"):  # queries replaced by another text (e.g. an LLM rewrite)
+        spec["query_source"] = cfg["query_source"]
     h = hashlib.sha1(json.dumps(spec, sort_keys=True).encode()).hexdigest()[:8]
     return f"{cfg['model'].replace('/', '-')}__{h}"
 
@@ -185,12 +187,15 @@ def domain_of(qid_docs: list[tuple[str, float]]) -> str:
 
 
 def score_candidates(cands: dict[str, list[tuple[str, float]]], split: str, cfg: dict, depth: int,
-                     encoder: CrossEncoder | None = None, root=None, log=print):
+                     encoder: CrossEncoder | None = None, root=None, log=print,
+                     query_texts: dict[str, str] | None = None):
     """Cross-encoder logits for the top `depth` of every candidate list (cached).
 
     Returns (scores, seconds, encoder): qid -> {docid: logit}, qid -> measured
     seconds for scoring that query's top `depth` (sum of its pairs' shares), and
     the loaded encoder (None if everything came from the cache) for reuse.
+    `query_texts` (qid -> text) replaces the query text; the config must then carry a
+    `query_source` so that its scores are cached under their own key.
     """
     cache = ScoreCache(cfg, split)
     by_domain: dict[str, list[str]] = defaultdict(list)
@@ -207,7 +212,8 @@ def score_candidates(cands: dict[str, list[tuple[str, float]]], split: str, cfg:
         if encoder is None or not encoder.compatible(cfg):
             encoder = CrossEncoder(cfg)
         t0 = time.time()
-        texts = {q.id: q.query for q in load_queries(domain, split, root)}
+        texts = query_texts if query_texts is not None else \
+            {q.id: q.query for q in load_queries(domain, split, root)}
         doc_text = load_docs(domain, {d for v in todo.values() for d in v}, cfg.get("doc_chars", 4000), root)
         log(f"  {domain:<10} {len(qids)} queries, {n_todo} new pairs (docs loaded in {time.time() - t0:.0f}s)")
         t0, done = time.time(), 0
