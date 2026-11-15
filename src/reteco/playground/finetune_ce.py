@@ -89,6 +89,9 @@ def main(argv=None) -> int:
     ap.add_argument("--micro-groups", type=int, default=0,
                     help="gradient accumulation: forward this many groups at a time (0 = all of a step); "
                          "the update is identical to one step over --groups-per-step groups")
+    ap.add_argument("--resume-every", type=int, default=0,
+                    help="save a resumable state (model, optimizer, scheduler, step) every N steps; a rerun "
+                         "with the same arguments continues from it (groups are regenerated deterministically)")
     ap.add_argument("--neg-depth", type=int, default=200)
     ap.add_argument("--dup-jaccard", type=float, default=0.6)
     ap.add_argument("--domains", nargs="+", default=None)
@@ -138,6 +141,10 @@ def main(argv=None) -> int:
     for e in ex:
         e["q"] = prep_query(e["query"])
     dchars = rcfg.get("doc_chars", 4000)
+    # training only ever reads the first `dchars` characters: drop the rest to save host memory
+    docs = {d: t[:dchars] for d, t in docs.items()}
+    import gc
+    gc.collect()
 
     groups_per_epoch = sum(len(e["pos"]) for e in ex)
     steps_per_epoch = math.ceil(groups_per_epoch / args.groups_per_step)
@@ -157,6 +164,16 @@ def main(argv=None) -> int:
 
     step, t0 = 0, time.time()
     rng = random.Random(seed)
+    state_path = out_dir / "resume.pt"
+    resume_step = 0
+    if args.resume_every and state_path.exists():
+        st = torch.load(state_path, map_location="cpu", weights_only=False)
+        model.load_state_dict(st["model"])
+        opt.load_state_dict(st["opt"])
+        sched.load_state_dict(st["sched"])
+        torch.set_rng_state(st["torch_rng"])
+        resume_step = st["step"]
+        print(f"resuming from step {resume_step}", flush=True)
     for epoch in range(1, args.epochs + 1):
         groups = []
         for e in ex:
@@ -168,6 +185,9 @@ def main(argv=None) -> int:
         rng.shuffle(groups)
         losses = []
         for i in range(0, len(groups), args.groups_per_step):
+            if step < resume_step:  # replay the deterministic schedule up to the saved step
+                step += 1
+                continue
             chunk = groups[i:i + args.groups_per_step]
             mg = args.micro_groups or len(chunk)
             step_loss = 0.0
@@ -190,16 +210,24 @@ def main(argv=None) -> int:
             opt.zero_grad()
             losses.append(loss.item())
             step += 1
+            if dev == "mps" and step % 50 == 0:
+                torch.mps.empty_cache()  # variable input shapes grow the MPS cache (wired memory)
+            if args.resume_every and step % args.resume_every == 0:
+                torch.save({"model": model.state_dict(), "opt": opt.state_dict(),
+                            "sched": sched.state_dict(), "torch_rng": torch.get_rng_state(),
+                            "step": step}, state_path)
             if step % 100 == 0:
                 el = time.time() - t0
+                done = step - resume_step
                 print(f"epoch {epoch} step {step}/{total} loss {np.mean(losses[-100:]):.4f} "
-                      f"({el / step:.2f}s/step, eta {(total - step) * el / step / 60:.0f} min)", flush=True)
+                      f"({el / done:.2f}s/step, eta {(total - step) * el / done / 60:.0f} min)", flush=True)
             if args.max_steps and step >= args.max_steps:
                 break
         ck = out_dir / f"epoch{epoch}"
         model.save_pretrained(ck)
         tok.save_pretrained(ck)
-        print(f"saved {ck} (epoch mean loss {np.mean(losses):.4f})", flush=True)
+        print(f"saved {ck} (epoch mean loss {np.mean(losses):.4f}"
+              f"{', steps since resume only' if resume_step else ''})", flush=True)
         if args.max_steps and step >= args.max_steps:
             break
         if args.stop_after_epoch and epoch >= args.stop_after_epoch:
