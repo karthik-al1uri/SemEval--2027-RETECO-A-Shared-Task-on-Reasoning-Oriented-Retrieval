@@ -63,6 +63,11 @@ ABLATIONS = {
                  lambda c: c["rerank"].update(model=ORIGINAL_CE)),
     "no_ft_qenc": ("query-encoder fine-tuning (original bge-small = configs/dense_best.yaml)",
                    lambda c: c["dense"].update(config=ORIGINAL_DENSE)),
+    # round-2 components (a config without them is left out of these variants)
+    "no_rewrite_lists": ("LLM-rewrite first-stage lists (sparse + dense on the rewritten query)",
+                         lambda c: c.pop("rewrite", None)),
+    "no_rewrite_ce": ("second cross-encoder view with the LLM-rewritten query",
+                      lambda c: c.get("rerank", {}).pop("rewrite_query", None)),
 }
 
 
@@ -384,10 +389,13 @@ def describe(cfg: dict) -> str:
     first = [n for n in ("sparse", "dense") if c.get(n, True)]
     parts.append("+".join(first) + (f" RRF k={cfg['fusion']['k']} w_dense={cfg['fusion']['w_dense']}"
                                     if len(first) == 2 else ""))
+    if cfg.get("rewrite") and len(first) == 2:
+        parts[-1] += " + " + "/".join(f"{s['mode']}-rewrite {s['stage']}" for s in cfg["rewrite"]["lists"])
     if c.get("rerank", True):
         r = cfg["rerank"]
         qc = "clean query" if r.get("query_clean") else "raw query"
-        parts.append(f"{r['model'].split('/')[-1]} top {r['depth']} ({qc})")
+        parts.append(f"{r['model'].split('/')[-1]} top {r['depth']} ({qc})"
+                     + (" + rewritten-query view" if r.get("rewrite_query") else ""))
         if c.get("interpolate", True):
             parts.append(f"interp a={cfg['interpolate']['a']} {cfg['interpolate']['norm']}")
     if c.get("temporal", True):

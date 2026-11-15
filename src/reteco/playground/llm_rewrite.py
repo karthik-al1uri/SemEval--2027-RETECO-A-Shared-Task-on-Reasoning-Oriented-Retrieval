@@ -36,15 +36,16 @@ PROMPTS = {
 MAX_NEW = {"query": 32, "hyde": 140}
 
 
-def cache_path(model: str, mode: str, split: str, domain: str) -> Path:
-    return CACHE / model.replace("/", "-") / mode / split / f"{domain}.jsonl"
+def cache_path(model: str, mode: str, split: str, domain: str, root: Path = CACHE) -> Path:
+    return root / model.replace("/", "-") / mode / split / f"{domain}.jsonl"
 
 
-def load_rewrites(model: str, mode: str, split: str, domains=None, seconds: bool = False):
+def load_rewrites(model: str, mode: str, split: str, domains=None, seconds: bool = False,
+                  root: Path = CACHE):
     """qid -> rewrite text (or qid -> (text, generation seconds) with seconds=True)."""
     out = {}
     for d in domains or DOMAINS:
-        p = cache_path(model, mode, split, d)
+        p = cache_path(model, mode, split, d, root)
         if p.exists():
             for line in open(p, encoding="utf-8"):
                 if line.strip():
@@ -62,6 +63,7 @@ def main(argv=None) -> int:
     ap.add_argument("--batch", type=int, default=16)
     ap.add_argument("--max-input-tokens", type=int, default=384)
     ap.add_argument("--limit", type=int, default=0, help="timing: stop after this many new queries")
+    ap.add_argument("--cache-dir", default=str(CACHE), help="write here instead (e.g. to compare a rebuild)")
     args = ap.parse_args(argv)
 
     import torch
@@ -82,9 +84,10 @@ def main(argv=None) -> int:
     n_new, t_start, n_tok = 0, time.time(), 0
     for split in args.splits:
         for d in args.domains or DOMAINS:
-            p = cache_path(args.model, args.mode, split, d)
+            root = Path(args.cache_dir)
+            p = cache_path(args.model, args.mode, split, d, root)
             p.parent.mkdir(parents=True, exist_ok=True)
-            done = set(load_rewrites(args.model, args.mode, split, [d]))
+            done = set(load_rewrites(args.model, args.mode, split, [d], root=root))
             todo = [q for q in load_queries(d, split) if q.id not in done]
             # similar lengths together: less padding
             todo.sort(key=lambda q: len(q.query))

@@ -80,8 +80,10 @@ def test_model_key_changes_with_query_cleaning():
 def test_ablations_each_change_one_thing():
     from reteco.pipeline import ABLATIONS
 
-    base = {"components": {}, "rerank": {"query_clean": ["html"], "model": "ft_ce"},
-            "dense": {"config": "configs/ft_dense.yaml"}}
+    base = {"components": {}, "rerank": {"query_clean": ["html"], "model": "ft_ce",
+                                         "rewrite_query": {"mode": "query", "w": 0.5}},
+            "dense": {"config": "configs/ft_dense.yaml"},
+            "rewrite": {"lists": [{"mode": "query", "stage": "sparse", "w": 0.25}]}}
     seen = set()
     for name, (_, edit) in ABLATIONS.items():
         c = copy.deepcopy(base)
@@ -101,6 +103,27 @@ def test_model_swap_ablations_are_noops_on_original_models():
         c = copy.deepcopy(base)
         ABLATIONS[name][1](c)
         assert c == base, name
+
+
+def test_rewrite_ablations_are_noops_without_rewrites():
+    # final.yaml has no LLM rewrites: its ablation keeps the same variants as before
+    from reteco.pipeline import ABLATIONS
+
+    base = {"components": {}, "rerank": {"model": "ft_ce"}, "dense": {"config": "configs/ft_dense.yaml"}}
+    for name in ("no_rewrite_lists", "no_rewrite_ce"):
+        c = copy.deepcopy(base)
+        ABLATIONS[name][1](c)
+        assert c == base, name
+
+
+def test_describe_rewrites():
+    from reteco.data import REPO_ROOT
+    from reteco.pipeline import describe, load_yaml
+
+    d = describe(load_yaml(REPO_ROOT / "configs/final_r2.yaml"))
+    assert "query-rewrite sparse/query-rewrite dense" in d
+    assert "rewritten-query view" in d
+    assert "rewrite" not in describe(load_yaml(REPO_ROOT / "configs/final.yaml"))
 
 
 def test_latency_per_stage():
