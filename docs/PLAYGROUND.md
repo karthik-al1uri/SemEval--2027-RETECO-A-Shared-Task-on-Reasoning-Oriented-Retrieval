@@ -2,6 +2,8 @@
 
 ## Round 2 summary
 
+> **Merged into `main` on 2026-11-15, without replacing `final`.** The round-2 champion is kept as `final_r2` (`configs/final_r2.yaml`, runs `runs/{train,dev}/final_r2.trec`, the same ranking as `playground2_final`). It is not significantly better than `final` on dev (p = 0.27) and is 2.3× slower, so **`final` stays the main system**. Build the round-1 fine-tuned models with `scripts/build_finetuned_models.sh` and the Qwen rewrites with `scripts/build_rewrites.sh` first. Its leave-one-out ablation on dev is `results/ablation_final_r2.csv` ([below](#ablation-of-final_r2-dev-resultsablation_final_r2csv)).
+
 A second loop on branch `playground2` (2026-11-14/15, about 6 h of active time) started from the round-1 champion `configs/final.yaml`. It used the same tune/holdout split of TRAIN and the same keep rule: holdout nDCG@10 ≥ champion + 0.003 at ≤ 2× the champion's latency. It ran **8 experiments; 3 were kept and 5 rejected.** It stopped after backlog items 1–5 and three own ideas, the last two rejected in a row. Details: [Round 2](#round-2) below.
 
 **Round-2 champion: `playground2_final`** (= `configs/pg2_e6a.yaml`, now also `configs/playground2_final.yaml`). It is the round-1 champion with three changes:
@@ -30,7 +32,7 @@ A second loop on branch `playground2` (2026-11-14/15, about 6 h of active time) 
 - **The full bi-encoder fine-tune (R2-E5) improved the dense model but failed its gate.** Fair pool check: 0.2384 vs 0.2060 for round-1's query-only fine-tuning. The small-domain gate set for the 2.4 h re-encode failed on iota's single query, so the corpus was not re-encoded. This is the best candidate for a later round with more compute.
 - **Cost: latency more than doubled** (1112 → 2607 ms per query on dev). Each kept step was ≤ 2× the champion at the time, as the rule requires, but together they add 0.46 s of LLM generation and a second 1 s cross-encoder pass. That buys +0.009 on dev, which is not significant. Whether that trade is worth it is a decision for the user; the loop applied the rule as written.
 - **Memory on the 16 GB M4 shaped the round.** Claude Code stopped two L-12 training runs for low memory. After that, every training job released the MPS cache periodically and saved a resumable state, and the bi-encoder used gradient checkpointing (Round 2, decisions 7, 8 and 10).
-- **Reuse:** `playground2_final` needs the round-1 fine-tuned models (`scripts/build_finetuned_models.sh`) and the cached Qwen rewrites for the split (`python -m reteco.playground.llm_rewrite --mode query --splits train dev`, about 9 min for train + 4 min for dev on an M4). The rewrites live in the gitignored `cache/llm_local/`.
+- **Reuse:** `playground2_final` needs the round-1 fine-tuned models (`scripts/build_finetuned_models.sh`) and the cached Qwen rewrites for the split (`scripts/build_rewrites.sh`, about 9 min for train + 4 min for dev on an M4). The rewrites live in the gitignored `cache/llm_local/`.
 
 ## Round 1 summary
 
@@ -259,3 +261,26 @@ python -m reteco.playground.dev_compare runs/dev/final.trec runs/dev/playground2
 
 The rejected experiments' models are rebuilt with the commands at the top of their configs (`configs/pg2_e1.yaml`, `pg2_e2.yaml`, `pg2_e5_dense.yaml`, `pg2_e6b.yaml`). Their scripts stay in `src/reteco/playground/`.
 
+### Ablation of final_r2 (dev, `results/ablation_final_r2.csv`)
+
+Run after the merge with `python -m reteco.pipeline --config configs/final_r2.yaml --ablation`. Each row turns one component off with everything else fixed. It is a description of the system on dev; nothing was changed because of it.
+
+| removed | dev nDCG@10 | Δ vs full | w/o iota | R@100 | ms/query | Δ in `final`'s ablation |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| nothing (`final_r2`) | 0.3771 | | 0.3520 | 0.7551 | 2606 | |
+| sparse retrieval | 0.3348 | −0.0423 | 0.3092 | 0.6297 | 2613 | −0.0633 |
+| dense retrieval | 0.3588 | −0.0183 | 0.3413 | 0.7140 | 2624 | −0.0177 |
+| cross-encoder (both views) | 0.3358 | −0.0413 | 0.3151 | 0.7340 | 523 | −0.0508 |
+| score interpolation | 0.3119 | −0.0652 | 0.3009 | 0.7194 | 2605 | −0.1028 |
+| temporal rescorer | 0.3801 | +0.0029 | 0.3519 | 0.7551 | 2603 | +0.0005 |
+| query cleaning for the cross-encoder | 0.3772 | +0.0001 | 0.3487 | 0.7606 | 2668 | −0.0062 |
+| near-duplicate demotion | 0.3715 | −0.0056 | 0.3459 | 0.7551 | 2584 | −0.0063 |
+| cross-encoder fine-tuning | 0.3573 | −0.0198 | 0.3311 | 0.7520 | 2646 | −0.0232 |
+| query-encoder fine-tuning | 0.3768 | −0.0003 | 0.3520 | 0.7720 | 2603 | +0.0048 |
+| **LLM-rewrite first-stage lists** | 0.3731 | −0.0040 | 0.3509 | 0.7472 | 2152 | (new) |
+| **second cross-encoder view (rewritten query)** | 0.3700 | −0.0071 | 0.3495 | 0.7522 | 1573 | (new) |
+
+- **Both round-2 additions hold up on dev, but they are small.** Removing the second cross-encoder view costs −0.007 and removing the rewrite lists −0.004; without iota only −0.0025 and −0.0011. That matches the round-2 comparison with `final` (+0.009, not significant).
+- **The fine-tuned cross-encoder is still the largest learned gain** (−0.020 without it). The fine-tuned query encoder again adds nothing on dev (−0.0003, and R@100 is higher without it).
+- **Two components no longer help on dev:** the temporal rescorer (+0.003 without it) and query cleaning for the cross-encoder (+0.0001). Both are single dev numbers inside the noise, and the system was not changed.
+- Latency: the LLM generation is 0.46 s and the second cross-encoder pass 1.03 s of the 2.6 s per query.

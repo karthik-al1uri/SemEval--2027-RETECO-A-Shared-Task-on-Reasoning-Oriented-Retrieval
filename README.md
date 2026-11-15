@@ -58,12 +58,14 @@ src/reteco/
   analysis_tools/      query types, significance, error analysis, near-duplicate demotion
   playground/          tune/holdout experiment loop, cross-encoder and query-encoder fine-tuning
   pipeline.py          end-to-end final system and ablation
-configs/               one YAML per system; configs/final.yaml is the final system, configs/final_v1.yaml the first one
-scripts/               data statistics and analysis scripts, build_finetuned_models.sh
+configs/               one YAML per system; configs/final.yaml is the final system, configs/final_v1.yaml the first one,
+                       configs/final_r2.yaml the round-2 playground champion
+scripts/               data statistics and analysis scripts, build_finetuned_models.sh, build_rewrites.sh
 runs/<split>/          TREC run files (top 100 per query); only selected systems are committed
 results/
   experiments.csv      one row per scored run (CRLF line endings)
   ablation_final.csv   leave-one-out ablation of final (dev)
+  ablation_final_r2.csv  leave-one-out ablation of final_r2 (dev)
   ablation_final_v1.csv  leave-one-out ablation of final_v1 (dev)
   playground.csv       one row per playground experiment (tune/holdout of train)
   analysis_*.csv       breakdowns, significance tests, error analysis, near-duplicates
@@ -102,11 +104,13 @@ It reproduces the official baseline: Lucene English analysis (StandardTokenizer,
 | + temporal rescorer | 0.2976 | 0.3303 | 0.7436 | 1055 |
 | + near-duplicate demotion = `final_v1` | 0.3025 | 0.3403 | 0.7436 | 1100 |
 | **+ fine-tuned cross-encoder and query encoder, re-tuned fusion = `final`** | 0.4219 † (partly in-sample) | **0.3679** | 0.7397 | 1111 |
+| `final` + local LLM query rewriting, second cross-encoder view = `final_r2` — not significant vs final (p = 0.27), 2.3× latency | 0.4319 † (partly in-sample) | 0.3771 | 0.7551 | 2606 |
 
 Macro over the 13 domains. Latency is per query on an Apple M4 (MPS); about 96% of it is the cross-encoder.
 
 - **`final` vs `final_v1` on dev: +0.0276** (95% CI [+0.010, +0.046], domain-stratified paired bootstrap), +0.0353 without iota (3 dev queries; 0.3457 vs 0.3105). 226 dev queries improve and 123 get worse, and 9 of 13 domains improve. On the train holdout the gain was +0.052 (0.3155 → 0.3671); holdout overstates it because the 5 kept changes were picked from 15 tries on the same queries.
 - † **Partly in-sample.** Both fine-tuned models of `final` were trained on the tune part of train (80% of its queries), so its train score is inflated and not comparable with the rows above. Its fair train-side estimate is the 20% holdout: 0.3671 (`final_v1`: 0.3155).
+- **`final` stays the main system.** `final_r2` (`configs/final_r2.yaml`) is the champion of a second playground round (`docs/PLAYGROUND.md`, Round 2): `final` with the fusion back at k 20 / w_dense 0.5, a ≤ 16-word search query written for each post by a local Qwen2.5-1.5B-Instruct (no API) and added to the RRF as extra BM25 and dense lists, and a second pass of the same cross-encoder with that query, averaged with the first. On dev it is **+0.0092 over `final` (95% CI [−0.006, +0.024], randomization p = 0.27; 158 queries better, 150 worse)**, not significant, at 2.3× the latency (0.46 s of generation and a second 1 s cross-encoder pass per query). Holdout: 0.3858 vs 0.3671. Its ablation is in `results/ablation_final_r2.csv`: removing the second cross-encoder view costs −0.007 on dev and the rewrite lists −0.004.
 - `final_v1`'s gain over `hybrid_best` on dev is +0.021 (95% CI [+0.009, +0.035]). Its leave-one-out ablation is in `results/ablation_final_v1.csv` (`final`'s is in `results/ablation_final.csv`, summarised in `docs/PLAYGROUND.md`). The write-ups are `docs/SPARSE.md`, `docs/DENSE.md`, `docs/TEMPORAL.md`, `docs/RERANK.md`, `docs/ANALYSIS.md` and `docs/PLAYGROUND.md`.
 
 ### Reproduce
@@ -118,9 +122,13 @@ source .venv-dense/bin/activate
 scripts/build_finetuned_models.sh                                   # fresh clone: build the fine-tuned models first
 python -m reteco.pipeline --config configs/final.yaml               # runs/{train,dev}/final.trec, logged
 python -m reteco.pipeline --config configs/final_v1.yaml            # runs/{train,dev}/final_v1.trec
+scripts/build_rewrites.sh                                           # final_r2 only: local Qwen query rewrites (~15 min)
+python -m reteco.pipeline --config configs/final_r2.yaml            # runs/{train,dev}/final_r2.trec
 ```
 
 **On a fresh clone, run `scripts/build_finetuned_models.sh` before the pipeline.** `final` loads two fine-tuned models from `cache/playground/`, which is gitignored: the cross-encoder (`ce/minilm_ft_q128_all/epoch1`) and the bge-small query encoder (`qenc/bge_q_all/epoch2`). The script rebuilds both from scratch, using train only. It takes about 25 minutes on an M4 once the first-stage caches exist. From an empty `cache/` it first builds the BM25 indexes and embeds the corpus (about 2.5 h).
+
+`final_r2` also needs the query rewrites in the gitignored `cache/llm_local/`. `scripts/build_rewrites.sh` generates them for train and dev with Qwen2.5-1.5B-Instruct, run locally (greedy decoding; the model is downloaded once from the Hugging Face hub). It takes about 15 minutes on an M4. A rebuild of 50 dev queries matched the canonical rewrites exactly.
 
 **Expected run-to-run variation.** Training on MPS is not bit-reproducible even with seed 13. A test rebuild with the script (31 min on the M4) gave models within 3.4e-5 (cross-encoder) and 7.7e-6 (query encoder) of the canonical weights, at **holdout nDCG@10 0.3667 vs 0.3671 (−0.0004, 95% CI [−0.0011, 0.0000])**. 240 of 243 holdout queries scored the same. Dev was not scored with the rebuilt models. The canonical models are the ones every logged `final` number comes from. A rebuilt copy should land within about ±0.001 of them.
 
