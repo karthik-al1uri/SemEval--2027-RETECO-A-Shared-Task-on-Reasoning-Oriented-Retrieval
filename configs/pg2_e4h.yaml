@@ -1,0 +1,51 @@
+# Round-2 R2-E4 (hyde variant): champion R2-E3 plus two first-stage lists from a local LLM rewrite of the query
+# (Qwen2.5-1.5B-Instruct on MPS, greedy; src/reteco/playground/llm_rewrite.py, cache/llm_local/). The rewrite is
+# run through BM25 and the dense model and fused by RRF with the original lists; each rewrite list has half
+# the weight of its original counterpart (fixed in advance, not tuned).
+system_name: pg2_e4h
+seed: 13
+components:
+  sparse: true
+  dense: true
+  rerank: true
+  interpolate: true
+  temporal: true
+  dedup: true
+sparse:
+  config: configs/sparse_best.yaml
+dense:
+  config: configs/pg_e20_dense.yaml
+fusion:
+  k: 20
+  w_dense: 0.5
+  depth: 1000
+rerank:
+  model: cache/playground/ce/minilm_ft_q128_all/epoch1
+  dtype: float16
+  max_length: 512
+  max_query_tokens: 128
+  doc_chars: 4000
+  batch_size: 32
+  query_clean:
+  - code
+  - html
+  - urls
+  - signature
+  depth: 200
+interpolate:
+  a: 0.35
+  norm: zscore
+temporal:
+  config: configs/rerank_temporal_fit_present.yaml
+dedup:
+  config: configs/final_dedup_end.yaml
+rewrite:
+  model: Qwen/Qwen2.5-1.5B-Instruct
+  lists:
+  - mode: hyde
+    stage: sparse
+    w: 0.25
+  - mode: hyde
+    stage: dense
+    encoder: doc
+    w: 0.25
